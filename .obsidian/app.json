@@ -1,0 +1,11 @@
+{
+  "promptDelete": false,
+  "alwaysUpdateLinks": true,
+  "newFileLocation": "current",
+  "showUnsupportedFiles": false,
+  "attachmentFolderPath": "./",
+  "userIgnoreFilters": null,
+  "focusNewTab": false,
+  "showLineNumber": true,
+  "spellcheck": false
+}

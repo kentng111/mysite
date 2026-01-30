@@ -1,0 +1,16 @@
+{
+  "hidden": true,
+  "hiddenList": [
+    "archetypes",
+    "assets",
+    "data",
+    "resources",
+    "static",
+    "themes",
+    "mixitup-3/tests",
+    "mixitup-3",
+    "layouts",
+    "i18n",
+    "public"
+  ]
+}

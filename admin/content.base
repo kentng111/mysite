@@ -1,0 +1,53 @@
+filters:
+  and:
+    - and:
+        - file.ext != "base"
+        - file.folder != "content"
+    - or:
+        - file.path.startsWith("content")
+        - file.path.startsWith("drafts")
+formulas:
+  Untitled: file.folder.replace(/.*\//, "")
+  publish: if(file.folder.split("/").slice(-2, -1).join("") == "drafts", "drafts", "published")
+  check: |2-
+          if(file.ext != "md", 
+            "▽", 
+            if(file.folder.replace(/.*\//, "") == title, 
+              "○", 
+              "▲"
+            )
+          )
+  Untitled 2: file.folder.split("/").slice(-2, -1)[0]
+properties:
+  formula.Untitled:
+    displayName: folder
+  formula.Untitled 2:
+    displayName: status
+views:
+  - type: table
+    name: Table
+    order:
+      - draft
+      - formula.Untitled
+      - file.name
+      - formula.check
+      - date
+      - color
+      - tags
+    sort:
+      - property: formula.Untitled 2
+        direction: ASC
+      - property: formula.Untitled
+        direction: ASC
+      - property: title
+        direction: ASC
+      - property: file.name
+        direction: ASC
+    summaries: {}
+    columnSize:
+      formula.Untitled: 110
+      file.name: 164
+      formula.check: -67
+      note.date: 134
+      note.color: 107
+      note.tags: 351

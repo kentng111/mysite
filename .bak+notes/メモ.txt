@@ -1,0 +1,27 @@
+### フォルダ構成の書き出し方
+1. フォルダパスにcmd入力
+2. 以下を入力
+tree /f
+
+
+### isotope一覧
+https://isotope.metafizzy.co/
+https://isotope.metafizzy.co/filtering
+https://isotope.metafizzy.co/sorting
+https://isotope.metafizzy.co/layout
+https://isotope.metafizzy.co/layout-modes
+https://isotope.metafizzy.co/layout-modes/masonry
+https://isotope.metafizzy.co/layout-modes/fitrows
+https://isotope.metafizzy.co/layout-modes/vertical
+https://isotope.metafizzy.co/layout-modes/packery
+https://isotope.metafizzy.co/layout-modes/cellsbyrow
+https://isotope.metafizzy.co/layout-modes/masonryhorizontal
+https://isotope.metafizzy.co/layout-modes/fitcolumns
+https://isotope.metafizzy.co/layout-modes/cellsbycolumn
+https://isotope.metafizzy.co/layout-modes/horiz
+https://isotope.metafizzy.co/options
+https://isotope.metafizzy.co/methods
+https://isotope.metafizzy.co/events
+https://isotope.metafizzy.co/extras
+https://isotope.metafizzy.co/license
+https://isotope.metafizzy.co/faq

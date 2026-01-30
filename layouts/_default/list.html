@@ -1,0 +1,281 @@
+{{ define "main" }}
+<main class="book-page">
+  <article class="markdown">
+
+    {{/* === published 配下の index.md（各フォルダのトップ）だけを堅牢に収集 === */}}
+    {{ $pages := slice }}
+    {{ range site.RegularPages }}
+        {{/* ファイル名が index のページのみ抽出（published 限定を撤廃） */}}
+        {{ if eq .File.BaseFileName "index" }}
+        {{ $pages = $pages | append . }}
+      {{ end }}
+    {{ end }}
+
+    {{/* 0件なら空メッセージ（デバッグ用に一時表示） */}}
+    {{ if eq (len $pages) 0 }}
+      <div class="book-hint info" style="margin-bottom:1rem">
+        <strong>No entries found.</strong>
+        <div style="opacity:.8">
+          Check:
+          <ul>
+            <li><code>content/published/**/index.md</code> の <code>draft</code> が <code>false</code>（または未指定）か</li>
+            <li>ビルド時に <code>hugo -D</code> を使っていない（ドラフト除外）か</li>
+            <li><code>config.toml</code> の <code>ignoreFiles</code> に <code>published</code> を誤って含めていないか</li>
+            <li>各 <code>index.md</code> に最低限 <code>title:</code> があるか（なくても出ますが並び替えに影響）</li>
+          </ul>
+        </div>
+      </div>
+    {{ end }}
+
+    {{/* === タグ収集（MixItUp ボタン自動生成） === */}}
+    {{ $tags := slice }}
+    {{ range $pages }}
+      {{ with .Params.tags }}
+        {{ range . }}
+          {{ $t := urlize . }}
+          {{ if not (in $tags $t) }}{{ $tags = $tags | append $t }}{{ end }}
+        {{ end }}
+      {{ end }}
+    {{ end }}
+
+    <!-- ===== 検索ボックス（filter の上） ===== -->
+    <div class="search-bar">
+      <label for="search-input">search :</label>
+      <input type="text" id="search-input" placeholder="Type to filter..." />
+    </div>
+
+    <!-- ===== コントロール（縦に分離：filter → sort → view） ===== -->
+    <div class="controls-vertical">
+      <div class="controls-row">
+        <span class="controls-label">filter :</span>
+        <div class="and-filter-group">
+          <button class="is-checked" data-filter="*">All</button>
+          {{ range sort $tags }}
+            <button data-filter=".{{ . }}">{{ . }}</button>
+          {{ end }}
+        </div>
+      </div>
+
+      <div class="controls-row">
+        <span class="controls-label">sort :</span>
+        <div class="and-sort-group">
+          <button class="is-checked" data-sort="title:asc">A-Z</button>
+          <button data-sort="title:desc">Z-A</button>
+          <button data-sort="date:desc">Newest</button>
+          <button data-sort="date:asc">Oldest</button>
+        </div>
+      </div>
+
+      <div class="controls-row">
+        <span class="controls-label">view :</span>
+        <div class="and-view-group">
+          <button class="is-checked" data-view="icons">Icons</button>
+          <button data-view="details">Details</button>
+          <button data-view="content">Content</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== グリッド（Hugoでタイトル昇順に出力） ===== -->
+    <div class="grid view--icons">
+      {{ range sort $pages "Title" "asc" }}
+        {{ $classes := slice }}
+        {{ with .Params.tags }}{{ range . }}{{ $classes = $classes | append (urlize .) }}{{ end }}{{ end }}
+        <a class="grid-item {{ delimit $classes " " }}" href="{{ .RelPermalink }}"
+           data-title="{{ lower .Title }}"
+           data-date="{{ .Date.Format "20060102" }}"
+
+             {{ with .Params.color }}style="--card-color: {{ . }};"{{ end }}>
+
+          <div class="card">
+
+            {{/* cover_ から始まる画像を1枚取得（png/jpg/jpeg等は Resources.ByType "image" が吸収） */}}
+            {{ $cover := index (.Resources.Match "cover_*") 0 }}
+
+            {{ if $cover }}
+              <div class="card-bg"
+                  style="background-image: url('{{ $cover.RelPermalink }}');">
+              </div>
+
+            {{ else if .Params.color }}
+              <div class="card-bg is-color"
+                  style="background-color: {{ .Params.color }};">
+              </div>
+            {{ end }}
+
+            <div class="card-inner">
+              <div class="title">{{ .Title }}</div>
+              <div class="meta">{{ .Date.Format "2006-01-02" }}</div>
+              <div class="excerpt">{{ with .Summary }}{{ . }}{{ end }}</div>
+            </div>
+          </div>
+        </a>
+      {{ end }}
+    </div>
+
+
+    <!-- ===== MixItUp 読み込み ===== -->
+    <script src="/js/mixitup.min.js" defer></script>
+
+    <!-- ===== 初期化（検索=クラス付与方式 / タグOR / ソート / ビュー / URL初期フィルタ） ===== -->
+    <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      if (!window.mixitup) { console.warn('mixitup not found'); return; }
+
+      const grid        = document.querySelector('.grid');
+      const targets     = () => Array.from(document.querySelectorAll('.grid .grid-item'));
+      const filterGroup = document.querySelector('.and-filter-group');
+      const sortGroup   = document.querySelector('.and-sort-group');
+      const viewGroup   = document.querySelector('.and-view-group');
+      const searchInput = document.querySelector('#search-input');
+
+      if (!grid) return;
+
+      const mixer = mixitup(grid, {
+        selectors: { target: '.grid-item' },
+        animation: { duration: 280, queueLimit: 10, effects: 'fade translateZ(-1px)' },
+        controls: { enable: false } // 自動コントロール無効化（重要）
+      });
+
+      // ---- 状態 ------------------------------------------------------------
+      let selected    = [];  // ["tag-a","tag-b"]（OR）
+      let searchQuery = '';  // lowercased
+
+      // ---- セレクタ合成（タグOR × 検索AND）---------------------------------
+      function buildSelector() {
+        const hasSearch = !!searchQuery;
+
+        // タグ未選択
+        if (selected.length === 0) {
+          return hasSearch ? '.__match' : 'all';
+        }
+
+        // OR: ".a, .b, .c"（検索中は各トークンに.__matchを付与）
+        const parts = selected.map(s => '.' + s + (hasSearch ? '.__match' : ''));
+        return parts.join(', ');
+      }
+
+      // ---- 検索マッチのクラス更新 ------------------------------------------
+      function updateMatchClass() {
+        const q = searchQuery;
+        const tgs = targets();
+        if (!q) {
+          tgs.forEach(el => el.classList.remove('__match'));
+          return;
+        }
+        tgs.forEach(el => {
+          const text = (el.textContent || '').toLowerCase();
+          if (text.includes(q)) el.classList.add('__match');
+          else el.classList.remove('__match');
+        });
+      }
+
+      // ---- URL ?filter=a,b 初期反映（ORとして読む） ------------------------
+      (function fromURL(){
+        const params = new URLSearchParams(window.location.search);
+        const filterParam = params.get('filter');
+        if (!filterParam) return;
+        const slugs = filterParam.split(',').map(s=>s.trim()).filter(Boolean);
+        if (!slugs.length) return;
+
+        selected = slugs.slice(0);
+        if (filterGroup) {
+          filterGroup.querySelectorAll('.is-checked').forEach(el=>el.classList.remove('is-checked'));
+          slugs.forEach(slug=>{
+            const btn = filterGroup.querySelector(`[data-filter=".${slug}"]`);
+            if (btn) btn.classList.add('is-checked');
+          });
+          const allBtn = filterGroup.querySelector('[data-filter="*"]');
+          if (allBtn) allBtn.classList.toggle('is-checked', slugs.length === 0);
+        }
+      })();
+
+      // ---- タグ（ORトグル） -------------------------------------------------
+      if (filterGroup) {
+        filterGroup.addEventListener('click', (e)=>{
+          const btn = e.target.closest('[data-filter]');
+          if (!btn) return;
+          e.preventDefault();
+
+          const val = btn.getAttribute('data-filter');
+
+          // All = クリア
+          if (val === '*') {
+            filterGroup.querySelectorAll('.is-checked').forEach(el=>el.classList.remove('is-checked'));
+            btn.classList.add('is-checked');
+            selected = [];
+            mixer.filter(buildSelector());
+            return;
+          }
+
+          // トグル & All を解除
+          btn.classList.toggle('is-checked');
+          const allBtn = filterGroup.querySelector('[data-filter="*"]');
+          if (allBtn) allBtn.classList.remove('is-checked');
+
+          // 現在ONのボタンから slug 配列を作る（".foo" → "foo"）
+          selected = [...filterGroup.querySelectorAll('.is-checked[data-filter]')]
+            .map(b => b.getAttribute('data-filter'))
+            .filter(f => f && f.startsWith('.'))
+            .map(f => f.slice(1).replace(/\s+/g, ''));
+
+          // 1個も選ばれていなければ All 扱い（見た目も戻す）
+          if (selected.length === 0 && allBtn) allBtn.classList.add('is-checked');
+
+          mixer.filter(buildSelector());
+        }, true);
+      }
+
+      // ---- 検索（150ms デバウンス） ----------------------------------------
+      function debounce(fn, wait){
+        let t; return function(...args){ clearTimeout(t); t = setTimeout(()=>fn.apply(this, args), wait); };
+      }
+      if (searchInput) {
+        searchInput.addEventListener('input', debounce(()=>{
+          searchQuery = searchInput.value.toLowerCase().trim();
+          updateMatchClass();            // __match を更新
+          mixer.filter(buildSelector()); // セレクタでフィルタ
+        }, 150));
+      }
+
+      // ---- ソート -----------------------------------------------------------
+      if (sortGroup) {
+        sortGroup.addEventListener('click', (e)=>{
+          const btn = e.target.closest('[data-sort]');
+          if (!btn) return;
+          e.preventDefault();
+
+          sortGroup.querySelectorAll('.is-checked').forEach(el=>el.classList.remove('is-checked'));
+          btn.classList.add('is-checked');
+
+          const sortCmd = btn.getAttribute('data-sort') || 'title:asc';
+          mixer.sort(sortCmd);
+        }, true);
+      }
+
+      // ---- View 切替 --------------------------------------------------------
+      if (viewGroup) {
+        viewGroup.addEventListener('click', (e)=>{
+          const btn = e.target.closest('[data-view]');
+          if (!btn) return;
+          e.preventDefault();
+
+          viewGroup.querySelectorAll('.is-checked').forEach(el=>el.classList.remove('is-checked'));
+          btn.classList.add('is-checked');
+
+          const view = btn.getAttribute('data-view') || 'icons';
+          grid.classList.remove('view--icons','view--details','view--content');
+          grid.classList.add(`view--${view}`);
+
+          mixer.forceRefresh();
+        }, true);
+      }
+
+      // ---- 初期表示 ---------------------------------------------------------
+      mixer.filter('all');
+    });
+    </script>
+
+  </article>
+</main>
+{{ end }}

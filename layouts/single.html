@@ -1,0 +1,36 @@
+{{ define "main" }}
+<main class="book-page">
+  <article class="markdown">
+
+
+    <!-- ★ 固定タイトルバー -->
+    <div class="page-title-bar">
+      <h3 class="page-title">{{ .Title }}</h3>
+    </div>    
+
+    <!-- タグ：タイトル直下（Front Matter の tags を表示） -->
+{{ with .Params.tags }}
+<div class="page-tags">
+  {{ range . }}
+    {{ $slug := . | urlize }}
+    <a href="{{ "/" | relURL }}?filter={{ $slug }}" class="tag-item">#{{ . }}</a>
+  {{ end }}
+</div>
+{{ end }}
+
+
+    <!-- 日付（partialを使わずテーマ非依存で安全に表示） -->
+    {{/* 優先順: .Date -> .PublishDate -> .Lastmod */}}
+    {{ $d := .Date }}
+    {{ if not $d }}{{ $d = .PublishDate }}{{ end }}
+    {{ if not $d }}{{ $d = .Lastmod }}{{ end }}
+    {{ with $d }}
+      <div class="page-date">{{ . | time.Format "2006-01-02" }}</div>
+    {{ end }}
+
+    <!-- 本文 -->
+    {{ .Content }}
+
+  </article>
+</main>
+{{ end }}

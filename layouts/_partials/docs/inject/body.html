@@ -1,0 +1,87 @@
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  // コンテナ取得
+  var grid = document.querySelector('.grid');
+  if (!grid) return;
+
+  // MixItUp の読み込み確認
+  if (!window.mixitup) {
+    console.error('MixItUp not loaded');
+    return;
+  }
+
+  // === ソート用のデータ整備 ===
+  // .title のテキストを data-title に書き出して、属性ソート可能にします
+  grid.querySelectorAll('.grid-item').forEach(function(item){
+    var t = item.querySelector('.title');
+    if (t) {
+      item.setAttribute('data-title', (t.textContent || '').trim().toLowerCase());
+    }
+    // data-date は既にある前提（ISO形式推奨：YYYY-MM-DD など）
+    // 無い場合は必要に応じて item.setAttribute('data-date', '2025-01-01');
+  });
+
+  // === 初期化 ===
+  var mixer = mixitup(grid, {
+    selectors: { target: '.grid-item' },
+    animation: { effects: 'fade scale(0.98)', duration: 300 }
+    // 既定のソートは「元順（default）」
+    // load: { sort: 'default:asc' }
+  });
+
+  // === フィルター ===
+  // data-filter を持つ要素（button/a/spanなど）を拾って mixer.filter を呼ぶ
+  document.addEventListener('click', function (e) {
+    var el = e.target.closest('[data-filter]');
+    if (!el) return;
+    e.preventDefault();
+
+    var val = el.getAttribute('data-filter') || 'all';
+    // 互換性: Isotope の "*" を MixItUp の "all" に変換
+    if (val === '*') val = 'all';
+
+    mixer.filter(val);
+  });
+
+  // === ソート ===
+  // data-sort-by: title / date / original-order
+  // data-sort-asc: "true" | "false"（未指定は true 扱い）
+  document.addEventListener('click', function (e) {
+    var el = e.target.closest('[data-sort-by]');
+    if (!el) return;
+    e.preventDefault();
+
+    var sortBy   = el.getAttribute('data-sort-by') || 'original-order';
+    var ascAttr  = el.getAttribute('data-sort-asc');
+    var asc      = ascAttr ? (ascAttr === 'true') : true; // 既定は昇順
+    var dir      = asc ? 'asc' : 'desc';
+
+    // MixItUp のソート指定文字列にマッピング
+    var sortString = 'default:asc';
+    if (sortBy === 'original-order') {
+      sortString = 'default:' + dir;
+    } else if (sortBy === 'title') {
+      // data-title 属性を使ってソート
+      sortString = 'data-title:' + dir;
+    } else if (sortBy === 'date') {
+      // data-date 属性を使ってソート（ISO日付推奨）
+      sortString = 'data-date:' + dir;
+    }
+
+    mixer.sort(sortString);
+  });
+
+  // === ボタンの is-checked 切替（filter / sort 共通） ===
+  document.querySelectorAll('.button-group').forEach(function(group){
+    group.addEventListener('click', function(e){
+      var btn = e.target.closest('[data-filter],[data-sort-by]');
+      if(!btn) return;
+      e.preventDefault();
+      group.querySelectorAll('.is-checked').forEach(function(el){ el.classList.remove('is-checked'); });
+      btn.classList.add('is-checked');
+    });
+  });
+
+  console.log('MixItUp ready:', mixer);
+});
+</script>

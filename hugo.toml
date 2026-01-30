@@ -1,0 +1,25 @@
+baseURL = "https://snu-o.com/"
+languageCode = "ja"
+title = "s.n.u"
+theme = "hugo-book"
+
+[params]
+  author = "s.n.u"
+  ShowReadingTime = false
+  defaultTheme = "auto"
+  BookToC = false
+  BookDateFormat = "2006-01-02"
+  BookTheme = "auto"
+  BookSearch = true
+  BookSection = '*'
+  BookLogo = 'img/snu_logo2.svg'
+  googleAnalytics = "G-RLWDBB3H3R"
+
+[markup]
+  [markup.goldmark]
+    [markup.goldmark.renderer]
+      unsafe = true
+      hardWraps = true
+
+[permalinks]
+  posts = "/:title/"

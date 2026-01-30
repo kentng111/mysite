@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Works on s.n.u</title>
+    <link>http://localhost:1313/</link>
+    <description>Recent content in Works on s.n.u</description>
+    <generator>Hugo</generator>
+    <language>ja</language>
+    <lastBuildDate>Wed, 28 Jan 2026 00:00:00 +0000</lastBuildDate>
+    <atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>test&#43;1</title>
+      <link>http://localhost:1313/test&#43;1/</link>
+      <pubDate>Wed, 28 Jan 2026 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/test&#43;1/</guid>
+      <description>&lt;p&gt;test&lt;/p&gt;&#xA;&lt;p&gt;&lt;img src=&#34;cover_test1.jpeg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;&#xA;&lt;p&gt;&lt;img src=&#34;testtest.jpeg&#34; alt=&#34;img&#34; /&gt;)&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>test&#43;5</title>
+      <link>http://localhost:1313/test&#43;5/</link>
+      <pubDate>Sun, 25 Jan 2026 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/test&#43;5/</guid>
+      <description>&lt;p&gt;test&lt;/p&gt;&#xA;&lt;p&gt;&lt;img src=&#34;cover_test1.jpeg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;&#xA;&lt;p&gt;&lt;img src=&#34;testtest.jpeg&#34; alt=&#34;img&#34; /&gt;)&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>test&#43;4</title>
+      <link>http://localhost:1313/test&#43;4/cover_index/</link>
+      <pubDate>Fri, 09 Jan 2026 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/test&#43;4/cover_index/</guid>
+      <description>&lt;p&gt;test&lt;/p&gt;&#xA;&lt;p&gt;&lt;img src=&#34;cover_test1.jpeg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;&#xA;&lt;p&gt;&lt;img src=&#34;testtest.jpeg&#34; alt=&#34;img&#34; /&gt;)&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>test&#43;3</title>
+      <link>http://localhost:1313/test&#43;3/</link>
+      <pubDate>Sun, 04 Jan 2026 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/test&#43;3/</guid>
+      <description>&lt;p&gt;test&lt;/p&gt;&#xA;&lt;p&gt;&lt;img src=&#34;cover_test1.jpeg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;&#xA;&lt;p&gt;&lt;img src=&#34;testtest.jpeg&#34; alt=&#34;img&#34; /&gt;)&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>test&#43;2</title>
+      <link>http://localhost:1313/test&#43;2/</link>
+      <pubDate>Mon, 29 Dec 2025 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/test&#43;2/</guid>
+      <description>&lt;p&gt;test&lt;/p&gt;&#xA;&lt;p&gt;&lt;img src=&#34;cover_test1.jpeg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;&#xA;&lt;p&gt;&lt;img src=&#34;testtest.jpeg&#34; alt=&#34;img&#34; /&gt;)&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>contact</title>
+      <link>http://localhost:1313/contact/</link>
+      <pubDate>Mon, 01 Jan 2024 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/contact/</guid>
+      <description>&lt;form action=&#34;https://ssgform.com/s/8GZjIVpyN5AV&#34; method=&#34;post&#34;&gt;&#xA;  &lt;p&gt;&#xA;    &lt;label for=&#34;name&#34;&gt;Name&lt;/label&gt;&lt;br&gt;&#xA;    &lt;input&#xA;      type=&#34;text&#34;&#xA;      id=&#34;name&#34;&#xA;      name=&#34;name&#34;&#xA;      placeholder=&#34;Name&#34;&#xA;      required&#xA;      style=&#34;width:100%; box-sizing:border-box;&#34;&gt;&#xA;  &lt;/p&gt;&#xA;  &lt;p&gt;&#xA;    &lt;label for=&#34;email&#34;&gt;Email&lt;/label&gt;&lt;br&gt;&#xA;    &lt;input&#xA;      type=&#34;email&#34;&#xA;      id=&#34;email&#34;&#xA;      name=&#34;email&#34;&#xA;      placeholder=&#34;example@gmail.com&#34;&#xA;      required&#xA;      style=&#34;width:100%; box-sizing:border-box;&#34;&gt;&#xA;  &lt;/p&gt;&#xA;  &lt;p&gt;&#xA;    &lt;label for=&#34;message&#34;&gt;Message&lt;/label&gt;&lt;br&gt;&#xA;    &lt;textarea&#xA;      id=&#34;message&#34;&#xA;      name=&#34;message&#34;&#xA;      rows=&#34;10&#34;&#xA;      required&#xA;      style=&#34;width:100%; box-sizing:border-box;&#34;&gt;&lt;/textarea&gt;&#xA;  &lt;/p&gt;&#xA;  &lt;p&gt;&#xA;    &lt;button type=&#34;submit&#34;&gt;Submit&lt;/button&gt;&#xA;  &lt;/p&gt;&#xA;&lt;/form&gt;</description>
+    </item>
+    <item>
+      <title>people</title>
+      <link>http://localhost:1313/people/</link>
+      <pubDate>Mon, 01 Jan 2024 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/people/</guid>
+      <description>&lt;hr&gt;&#xA;&lt;p&gt;下岡 未歩&lt;br&gt;&#xA;Miho Shimooka&lt;/p&gt;&#xA;&lt;hr&gt;&#xA;&lt;p&gt;長尾 謙登&lt;br&gt;&#xA;Kento Nagao&lt;/p&gt;&#xA;&lt;hr&gt;</description>
+    </item>
+    <item>
+      <title>s.n.u</title>
+      <link>http://localhost:1313/s.n.u/</link>
+      <pubDate>Mon, 01 Jan 2024 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/s.n.u/</guid>
+      <description>&lt;p&gt;&lt;img src=&#34;cover_snu.jpeg&#34; alt=&#34;img&#34; /&gt;&lt;br&gt;&#xA;s.n.uは日本およびポーランドを拠点とするグローバルな建築・デザイン事務所です。&lt;/p&gt;&#xA;&lt;p&gt;s.n.u is a global architecture and design practice based in Japan and Poland.&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>
