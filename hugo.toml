@@ -1,4 +1,4 @@
-baseURL = "https://snu-o.com/"
+baseURL = "https://kentng111.github.io/mysite/"
 languageCode = "ja"
 title = "s.n.u"
 theme = "hugo-book"
