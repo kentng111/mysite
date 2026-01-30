@@ -3,7 +3,7 @@ title: s.n.u
 date: 2024-01-01
 tags:
   - information
-draft: true
+draft: false
 color: "#CED943"
 ---
 ![img](cover_snu.jpeg)

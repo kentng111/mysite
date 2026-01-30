@@ -1,0 +1,11 @@
+ M .obsidian/workspace.json
+ D build+run.bat
+ M content/s.n.u/index.md
+ M content/test+1/index.md
+ M content/test+3/index.md
+ D content/test+4/cover_index.md
+ M content/test+5/index.md
+?? .bak+notes/build+run.bat
+?? content/test+4/index.md
+?? git-push.bat
+?? temp_git_status.txt

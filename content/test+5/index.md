@@ -3,7 +3,7 @@ title: test+5
 date: 2026-01-25
 tags:
   - architecture
-draft: false
+draft: true
 color: "#595848"
 ---
 test
