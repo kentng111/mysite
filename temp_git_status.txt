@@ -1,13 +1,23 @@
  M .obsidian/workspace.json
- D assets/_custom.scss
- M layouts/_default/list.html
- D layouts/_partials/docs/inject/body.html
+ D assets/custom.scss
+ D assets/scss/_custom.scss
+ D assets/scss/base/_helpers.scss
+ D assets/scss/base/_links.scss
+ D assets/scss/base/_reset.scss
+ D assets/scss/components/_cards.scss
+ D assets/scss/components/_mixitup-grid.scss
+ D assets/scss/components/_mixitup-ui.scss
+ D assets/scss/components/_view-modes.scss
+ D assets/scss/custom.scss
+ D assets/scss/layout/_footer.scss
+ D assets/scss/layout/_header.scss
+ D assets/scss/layout/_search-bar.scss
+ D assets/scss/pages/_404.scss
+ D assets/scss/pages/_google-form.scss
+ D layouts/_partials/docs/inject/body.html.bak
  M public/404.html
- D public/book.min.e4d4f4bf2c0fd37ca530a9b3c6a90a5a3746eb3504553853bdb1f35577aa15da.css
  M public/categories/index.html
  M public/contact/index.html
- D public/en.search-data.min.03f32cad9d65646a298c666740343ce37ca704e4619c4f130795c64bc6a5b459.json
- D public/en.search.min.e902e218d631aa0cdb9bedeef25a324a8e6481e22462e90a9df5c451c1cd7cd6.js
  M public/index.html
  M public/people/index.html
  M public/s.n.u/index.html
@@ -27,9 +37,6 @@
  M resources/_gen/assets/book.scss_b807c86e8030af4cdc30edccea379f5f.content
  M resources/_gen/assets/book.scss_b807c86e8030af4cdc30edccea379f5f.json
  M temp_git_status.txt
- D themes/hugo-book/hugo.toml
-?? assets/custom.scss
-?? assets/scss/
-?? layouts/_partials/docs/inject/body.html.bak
-?? public/book.min.84512751d70e66ef6aa5288ecbbba17601099e5a2373e24e0f6ed6755c364c2d.css
-?? themes/hugo-book/hugo.toml.bak
+?? assets/_custom.scss
+?? layouts/_partials/docs/inject/body.html
+?? public/book.min.e4d4f4bf2c0fd37ca530a9b3c6a90a5a3746eb3504553853bdb1f35577aa15da.css
