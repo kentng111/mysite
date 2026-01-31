@@ -1,0 +1,54 @@
+/* =======================
+   Grid / Card（汎用。MixItUp のターゲットにも使用）
+   ======================= */
+.grid { 
+      display: flex; 
+      flex-wrap: wrap; 
+      position: relative;
+      justify-content: flex-start;
+  }
+
+/* Mobile: 1列（100%） */
+.view--icons .grid-item {
+  box-sizing: border-box;
+  padding: .1rem;
+  width: 100%;
+  flex: 0 0 100%; /* 伸びない・縮まない・基準100% */
+}
+
+/* Tablet: 2列（50%） */
+@media (min-width: 640px) {
+  .view--icons .grid-item {
+    width: 50%;
+    flex: 0 0 50%;
+  }
+}
+
+/* PC: 3列（33.333%） */
+@media (min-width: 1024px) {
+  .view--icons .grid-item {
+    width: 33.333%;
+    flex: 0 0 33.333%;
+  }
+}
+
+/* Card */
+.card { 
+  border: 1px solid #ddd; 
+  border-radius: 0rem; 
+  padding: 0cqi; 
+}
+
+.grid-item .card {
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+  display: flex;
+}
+
+.card-inner { 
+  display: flex; 
+  flex-direction: column; 
+  gap: 0rem; 
+  width: 100%; 
+  padding: .5rem; 
+}

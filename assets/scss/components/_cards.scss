@@ -1,0 +1,103 @@
+/* Card text */
+.title { font-weight: 600; line-height: 1.3; }
+.meta { opacity: .7; font-size: .8rem; }
+.excerpt {
+  margin-top: .25rem;
+  line-height: 1.5;
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+
+/* =======================
+   Card cover background (icons view only)
+   ======================= */
+
+.view--icons .card {
+  position: relative;
+}
+
+.view--icons .card .card-bg {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  opacity: 0.14;
+  transform: scale(1.05);
+  pointer-events: none;
+  z-index: 0;
+
+  transition:
+    opacity 0.25s ease,
+    transform 0.35s ease,
+    filter 0.25s ease;
+}
+
+/* =========
+   ① 画像背景（icons）
+   ========= */
+.view--icons .card .card-bg:not(.is-color) {
+  filter: grayscale(100%);
+}
+
+.view--icons .grid-item:hover .card-bg:not(.is-color) {
+  opacity: 0.6;
+  filter: grayscale(70%);
+  transform: scale(1.08);
+}
+
+/* =======================
+   ② icons色背景 + ③ detail色背景（共通ルールに統合）
+   目的：色背景の見た目をここだけ編集すれば両方変わる
+   ======================= */
+
+/* details 用：色背景レイヤーを擬似要素で用意（色が無いと透明） */
+.view--details .card {
+  position: relative;
+}
+.view--details .card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+
+  background: var(--card-color, transparent);
+}
+
+/* 共通：色背景の通常時（icons: .card-bg.is-color / details: .card::before） */
+.view--icons .card .card-bg.is-color,
+.view--details .card::before {
+  opacity: 0.14;
+  filter: grayscale(30%);
+  transform: scale(1.05);
+
+  transition:
+    opacity 0.25s ease,
+    transform 0.35s ease,
+    filter 0.25s ease;
+}
+
+/* 共通：色背景のホバー時 */
+.view--icons .grid-item:hover .card-bg.is-color,
+.view--details .grid-item:hover .card::before {
+  opacity: 0.6;
+  filter: grayscale(0%);
+  transform: scale(1.08);
+}
+
+/* 前面：テキスト */
+.view--icons .card .card-inner,
+.view--details .card-inner {
+  position: relative;
+  z-index: 1;
+}
+
+/* details では .card-bg を見せない（色背景に統一） */
+.view--details .card .card-bg {
+  display: none;
+}

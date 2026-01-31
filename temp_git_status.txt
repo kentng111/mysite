@@ -1,59 +1,35 @@
  M .obsidian/workspace.json
- M admin/content.base
- M "content/test page 5/index.md"
+ D assets/_custom.scss
+ M layouts/_default/list.html
+ D layouts/_partials/docs/inject/body.html
  M public/404.html
+ D public/book.min.e4d4f4bf2c0fd37ca530a9b3c6a90a5a3746eb3504553853bdb1f35577aa15da.css
  M public/categories/index.html
- M public/categories/index.xml
  M public/contact/index.html
- D public/en.search-data.min.2f7055cdcf3a0f7dde40004ae7344b2aa12ca34087840bda490b0f245a43916e.json
- D public/en.search-data.min.4e9a3d8bb74363bf5d6727e3d3a178b4f659679223a35a1698cd62dea636b79b.json
- D public/en.search.min.bd8e0401d043b2ce4268302439950d8b517554155968b19cd12ff9b51292c932.js
- D public/en.search.min.de2e822a556b49a147cca9a397a78e163bc4f947d2a8efb890307722df81d171.js
+ D public/en.search-data.min.03f32cad9d65646a298c666740343ce37ca704e4619c4f130795c64bc6a5b459.json
+ D public/en.search.min.e902e218d631aa0cdb9bedeef25a324a8e6481e22462e90a9df5c451c1cd7cd6.js
  M public/index.html
- M public/index.xml
- M public/manifest.json
  M public/people/index.html
  M public/s.n.u/index.html
- M public/sitemap.xml
  M public/tags/architecture/index.html
- M public/tags/architecture/index.xml
- M public/tags/architecture/page/1/index.html
  M public/tags/contact/index.html
- M public/tags/contact/index.xml
- M public/tags/contact/page/1/index.html
  M public/tags/hello/index.html
- M public/tags/hello/index.xml
- M public/tags/hello/page/1/index.html
+ M public/tags/hogehoge/index.html
  M public/tags/index.html
- M public/tags/index.xml
  M public/tags/information/index.html
- M public/tags/information/index.xml
- M public/tags/information/page/1/index.html
  M public/tags/mixitup/index.html
- M public/tags/mixitup/index.xml
- M public/tags/mixitup/page/1/index.html
- D public/test+1/cover_test1.jpeg
- D public/test+1/index.html
- D public/test+1/testtest.jpeg
- D public/test+2/cover_DSCN6753.JPEG
- D public/test+2/index.html
- D public/test+3/cover_DSCN9725.JPEG
- D public/test+3/index.html
- D public/test+4/cover_index/index.html
- D public/test+4/index.html
- D public/test+4/index.xml
- D public/test+5/cover_DSCN7619.JPEG
- D public/test+5/index.html
+ M public/tags/new/index.html
+ M public/test-page-1/index.html
+ M public/test-page-2/index.html
+ M public/test-page-3/index.html
+ M public/test-page-4/index.html
+ M public/test-page-5/index.html
+ M resources/_gen/assets/book.scss_b807c86e8030af4cdc30edccea379f5f.content
+ M resources/_gen/assets/book.scss_b807c86e8030af4cdc30edccea379f5f.json
  M temp_git_status.txt
-?? preview_local.bat
-?? public/en.search-data.min.03f32cad9d65646a298c666740343ce37ca704e4619c4f130795c64bc6a5b459.json
-?? public/en.search-data.min.e3d85f097e84ef5783728b56075e5742df87352ceb8d573ad3f7f5d399b4c97a.json
-?? public/en.search.min.488c0286eca9afbd34093fa8b711a59d0cbc117b9d9ad4f1b04a8cc024293e40.js
-?? public/en.search.min.e902e218d631aa0cdb9bedeef25a324a8e6481e22462e90a9df5c451c1cd7cd6.js
-?? public/tags/hogehoge/
-?? public/tags/new/
-?? public/test-page-1/
-?? public/test-page-2/
-?? public/test-page-3/
-?? public/test-page-4/
-?? public/test-page-5/
+ D themes/hugo-book/hugo.toml
+?? assets/custom.scss
+?? assets/scss/
+?? layouts/_partials/docs/inject/body.html.bak
+?? public/book.min.84512751d70e66ef6aa5288ecbbba17601099e5a2373e24e0f6ed6755c364c2d.css
+?? themes/hugo-book/hugo.toml.bak

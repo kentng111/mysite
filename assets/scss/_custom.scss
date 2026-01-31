@@ -1,0 +1,19 @@
+// --- 1. Base (サイト全体の土台・共通設定) ---
+@use "base/reset";   // メニュー・TOCの無効化など
+@use "base/links";   // リンク表示ルール
+@use "base/helpers"; // スティッキータイトルバー、アンカー補正
+
+// --- 2. Layout (サイトの枠組み・定型パーツ) ---
+@use "layout/header";     // ヘッダー固定、背景効果、ロゴ表示PC最適化
+@use "layout/search-bar"; // サイト内検索（ヘッダー直下）
+@use "layout/footer";     // フッター
+
+// --- 3. Components (MixItUp / カード機能) ---
+@use "components/mixitup-grid"; // グリッド全体、レスポンシブ列数、カード構造
+@use "components/mixitup-ui";   // 検索バー、コントロール配置、ボタン状態
+@use "components/cards";        // カード背景（画像・色）、カード内テキスト
+@use "components/view-modes";   // Viewモード別レイアウト (icons / details / content)
+
+// --- 4. Pages (特定ページ専用スタイル) ---
+@use "pages/404";         // 404ページ専用
+@use "pages/google-form"; // Google Form 埋め込み

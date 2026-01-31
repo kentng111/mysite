@@ -1,0 +1,25 @@
+/* View */
+.view--icons .excerpt { display: none; }
+
+.view--details .grid-item { width: 100%; }
+.view--details .card {
+  aspect-ratio: auto;
+  border-left: 0;
+  border-right: 0;
+  border-radius: 0;
+}
+.view--details .card-inner {
+  display: grid;
+  grid-template-columns: 1fr 160px;
+  gap: .5rem;
+  align-items: center;
+  padding: .75rem .25rem;
+}
+.view--details .title { margin: 0; }
+.view--details .meta { text-align: right; }
+.view--details .excerpt { display: none; }
+
+.view--content .grid-item { width: 100%; }
+@media (min-width: 900px) { .view--content .grid-item { width: 50%; } }
+.view--content .card { aspect-ratio: auto; }
+.view--content .excerpt { -webkit-line-clamp: 10; }
