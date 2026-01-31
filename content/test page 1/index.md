@@ -1,14 +1,14 @@
 ---
-title: test+1
+title: test page 1
 date: 2026-01-28
 tags:
   - hello
   - new
 draft: false
-color: "#D9B843"
+color: "#BF5A75"
 ---
-test
+test page
 
 ![](cover_test1.jpeg)
 
-![img](testtest.jpeg))
+![](testtest.jpeg)

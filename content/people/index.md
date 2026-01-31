@@ -3,8 +3,8 @@ title: people
 date: 2024-01-01
 tags:
   - information
-draft: true
-color: "#595848"
+draft: false
+color: "#AABDBF"
 ---
 ---
 下岡 未歩

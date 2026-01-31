@@ -1,0 +1,23 @@
+{
+  "palette": {
+    "seed": 2,
+    "selected": "adaptive-soft",
+    "custom": "e12729-f37324-f8cc1b-72b043-007f4e"
+  },
+  "mixColors": true,
+  "transition": true,
+  "accessibility": {
+    "highTextContrast": true
+  },
+  "knownTags": {
+    "architecture": 1,
+    "contact": 2,
+    "hello": 3,
+    "hogehoge": 4,
+    "information": 5,
+    "mixitup": 6,
+    "new": 7
+  },
+  "tagColors": {},
+  "_version": 4
+}

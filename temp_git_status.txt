@@ -1,0 +1,29 @@
+ M .obsidian/app.json
+ M .obsidian/community-plugins.json
+ M .obsidian/workspace.json
+ M admin/content.base
+ M content/contact/index.md
+ M content/people/index.md
+ M content/s.n.u/index.md
+ D content/test+1/cover_test1.jpeg
+ D content/test+1/index.md
+ D content/test+1/testtest.jpeg
+ D content/test+2/cover_DSCN6753.JPEG
+ D content/test+2/index.md
+ D content/test+3/cover_DSCN9725.JPEG
+ D content/test+3/index.md
+ D content/test+4/index.md
+ D content/test+5/cover_DSCN7619.JPEG
+ D content/test+5/index.md
+ D drafts/test+2/index.md
+ D drafts/test+3/index.md
+?? .obsidian-scripts/
+?? .obsidian/plugins/colored-tags/
+?? ".obsidian/snippets/no-property - \343\202\263\343\203\224\343\203\274.css"
+?? 000_website-bak.lnk
+?? "content/test page 1/"
+?? "content/test page 2/"
+?? "content/test page 3/"
+?? "content/test page 4/"
+?? "content/test page 5/"
+?? temp_git_status.txt

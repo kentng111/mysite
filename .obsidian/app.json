@@ -7,5 +7,7 @@
   "userIgnoreFilters": null,
   "focusNewTab": false,
   "showLineNumber": true,
-  "spellcheck": false
+  "spellcheck": false,
+  "useMarkdownLinks": true,
+  "newLinkFormat": "relative"
 }
