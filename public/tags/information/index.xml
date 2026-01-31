@@ -2,31 +2,31 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Information on s.n.u</title>
-    <link>http://localhost:1313/tags/information/</link>
+    <link>http://localhost:1313/mysite/tags/information/</link>
     <description>Recent content in Information on s.n.u</description>
     <generator>Hugo</generator>
     <language>ja</language>
     <lastBuildDate>Fri, 09 Jan 2026 00:00:00 +0000</lastBuildDate>
-    <atom:link href="http://localhost:1313/tags/information/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://localhost:1313/mysite/tags/information/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>test&#43;4</title>
-      <link>http://localhost:1313/test&#43;4/cover_index/</link>
+      <title>test page 4</title>
+      <link>http://localhost:1313/mysite/test-page-4/</link>
       <pubDate>Fri, 09 Jan 2026 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/test&#43;4/cover_index/</guid>
-      <description>&lt;p&gt;test&lt;/p&gt;&#xA;&lt;p&gt;&lt;img src=&#34;cover_test1.jpeg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;&#xA;&lt;p&gt;&lt;img src=&#34;testtest.jpeg&#34; alt=&#34;img&#34; /&gt;)&lt;/p&gt;</description>
+      <guid>http://localhost:1313/mysite/test-page-4/</guid>
+      <description>&lt;p&gt;test page&lt;/p&gt;&#xA;&lt;p&gt;&lt;img src=&#34;cover_IMG_0859.jpeg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;&#xA;&lt;p&gt;&lt;img src=&#34;IMG_1986.JPEG&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;</description>
     </item>
     <item>
       <title>people</title>
-      <link>http://localhost:1313/people/</link>
+      <link>http://localhost:1313/mysite/people/</link>
       <pubDate>Mon, 01 Jan 2024 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/people/</guid>
+      <guid>http://localhost:1313/mysite/people/</guid>
       <description>&lt;hr&gt;&#xA;&lt;p&gt;下岡 未歩&lt;br&gt;&#xA;Miho Shimooka&lt;/p&gt;&#xA;&lt;hr&gt;&#xA;&lt;p&gt;長尾 謙登&lt;br&gt;&#xA;Kento Nagao&lt;/p&gt;&#xA;&lt;hr&gt;</description>
     </item>
     <item>
       <title>s.n.u</title>
-      <link>http://localhost:1313/s.n.u/</link>
+      <link>http://localhost:1313/mysite/s.n.u/</link>
       <pubDate>Mon, 01 Jan 2024 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/s.n.u/</guid>
+      <guid>http://localhost:1313/mysite/s.n.u/</guid>
       <description>&lt;p&gt;&lt;img src=&#34;cover_snu.jpeg&#34; alt=&#34;img&#34; /&gt;&lt;br&gt;&#xA;s.n.uは日本およびポーランドを拠点とするグローバルな建築・デザイン事務所です。&lt;/p&gt;&#xA;&lt;p&gt;s.n.u is a global architecture and design practice based in Japan and Poland.&lt;/p&gt;</description>
     </item>
   </channel>

@@ -1,14 +1,14 @@
 {
   "name": "s.n.u",
   "short_name": "s.n.u",
-  "start_url": "/",
-  "scope": "/",
+  "start_url": "/mysite/",
+  "scope": "/mysite/",
   "display": "standalone",
   "background_color": "#000000",
   "theme_color": "#000000",
   "icons": [
     {
-      "src": "/favicon.svg",
+      "src": "/mysite/favicon.svg",
       "sizes": "512x512"
     }
   ]

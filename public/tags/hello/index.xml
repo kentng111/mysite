@@ -2,32 +2,32 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Hello on s.n.u</title>
-    <link>http://localhost:1313/tags/hello/</link>
+    <link>http://localhost:1313/mysite/tags/hello/</link>
     <description>Recent content in Hello on s.n.u</description>
     <generator>Hugo</generator>
     <language>ja</language>
     <lastBuildDate>Wed, 28 Jan 2026 00:00:00 +0000</lastBuildDate>
-    <atom:link href="http://localhost:1313/tags/hello/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://localhost:1313/mysite/tags/hello/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>test&#43;1</title>
-      <link>http://localhost:1313/test&#43;1/</link>
+      <title>test page 1</title>
+      <link>http://localhost:1313/mysite/test-page-1/</link>
       <pubDate>Wed, 28 Jan 2026 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/test&#43;1/</guid>
-      <description>&lt;p&gt;test&lt;/p&gt;&#xA;&lt;p&gt;&lt;img src=&#34;cover_test1.jpeg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;&#xA;&lt;p&gt;&lt;img src=&#34;testtest.jpeg&#34; alt=&#34;img&#34; /&gt;)&lt;/p&gt;</description>
+      <guid>http://localhost:1313/mysite/test-page-1/</guid>
+      <description>&lt;p&gt;test page&lt;/p&gt;&#xA;&lt;p&gt;&lt;img src=&#34;cover_test1.jpeg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;&#xA;&lt;p&gt;&lt;img src=&#34;testtest.jpeg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;</description>
     </item>
     <item>
-      <title>test&#43;4</title>
-      <link>http://localhost:1313/test&#43;4/cover_index/</link>
+      <title>test page 4</title>
+      <link>http://localhost:1313/mysite/test-page-4/</link>
       <pubDate>Fri, 09 Jan 2026 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/test&#43;4/cover_index/</guid>
-      <description>&lt;p&gt;test&lt;/p&gt;&#xA;&lt;p&gt;&lt;img src=&#34;cover_test1.jpeg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;&#xA;&lt;p&gt;&lt;img src=&#34;testtest.jpeg&#34; alt=&#34;img&#34; /&gt;)&lt;/p&gt;</description>
+      <guid>http://localhost:1313/mysite/test-page-4/</guid>
+      <description>&lt;p&gt;test page&lt;/p&gt;&#xA;&lt;p&gt;&lt;img src=&#34;cover_IMG_0859.jpeg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;&#xA;&lt;p&gt;&lt;img src=&#34;IMG_1986.JPEG&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;</description>
     </item>
     <item>
-      <title>test&#43;2</title>
-      <link>http://localhost:1313/test&#43;2/</link>
+      <title>test page 2</title>
+      <link>http://localhost:1313/mysite/test-page-2/</link>
       <pubDate>Mon, 29 Dec 2025 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/test&#43;2/</guid>
-      <description>&lt;p&gt;test&lt;/p&gt;&#xA;&lt;p&gt;&lt;img src=&#34;cover_test1.jpeg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;&#xA;&lt;p&gt;&lt;img src=&#34;testtest.jpeg&#34; alt=&#34;img&#34; /&gt;)&lt;/p&gt;</description>
+      <guid>http://localhost:1313/mysite/test-page-2/</guid>
+      <description>&lt;p&gt;test page&lt;br&gt;&#xA;&lt;img src=&#34;cover_DSCN6753.JPEG&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;</description>
     </item>
   </channel>
 </rss>

@@ -11,4 +11,3 @@ test page
 
 ![](cover_DSCN7619.JPEG)
 
-[index](../test%20page%204/index.md)

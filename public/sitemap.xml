@@ -2,54 +2,57 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>http://localhost:1313/tags/hello/</loc>
+    <loc>http://localhost:1313/mysite/tags/hello/</loc>
     <lastmod>2026-01-28T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/tags/</loc>
+    <loc>http://localhost:1313/mysite/tags/new/</loc>
     <lastmod>2026-01-28T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/test&#43;1/</loc>
+    <loc>http://localhost:1313/mysite/tags/</loc>
     <lastmod>2026-01-28T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/</loc>
+    <loc>http://localhost:1313/mysite/test-page-1/</loc>
     <lastmod>2026-01-28T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/tags/architecture/</loc>
+    <loc>http://localhost:1313/mysite/</loc>
+    <lastmod>2026-01-28T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/mysite/tags/architecture/</loc>
     <lastmod>2026-01-25T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/test&#43;5/</loc>
+    <loc>http://localhost:1313/mysite/test-page-5/</loc>
     <lastmod>2026-01-25T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/tags/contact/</loc>
+    <loc>http://localhost:1313/mysite/tags/contact/</loc>
     <lastmod>2026-01-09T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/tags/information/</loc>
+    <loc>http://localhost:1313/mysite/tags/information/</loc>
     <lastmod>2026-01-09T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/tags/mixitup/</loc>
+    <loc>http://localhost:1313/mysite/tags/mixitup/</loc>
     <lastmod>2026-01-09T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/test&#43;4/cover_index/</loc>
+    <loc>http://localhost:1313/mysite/test-page-4/</loc>
     <lastmod>2026-01-09T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/test&#43;4/</loc>
-    <lastmod>2026-01-09T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>http://localhost:1313/test&#43;3/</loc>
+    <loc>http://localhost:1313/mysite/test-page-3/</loc>
     <lastmod>2026-01-04T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/test&#43;2/</loc>
+    <loc>http://localhost:1313/mysite/tags/hogehoge/</loc>
     <lastmod>2025-12-29T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/contact/</loc>
+    <loc>http://localhost:1313/mysite/test-page-2/</loc>
+    <lastmod>2025-12-29T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/mysite/contact/</loc>
     <lastmod>2024-01-01T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/people/</loc>
+    <loc>http://localhost:1313/mysite/people/</loc>
     <lastmod>2024-01-01T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/s.n.u/</loc>
+    <loc>http://localhost:1313/mysite/s.n.u/</loc>
     <lastmod>2024-01-01T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/categories/</loc>
+    <loc>http://localhost:1313/mysite/categories/</loc>
   </url>
 </urlset>

@@ -6,7 +6,6 @@
       {
         "id": "2baaa6e032f68586",
         "type": "tabs",
-        "dimension": 44.6116504854369,
         "children": [
           {
             "id": "52eabfc5bf6d3f09",
@@ -22,31 +21,9 @@
               "icon": "lucide-table",
               "title": "content"
             }
-          }
-        ]
-      },
-      {
-        "id": "e84944674345199a",
-        "type": "tabs",
-        "dimension": 55.3883495145631,
-        "children": [
-          {
-            "id": "e7473387b498eb35",
-            "type": "leaf",
-            "pinned": true,
-            "state": {
-              "type": "bases",
-              "state": {
-                "file": "admin/content.base",
-                "viewName": "Table"
-              },
-              "pinned": true,
-              "icon": "lucide-table",
-              "title": "content"
-            }
           },
           {
-            "id": "af00b4e51539ba4e",
+            "id": "5870a2187f3c64a6",
             "type": "leaf",
             "state": {
               "type": "markdown",
@@ -59,8 +36,7 @@
               "title": "index"
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "vertical"
@@ -228,36 +204,37 @@
   },
   "active": "52eabfc5bf6d3f09",
   "lastOpenFiles": [
+    "public/en.search.min.488c0286eca9afbd34093fa8b711a59d0cbc117b9d9ad4f1b04a8cc024293e40.js",
+    "public/en.search-data.min.e3d85f097e84ef5783728b56075e5742df87352ceb8d573ad3f7f5d399b4c97a.json",
     "content/test page 5/index.md",
     "admin/content.base",
+    "public/index.html",
+    "public/test-page-4/cover_IMG_0859.jpeg",
+    "public/mermaid.min.js",
+    "public/test-page-4/index.html",
+    "public/fuse.min.js",
+    "public/categories/index.html",
+    "public/categories/index.xml",
+    "public/categories",
+    "public/404.html",
+    "public/icons/calendar.svg",
+    "public/favicon.svg",
+    "public/favicon.png",
+    "public/test-page-5/cover_DSCN7619.JPEG",
+    "public/test-page-3/cover_DSCN9725.JPEG",
+    "public/test-page-4/IMG_1986.JPEG",
+    "public/test-page-4/IMG_1852.jpeg",
+    "public/test-page-2/cover_DSCN6753.JPEG",
+    "public/test-page-1/testtest.jpeg",
     "content/test page 4/index.md",
     "content/test page 1/index.md",
     "content/test page 3/index.md",
     "content/test page 2/index.md",
-    "content/test page 5/cover_DSCN7619.JPEG",
     "content/_index.md",
-    "content/test page 4/cover_IMG_0859.jpeg",
-    "content/test page 4/IMG_1852.jpeg",
-    "content/test page 4/IMG_1986.JPEG",
-    "content/test page 5",
-    "content/testpage 5/cover_DSCN7619.JPEG",
     "content/testpage 5/index.md",
-    "content/testpage 5",
-    "content/test page 4",
     "content/test+4/index.md",
-    "content/test+4",
     "content/test+34/index.md",
-    "content/test+34",
-    "content/test page 3/cover_DSCN9725.JPEG",
-    "content/test page 3",
-    "content/test page 2/cover_DSCN6753.JPEG",
-    "content/test page 2",
-    "content/test page 1/testtest.jpeg",
-    "content/test page 1/cover_test1.jpeg",
-    "content/test page 1",
     "content/test+42/index.md",
-    "content/test+42",
-    "content/test+1/testtest.jpeg",
     "content/test+1/index.md",
     "content/test+100/index.md",
     "content/people/index.md",
