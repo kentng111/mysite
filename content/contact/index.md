@@ -3,7 +3,7 @@ title: contact
 tags:
   - contact
 date: 2024-01-01
-draft: false
+draft: true
 color: "#F1F0F2"
 ---
 <form action="https://ssgform.com/s/8GZjIVpyN5AV" method="post">

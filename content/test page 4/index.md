@@ -6,7 +6,7 @@ tags:
   - contact
   - mixitup
   - information
-draft: false
+draft: true
 color: "#F28DA8"
 ---
 test page

@@ -4,7 +4,7 @@ date: 2026-01-25
 tags:
   - architecture
   - new
-draft: false
+draft: true
 color: "#F1F0F2"
 ---
 test page

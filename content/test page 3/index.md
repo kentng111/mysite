@@ -3,7 +3,7 @@ title: test page 3
 date: 2026-01-04
 tags:
   - architecture
-draft: false
+draft: true
 color: "#BF5A75"
 ---
 test page

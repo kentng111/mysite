@@ -42,12 +42,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "admin/メモ.md",
+                "file": "content/s.n.u/index.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "メモ"
+              "title": "index"
             }
           }
         ],
@@ -218,12 +218,12 @@
   },
   "active": "30ceaabdd61b9abf",
   "lastOpenFiles": [
-    "content/test page 5/index.md",
+    "admin/content.base",
     "admin/メモ.md",
+    "temp_git_status.txt",
+    "content/test page 5/index.md",
     "admin/アップロード手順.md",
     "admin/Untitled.md",
-    "admin/content.base",
-    "temp_git_status.txt",
     "public/book.min.e4d4f4bf2c0fd37ca530a9b3c6a90a5a3746eb3504553853bdb1f35577aa15da.css",
     "assets/_custom.scss",
     "assets/scss/custom.scss",
@@ -262,7 +262,6 @@
     "content/test+2/index.md",
     "content/test+1 - コピー - コピー - コピー - コピー/index.md",
     "content/test+1 - コピー - コピー - コピー/index.md",
-    "content/test+1 - コピー - コピー/index.md",
-    "content/test+1 - コピー/index.md"
+    "content/test+1 - コピー - コピー/index.md"
   ]
 }

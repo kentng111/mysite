@@ -1,4 +1,10 @@
  M .obsidian/workspace.json
- M hugo.toml
+ M content/contact/index.md
+ M content/people/index.md
+ M content/s.n.u/index.md
+ M "content/test page 1/index.md"
+ M "content/test page 2/index.md"
+ M "content/test page 3/index.md"
+ M "content/test page 4/index.md"
+ M "content/test page 5/index.md"
  M temp_git_status.txt
-?? "admin/\343\203\241\343\203\242.md"
