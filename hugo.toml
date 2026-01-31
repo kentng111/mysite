@@ -13,7 +13,7 @@ theme = "hugo-book"
   BookSearch = true
   BookSection = '*'
   BookLogo = 'img/snu_logo2.svg'
-  googleAnalytics = "G-RLWDBB3H3R"
+  googleAnalyticsID = "G-RLWDBB3H3R"
 
 [markup]
   [markup.goldmark]

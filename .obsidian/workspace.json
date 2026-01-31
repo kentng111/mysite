@@ -49,9 +49,22 @@
               "icon": "lucide-file",
               "title": "index"
             }
+          },
+          {
+            "id": "50eaf4a9eb2b0458",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "content/s.n.u/index.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "index"
+            }
           }
-        ],
-        "currentTab": 2
+        ]
       }
     ],
     "direction": "vertical"
@@ -216,12 +229,16 @@
       "workspaces:Manage workspace layouts": false
     }
   },
-  "active": "30ceaabdd61b9abf",
+  "active": "52eabfc5bf6d3f09",
   "lastOpenFiles": [
-    "admin/content.base",
-    "admin/メモ.md",
-    "temp_git_status.txt",
+    "public/en.search.min.392cf998e6076b05606c60bcb2a66ac3d205d55fc9df3ee1e90b7bd6626383c8.js",
+    "public/en.search-data.min.184b1200fcd361c84b7be7921c19f1ed50857c5c97d3eef339f0ea8b9065e11e.json",
+    "layouts/_partials/docs/html-head.html",
     "content/test page 5/index.md",
+    "admin/content.base",
+    "content/s.n.u/index.md",
+    "temp_git_status.txt",
+    "admin/メモ.md",
     "admin/アップロード手順.md",
     "admin/Untitled.md",
     "public/book.min.e4d4f4bf2c0fd37ca530a9b3c6a90a5a3746eb3504553853bdb1f35577aa15da.css",
@@ -230,8 +247,6 @@
     "layouts/_partials/docs/inject/body.html",
     "public/index.xml",
     "public/index.html",
-    "layouts/_partials/docs/inject/body.html.bak",
-    "public/404.html",
     "public/favicon.svg",
     "public/favicon.png",
     "public/icons/calendar.svg",
@@ -254,7 +269,6 @@
     "content/test+1/index.md",
     "content/test+100/index.md",
     "content/people/index.md",
-    "content/s.n.u/index.md",
     "content/contact/index.md",
     "content/test+4/index 1.md",
     "content/test+5/index.md",

@@ -2,24 +2,24 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>New on s.n.u</title>
-    <link>http://localhost:1313/mysite/tags/new/</link>
+    <link>http://localhost:1313/tags/new/</link>
     <description>Recent content in New on s.n.u</description>
     <generator>Hugo</generator>
     <language>ja</language>
     <lastBuildDate>Wed, 28 Jan 2026 00:00:00 +0000</lastBuildDate>
-    <atom:link href="http://localhost:1313/mysite/tags/new/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://localhost:1313/tags/new/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>test page 1</title>
-      <link>http://localhost:1313/mysite/test-page-1/</link>
+      <link>http://localhost:1313/test-page-1/</link>
       <pubDate>Wed, 28 Jan 2026 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/mysite/test-page-1/</guid>
+      <guid>http://localhost:1313/test-page-1/</guid>
       <description>&lt;p&gt;test page&lt;/p&gt;&#xA;&lt;p&gt;&lt;img src=&#34;cover_test1.jpeg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;&#xA;&lt;p&gt;&lt;img src=&#34;testtest.jpeg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;</description>
     </item>
     <item>
       <title>test page 5</title>
-      <link>http://localhost:1313/mysite/test-page-5/</link>
+      <link>http://localhost:1313/test-page-5/</link>
       <pubDate>Sun, 25 Jan 2026 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/mysite/test-page-5/</guid>
+      <guid>http://localhost:1313/test-page-5/</guid>
       <description>&lt;p&gt;test page&lt;/p&gt;&#xA;&lt;p&gt;&lt;img src=&#34;cover_DSCN7619.JPEG&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;</description>
     </item>
   </channel>

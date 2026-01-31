@@ -36,10 +36,11 @@ views:
       - color
       - tags
     sort:
+      - property: draft
+        direction: DESC
       - property: title
         direction: ASC
-    summaries:
-      date: Earliest
+    summaries: {}
     columnSize:
       note.draft: -27
       note.date: 119
