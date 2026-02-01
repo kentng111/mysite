@@ -22,20 +22,10 @@ a:hover {
   text-decoration: none !important;
 }
 
-//nnn 1.3 スティッキータイトルバーとアンカー補正
-.page-title-bar {
-  //position: sticky;
-  top: var(--header-h);
-  z-index: 90;
-  display: flex;
-  align-items: center;
-  width: 100%;
+//nnn 1.3 ページタイトル非表示
+.book-page .page-title {
+  display: none !important;
 }
-
-.markdown :is(h2, h3, h4, h5, h6)[id] {
-  scroll-margin-top: calc(var(--header-h) + 56px);
-}
-
 
 //nnn 2. ヘッダー構造
 
@@ -61,8 +51,8 @@ a:hover {
 }
 
 //nnn 2.1.2 ヘッダー高さとページ余白
-:root { --header-h: 30px; }
-.book-page { padding-top: var(--header-h); }
+:root { --header-h: 40px; --page-title-color: inherit; }
+.book-page { padding-top: calc(var(--header-h) * 1.1); }
 
 //nnn 2.1.3 ヘッダーバーのレイアウト
 .header-bar {
@@ -76,27 +66,37 @@ a:hover {
 }
 
 //nnn 2.1.4 ロゴ表示制御（brand-slot / site-logo）
-.site-logo {
-  display: block !important;
+// 1. ロゴとタイトルを包むコンテナ（aタグ）
+.brand-container {
+  display: flex !important;
+  flex-direction: column;    /* 縦に並べる */
+  align-items: center;       /* 中央揃え */
+  justify-content: center;   /* 上下中央揃え */
+  gap: 2px;                  /* ロゴとタイトルの隙間 */
+  text-decoration: none !important;
+  
+  // PC表示で消さないようにする場合の調整（nnn 2.2に関連）
   visibility: visible !important;
-  opacity: 1 !important;
-  height: 30px !important;
-  width: auto !important;
-  margin: 0 auto !important;
 }
 
-.book-header .book-brand {
-  display: inline-flex !important; align-items: center; 
-  }
-.book-header .book-brand img {
-  height: 30px; width: auto; 
-  }
-
+// 2. ロゴ画像を表示するスロット
 .brand-slot {
-  display: inline-block !important;
-  width: 180px;
-  height: 30px;
+  display: block !important;
+  width: 180px;              /* ロゴの幅 */
+  height: 28px;              /* ロゴの高さ（タイトルのために少し抑える） */
   background: url("/img/snu_logo2.svg") center/contain no-repeat;
+  margin: 0 auto;
+}
+
+// 3. ページタイトルのテキスト
+.header-page-title {
+  font-size: 0.75rem;         /* 小さめに設定 */
+  font-weight: 600;          /* 太字で視認性を確保 */
+  color: var(--page-title-color, inherit);
+  line-height: 1.1;
+  text-align: center;
+  white-space: nowrap;       /* 改行させない */
+  opacity: 0.9;              /* 少し馴染ませる */
 }
 
 //nnn 2.2 ヘッダーブランド表示のPC最適化
@@ -320,15 +320,55 @@ a:hover {
   border-radius: 0rem;
   background: #fff;
   cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
 }
 
-.and-filter-group .is-checked,
-.and-sort-group .is-checked,
-.and-view-group .is-checked {
+@media (prefers-color-scheme: dark) {
+  .and-filter-group button,
+  .and-sort-group button,
+  .and-view-group button {
+    background: #2a2a2a;
+    border-color: #444;
+    color: #fff;
+  }
+}
+
+.and-filter-group .is-checked {
   background: #3ad761;
   color: #fff;
   border-color: #299444;
   border-radius: 0rem;
+}
+
+.and-sort-group .is-checked {
+  background: #3b82f6;
+  color: #fff;
+  border-color: #1d4ed8;
+  border-radius: 0rem;
+}
+
+.and-view-group .is-checked {
+  background: #f59e0b;
+  color: #fff;
+  border-color: #d97706;
+  border-radius: 0rem;
+}
+
+@media (prefers-color-scheme: dark) {
+  .and-filter-group .is-checked {
+    background: #2a8f4a;
+    border-color: #1f6835;
+  }
+
+  .and-sort-group .is-checked {
+    background: #1e40af;
+    border-color: #1e3a8a;
+  }
+
+  .and-view-group .is-checked {
+    background: #b45309;
+    border-color: #92400e;
+  }
 }
 
 //nnn 4.2 Viewモード別レイアウト
@@ -359,7 +399,7 @@ a:hover {
 .view--content .grid-item { width: 100%; }
 @media (min-width: 900px) { .view--content .grid-item { width: 50%; } }
 .view--content .card { aspect-ratio: auto; }
-.view--content .excerpt { -webkit-line-clamp: 10; }
+.view--content .excerpt { -webkit-line-clamp: 10; line-clamp: 10; }
 
 
 //nnn 4.3 カード内テキスト表現 
@@ -370,6 +410,7 @@ a:hover {
   line-height: 1.5;
   display: -webkit-box;
   -webkit-line-clamp: 4;
+  line-clamp: 4;
   -webkit-box-orient: vertical;
   overflow: hidden;
 }

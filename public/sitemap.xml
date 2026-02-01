@@ -38,13 +38,13 @@
     <loc>http://localhost:1313/tags/contact/</loc>
     <lastmod>2024-01-02T00:00:00+00:00</lastmod>
   </url><url>
+    <loc>http://localhost:1313/about-us/</loc>
+    <lastmod>2024-01-01T00:00:00+00:00</lastmod>
+  </url><url>
     <loc>http://localhost:1313/tags/information/</loc>
     <lastmod>2024-01-01T00:00:00+00:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/people/</loc>
-    <lastmod>2024-01-01T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>http://localhost:1313/s.n.u/</loc>
     <lastmod>2024-01-01T00:00:00+00:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/categories/</loc>
