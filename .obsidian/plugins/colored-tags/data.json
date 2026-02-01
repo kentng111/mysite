@@ -12,11 +12,10 @@
   "knownTags": {
     "architecture": 1,
     "contact": 2,
-    "hello": 3,
-    "hogehoge": 4,
     "information": 5,
     "mixitup": 6,
-    "new": 7
+    "photo": 7,
+    "recommend": 8
   },
   "tagColors": {},
   "_version": 4

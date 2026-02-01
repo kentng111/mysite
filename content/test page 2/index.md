@@ -2,8 +2,7 @@
 title: test page 2
 date: 2025-12-29
 tags:
-  - hello
-  - hogehoge
+  - architecture
 draft: true
 color: "#F28DA8"
 ---

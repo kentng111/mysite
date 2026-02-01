@@ -2,8 +2,7 @@
 title: test page 1
 date: 2026-01-28
 tags:
-  - hello
-  - new
+  - architecture
 draft: true
 color: "#BF5A75"
 ---

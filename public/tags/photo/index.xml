@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Photo on s.n.u</title>
+    <link>http://localhost:1313/tags/photo/</link>
+    <description>Recent content in Photo on s.n.u</description>
+    <generator>Hugo</generator>
+    <language>ja</language>
+    <lastBuildDate>Fri, 09 Jan 2026 00:00:00 +0000</lastBuildDate>
+    <atom:link href="http://localhost:1313/tags/photo/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>test page 4</title>
+      <link>http://localhost:1313/test-page-4/</link>
+      <pubDate>Fri, 09 Jan 2026 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/test-page-4/</guid>
+      <description>&lt;p&gt;test page&lt;/p&gt;&#xA;&lt;p&gt;&lt;img src=&#34;cover_IMG_0859.jpeg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;&#xA;&lt;p&gt;&lt;img src=&#34;IMG_1986.JPEG&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

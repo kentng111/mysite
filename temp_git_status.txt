@@ -1,4 +1,49 @@
+ M .obsidian/plugins/colored-tags/data.json
  M .obsidian/workspace.json
- M content/_index.md
- M content/contact/index.md
+ M "content/test page 1/index.md"
+ M "content/test page 2/index.md"
+ M "content/test page 3/index.md"
+ M "content/test page 4/index.md"
+ M "content/test page 5/index.md"
+ M public/404.html
+ M public/categories/index.html
+ M public/contact/index.html
+ M public/favicon.png
+ M public/favicon.svg
+ M public/index.html
+ M public/index.xml
+ M public/people/index.html
+ M public/s.n.u/index.html
+ M public/sitemap.xml
+ M public/tags/architecture/index.html
+ M public/tags/architecture/index.xml
+ M public/tags/contact/index.html
+ M public/tags/contact/index.xml
+ M public/tags/hello/index.html
+ M public/tags/hello/index.xml
+ M public/tags/hogehoge/index.html
+ M public/tags/hogehoge/index.xml
+ M public/tags/index.html
+ M public/tags/index.xml
+ M public/tags/information/index.html
+ M public/tags/information/index.xml
+ M public/tags/mixitup/index.html
+ M public/tags/mixitup/index.xml
+ M public/tags/new/index.html
+ M public/tags/new/index.xml
+ M public/test-page-1/index.html
+ M public/test-page-2/index.html
+ M public/test-page-3/index.html
+ M public/test-page-4/index.html
+ M public/test-page-5/index.html
+ D static/mail.php
  M temp_git_status.txt
+?? public/en.search-data.min.1a6ad916de720b7e95490805ffe628f6b542bbcd8873c6a1ebe3053eb28131d2.json
+?? public/en.search.min.0b76467d37e496e11571b84af1ce8975345cae3e63cc3e0f3eb1a9a164d699f6.js
+?? public/favicon.af
+?? public/tags/photo/
+?? public/tags/recomend/
+?? public/tags/recommend/
+?? public/tags/test/
+?? static/favicon.png
+?? static/favicon.svg

@@ -148,7 +148,7 @@
                 "searchQuery": ""
               },
               "icon": "lucide-tags",
-              "title": "タグ"
+              "title": "Tags"
             }
           },
           {
@@ -181,7 +181,7 @@
             }
           }
         ],
-        "currentTab": 3
+        "currentTab": 2
       }
     ],
     "direction": "horizontal",
@@ -203,24 +203,26 @@
   },
   "active": "52eabfc5bf6d3f09",
   "lastOpenFiles": [
-    "260201日_mysite.zip",
-    "mysite.zip",
+    "public/favicon.af",
+    "static/favicon.af",
+    "static/favicon.svg",
+    "static/favicon.png",
+    "public/tags/recommend/index.xml",
+    "public/tags/recommend/page/1/index.html",
+    "public/tags/recommend/page/1",
+    "public/tags/recommend/index.html",
+    "public/tags/recommend/page",
+    "public/tags/recommend",
+    "public/tags/recomend/index.xml",
+    "public/tags/recomend/page/1/index.html",
+    "public/tags/recomend/page/1",
     "content/contact/index.md",
-    "admin/content.base",
     "content/_index.md",
     "content/s.n.u/index.md",
-    "temp_git_status.txt",
-    "public/en.search.min.392cf998e6076b05606c60bcb2a66ac3d205d55fc9df3ee1e90b7bd6626383c8.js",
-    "public/en.search-data.min.184b1200fcd361c84b7be7921c19f1ed50857c5c97d3eef339f0ea8b9065e11e.json",
-    "layouts/_partials/docs/html-head.html",
     "content/test page 5/index.md",
     "admin/メモ.md",
     "admin/アップロード手順.md",
     "admin/Untitled.md",
-    "public/book.min.e4d4f4bf2c0fd37ca530a9b3c6a90a5a3746eb3504553853bdb1f35577aa15da.css",
-    "assets/_custom.scss",
-    "assets/scss/custom.scss",
-    "layouts/_partials/docs/inject/body.html",
     "public/favicon.svg",
     "public/favicon.png",
     "public/icons/calendar.svg",
@@ -229,8 +231,6 @@
     "public/test-page-4/IMG_1986.JPEG",
     "public/test-page-4/IMG_1852.jpeg",
     "public/test-page-4/cover_IMG_0859.jpeg",
-    "public/s.n.u/cover_snu.jpeg",
-    "public/test-page-5/cover_DSCN7619.JPEG",
     "content/test page 4/index.md",
     "content/test page 1/index.md",
     "content/test page 3/index.md",

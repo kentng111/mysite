@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Works on s.n.u</title>
+    <title>s.n.u</title>
     <link>http://localhost:1313/</link>
-    <description>Recent content in Works on s.n.u</description>
+    <description>Recent content on s.n.u</description>
     <generator>Hugo</generator>
     <language>ja</language>
     <lastBuildDate>Wed, 28 Jan 2026 00:00:00 +0000</lastBuildDate>
@@ -46,9 +46,9 @@
     <item>
       <title>contact</title>
       <link>http://localhost:1313/contact/</link>
-      <pubDate>Mon, 01 Jan 2024 00:00:00 +0000</pubDate>
+      <pubDate>Tue, 02 Jan 2024 00:00:00 +0000</pubDate>
       <guid>http://localhost:1313/contact/</guid>
-      <description>&lt;form action=&#34;https://ssgform.com/s/8GZjIVpyN5AV&#34; method=&#34;post&#34;&gt;&#xA;  &lt;p&gt;&#xA;    &lt;label for=&#34;name&#34;&gt;Name&lt;/label&gt;&lt;br&gt;&#xA;    &lt;input&#xA;      type=&#34;text&#34;&#xA;      id=&#34;name&#34;&#xA;      name=&#34;name&#34;&#xA;      placeholder=&#34;Name&#34;&#xA;      required&#xA;      style=&#34;width:100%; box-sizing:border-box;&#34;&gt;&#xA;  &lt;/p&gt;&#xA;  &lt;p&gt;&#xA;    &lt;label for=&#34;email&#34;&gt;Email&lt;/label&gt;&lt;br&gt;&#xA;    &lt;input&#xA;      type=&#34;email&#34;&#xA;      id=&#34;email&#34;&#xA;      name=&#34;email&#34;&#xA;      placeholder=&#34;example@gmail.com&#34;&#xA;      required&#xA;      style=&#34;width:100%; box-sizing:border-box;&#34;&gt;&#xA;  &lt;/p&gt;&#xA;  &lt;p&gt;&#xA;    &lt;label for=&#34;message&#34;&gt;Message&lt;/label&gt;&lt;br&gt;&#xA;    &lt;textarea&#xA;      id=&#34;message&#34;&#xA;      name=&#34;message&#34;&#xA;      rows=&#34;10&#34;&#xA;      required&#xA;      style=&#34;width:100%; box-sizing:border-box;&#34;&gt;&lt;/textarea&gt;&#xA;  &lt;/p&gt;&#xA;  &lt;p&gt;&#xA;    &lt;button type=&#34;submit&#34;&gt;Submit&lt;/button&gt;&#xA;  &lt;/p&gt;&#xA;&lt;/form&gt;</description>
+      <description>&lt;form action=&#34;https://ssgform.com/s/8GZjIVpyN5AV&#34; method=&#34;post&#34;&gt;&#xA;  &lt;p&gt;&#xA;    &lt;label for=&#34;name&#34;&gt;Name&lt;/label&gt;&lt;br&gt;&#xA;    &lt;input&#xA;      type=&#34;text&#34;&#xA;      id=&#34;name&#34;&#xA;      name=&#34;name&#34;&#xA;      placeholder=&#34;Name&#34;&#xA;      required&#xA;      style=&#34;width:100%; box-sizing:border-box;&#34;&gt;&#xA;  &lt;/p&gt;&#xA;  &lt;p&gt;&#xA;    &lt;label for=&#34;email&#34;&gt;Email&lt;/label&gt;&lt;br&gt;&#xA;    &lt;input&#xA;      type=&#34;email&#34;&#xA;      id=&#34;email&#34;&#xA;      name=&#34;email&#34;&#xA;      placeholder=&#34;email@example.com&#34;&#xA;      required&#xA;      style=&#34;width:100%; box-sizing:border-box;&#34;&gt;&#xA;  &lt;/p&gt;&#xA;  &lt;p&gt;&#xA;    &lt;label for=&#34;message&#34;&gt;Message&lt;/label&gt;&lt;br&gt;&#xA;    &lt;textarea&#xA;      id=&#34;message&#34;&#xA;      name=&#34;message&#34;&#xA;      rows=&#34;10&#34;&#xA;      required&#xA;      style=&#34;width:100%; box-sizing:border-box;&#34;&gt;&lt;/textarea&gt;&#xA;  &lt;/p&gt;&#xA;  &lt;p&gt;&#xA;    &lt;button type=&#34;submit&#34;&gt;Submit&lt;/button&gt;&#xA;  &lt;/p&gt;&#xA;&lt;/form&gt;</description>
     </item>
     <item>
       <title>people</title>
