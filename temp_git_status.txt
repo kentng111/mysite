@@ -1,3 +1,4 @@
  M .obsidian/workspace.json
+ M content/_index.md
  M content/contact/index.md
  M temp_git_status.txt

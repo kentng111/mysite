@@ -1,4 +1,4 @@
 ---
-title: "Works"
-layout: "list"
+title:
+layout: list
 ---

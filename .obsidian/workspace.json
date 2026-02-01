@@ -23,7 +23,7 @@
             }
           },
           {
-            "id": "bb3fbfd83595cedf",
+            "id": "980b09ff17dfd0d0",
             "type": "leaf",
             "state": {
               "type": "markdown",
@@ -35,23 +35,8 @@
               "icon": "lucide-file",
               "title": "index"
             }
-          },
-          {
-            "id": "dd7d7de55431f9ea",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "content/s.n.u/index.md",
-                "mode": "source",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "index"
-            }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "vertical"
@@ -216,11 +201,14 @@
       "workspaces:Manage workspace layouts": false
     }
   },
-  "active": "bb3fbfd83595cedf",
+  "active": "52eabfc5bf6d3f09",
   "lastOpenFiles": [
-    "content/s.n.u/index.md",
-    "admin/content.base",
+    "260201日_mysite.zip",
+    "mysite.zip",
     "content/contact/index.md",
+    "admin/content.base",
+    "content/_index.md",
+    "content/s.n.u/index.md",
     "temp_git_status.txt",
     "public/en.search.min.392cf998e6076b05606c60bcb2a66ac3d205d55fc9df3ee1e90b7bd6626383c8.js",
     "public/en.search-data.min.184b1200fcd361c84b7be7921c19f1ed50857c5c97d3eef339f0ea8b9065e11e.json",
@@ -233,7 +221,6 @@
     "assets/_custom.scss",
     "assets/scss/custom.scss",
     "layouts/_partials/docs/inject/body.html",
-    "public/index.xml",
     "public/favicon.svg",
     "public/favicon.png",
     "public/icons/calendar.svg",
@@ -248,7 +235,6 @@
     "content/test page 1/index.md",
     "content/test page 3/index.md",
     "content/test page 2/index.md",
-    "content/_index.md",
     "content/testpage 5/index.md",
     "content/test+4/index.md",
     "content/test+34/index.md",
