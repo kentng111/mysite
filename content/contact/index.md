@@ -3,7 +3,7 @@ title: contact
 tags:
   - contact
 date: 2024-01-01
-draft: true
+draft: false
 color: "#F1F0F2"
 ---
 <form action="https://ssgform.com/s/8GZjIVpyN5AV" method="post">
@@ -24,7 +24,7 @@ color: "#F1F0F2"
       type="email"
       id="email"
       name="email"
-      placeholder="example@gmail.com"
+      placeholder="email@example.com"
       required
       style="width:100%; box-sizing:border-box;">
   </p>
