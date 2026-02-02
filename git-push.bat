@@ -1,23 +1,45 @@
 @echo off
+setlocal EnableExtensions
+
 cd /d "%~dp0"
 
-git status --porcelain > temp_git_status.txt
-
-if %errorlevel% neq 0 (
-  echo Git error.
+:: Gitが動くか確認
+git rev-parse --is-inside-work-tree >nul 2>&1
+if errorlevel 1 (
+  echo [ERROR] このフォルダはGitリポジトリではないか、Gitが実行できません。
   pause
-  exit /b
+  exit /b 1
 )
 
-for %%A in (temp_git_status.txt) do (
-  git add .
-  git commit -m "update site"
-  git push
-  del temp_git_status.txt
-  pause
-  exit /b
+:: 変更があるかチェック（1行でもあれば変更扱い）
+set "CHANGED="
+for /f "delims=" %%A in ('git status --porcelain') do (
+  set "CHANGED=1"
+  goto :DO_PUSH
 )
 
-echo No changes to commit.
-del temp_git_status.txt
+if not defined CHANGED (
+  echo 変更はありません。
+  pause
+  exit /b 0
+)
+
+:DO_PUSH
+echo 変更を検出しました。アップロードを開始します...
+
+git add -A
+git commit -m "update site" >nul 2>&1
+:: commit は「コミットするものがない」でも errorlevel が立つことがあるので、
+:: ここでは push の成否を重視します。
+
+git push
+if errorlevel 1 (
+  echo.
+  echo [ERROR] アップロードに失敗しました。上記のエラーメッセージを確認してください。
+  pause
+  exit /b 1
+)
+
+echo.
+echo アップロードが正常に完了しました！
 pause
