@@ -1,41 +1,38 @@
 @echo off
-setlocal EnableExtensions
-
+setlocal
 cd /d "%~dp0"
 
-:: Gitが動くか確認
+echo ==============================
+echo Git Push (Hugo / GitHub Pages)
+echo Working directory:
+echo %cd%
+echo ==============================
+
+REM --- Gitリポジトリ確認 ---
 git rev-parse --is-inside-work-tree >nul 2>&1
 if errorlevel 1 (
-  echo [ERROR] このフォルダはGitリポジトリではないか、Gitが実行できません。
+  echo ERROR: This is not a git repository.
   pause
   exit /b 1
 )
 
-:: 変更があるかチェック（1行でもあれば変更扱い）
-set "CHANGED="
-for /f "delims=" %%A in ('git status --porcelain') do (
-  set "CHANGED=1
-)
+REM --- 変更確認 ---
+git status --porcelain > temp_git_status.txt
 
-if not defined CHANGED (
-  echo 変更はありません。
-  pause
-  exit /b 0
-)
+for %%A in (temp_git_status.txt) do (
+  echo Changes detected. Committing...
 
-echo 変更を検出しました。アップロードを開始します...
+  git add .
+  git commit -m "update site"
+  git push
 
-git add -A
-git commit -m "update site" >nul 2>&1
-
-git push
-if errorlevel 1 (
+  del temp_git_status.txt
   echo.
-  echo [ERROR] アップロードに失敗しました。上記のエラーメッセージを確認してください。
+  echo Push completed.
   pause
-  exit /b 1
+  exit /b
 )
 
-echo.
-echo アップロードが正常に完了しました！
+echo No changes to commit.
+del temp_git_status.txt
 pause
