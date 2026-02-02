@@ -14,8 +14,7 @@ if errorlevel 1 (
 :: 変更があるかチェック（1行でもあれば変更扱い）
 set "CHANGED="
 for /f "delims=" %%A in ('git status --porcelain') do (
-  set "CHANGED=1"
-  goto :DO_PUSH
+  set "CHANGED=1
 )
 
 if not defined CHANGED (
@@ -24,13 +23,10 @@ if not defined CHANGED (
   exit /b 0
 )
 
-:DO_PUSH
 echo 変更を検出しました。アップロードを開始します...
 
 git add -A
 git commit -m "update site" >nul 2>&1
-:: commit は「コミットするものがない」でも errorlevel が立つことがあるので、
-:: ここでは push の成否を重視します。
 
 git push
 if errorlevel 1 (
