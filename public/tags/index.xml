@@ -2,59 +2,59 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Tags on s.n.u</title>
-    <link>http://localhost:1313/tags/</link>
+    <link>http://localhost:57679/tags/</link>
     <description>Recent content in Tags on s.n.u</description>
     <generator>Hugo</generator>
     <language>ja</language>
     <lastBuildDate>Wed, 28 Jan 2026 00:00:00 +0000</lastBuildDate>
-    <atom:link href="http://localhost:1313/tags/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://localhost:57679/tags/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Odd</title>
-      <link>http://localhost:1313/tags/odd/</link>
+      <link>http://localhost:57679/tags/odd/</link>
       <pubDate>Wed, 28 Jan 2026 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/tags/odd/</guid>
+      <guid>http://localhost:57679/tags/odd/</guid>
       <description></description>
     </item>
     <item>
       <title>One</title>
-      <link>http://localhost:1313/tags/one/</link>
+      <link>http://localhost:57679/tags/one/</link>
       <pubDate>Wed, 28 Jan 2026 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/tags/one/</guid>
+      <guid>http://localhost:57679/tags/one/</guid>
       <description></description>
     </item>
     <item>
       <title>Five</title>
-      <link>http://localhost:1313/tags/five/</link>
+      <link>http://localhost:57679/tags/five/</link>
       <pubDate>Sun, 25 Jan 2026 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/tags/five/</guid>
+      <guid>http://localhost:57679/tags/five/</guid>
       <description></description>
     </item>
     <item>
       <title>Even</title>
-      <link>http://localhost:1313/tags/even/</link>
+      <link>http://localhost:57679/tags/even/</link>
       <pubDate>Fri, 09 Jan 2026 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/tags/even/</guid>
+      <guid>http://localhost:57679/tags/even/</guid>
       <description></description>
     </item>
     <item>
       <title>Tree</title>
-      <link>http://localhost:1313/tags/tree/</link>
+      <link>http://localhost:57679/tags/tree/</link>
       <pubDate>Sun, 04 Jan 2026 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/tags/tree/</guid>
+      <guid>http://localhost:57679/tags/tree/</guid>
       <description></description>
     </item>
     <item>
       <title>Contact</title>
-      <link>http://localhost:1313/tags/contact/</link>
+      <link>http://localhost:57679/tags/contact/</link>
       <pubDate>Tue, 02 Jan 2024 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/tags/contact/</guid>
+      <guid>http://localhost:57679/tags/contact/</guid>
       <description></description>
     </item>
     <item>
       <title>Information</title>
-      <link>http://localhost:1313/tags/information/</link>
+      <link>http://localhost:57679/tags/information/</link>
       <pubDate>Mon, 01 Jan 2024 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/tags/information/</guid>
+      <guid>http://localhost:57679/tags/information/</guid>
       <description></description>
     </item>
   </channel>

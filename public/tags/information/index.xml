@@ -2,24 +2,24 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Information on s.n.u</title>
-    <link>http://localhost:1313/tags/information/</link>
+    <link>http://localhost:57679/tags/information/</link>
     <description>Recent content in Information on s.n.u</description>
     <generator>Hugo</generator>
     <language>ja</language>
     <lastBuildDate>Mon, 01 Jan 2024 00:00:00 +0000</lastBuildDate>
-    <atom:link href="http://localhost:1313/tags/information/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://localhost:57679/tags/information/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>about us</title>
-      <link>http://localhost:1313/about-us/</link>
+      <link>http://localhost:57679/about-us/</link>
       <pubDate>Mon, 01 Jan 2024 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/about-us/</guid>
+      <guid>http://localhost:57679/about-us/</guid>
       <description>&lt;p&gt;&lt;img src=&#34;cover_snu.jpeg&#34; alt=&#34;&#34; /&gt;&lt;br&gt;&#xA;s.n.uは日本およびポーランドを拠点とするグローバルな建築・デザイン事務所です。&lt;/p&gt;&#xA;&lt;p&gt;s.n.u is a global architecture and design practice based in Japan and Poland.&lt;/p&gt;</description>
     </item>
     <item>
       <title>people</title>
-      <link>http://localhost:1313/people/</link>
+      <link>http://localhost:57679/people/</link>
       <pubDate>Mon, 01 Jan 2024 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/people/</guid>
+      <guid>http://localhost:57679/people/</guid>
       <description>&lt;hr&gt;&#xA;&lt;p&gt;下岡 未歩&lt;br&gt;&#xA;Miho Shimooka&lt;/p&gt;&#xA;&lt;hr&gt;&#xA;&lt;p&gt;長尾 謙登&lt;br&gt;&#xA;Kento Nagao&lt;/p&gt;&#xA;&lt;hr&gt;</description>
     </item>
   </channel>
