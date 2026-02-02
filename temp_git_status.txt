@@ -1,2 +1,0 @@
- M git-push.bat
- M temp_git_status.txt
