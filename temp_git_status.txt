@@ -1,5 +1,3 @@
- D public/book.min.5d55a3a7e3838348b37201f3d126f69331c58d74ecdd5d1f1e5aa0b45edb0be8.css
- D public/book.min.da5cf539f2c2683fd8cfca59df0e09836e3e9b9de88aeb69bc3f066cf827f171.css
- M public/favicon.svg
- M static/favicon.svg
+ M public/favicon.png
+ M static/favicon.png
  M temp_git_status.txt
