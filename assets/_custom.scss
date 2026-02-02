@@ -458,18 +458,18 @@ a:hover {
   }
 }
 
-// nnn 4.1.5
+// nnn 4.1.5 コントロール開閉アニメーション
 // --- コントロール開閉ボタン ---
 .controls-toggle-btn {
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  margin-bottom: 0.5rem;
-  padding: 0.4rem 0.8rem;
+  margin-bottom: 0.3rem;
+  padding: 0.4rem 0.4rem;
   background: transparent;
   border: 1px solid #ddd;
   cursor: pointer;
-  font-size: 0.9rem;
+  font-size: 0.8rem;
   font-weight: 600;
   transition: background 0.2s;
 

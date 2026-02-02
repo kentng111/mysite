@@ -48,7 +48,6 @@
 
     <!-- ===== 検索ボックス（filter の上） ===== -->
 <button type="button" id="controls-toggle-btn" class="controls-toggle-btn">
-      <span class="btn-text">Controls</span>
       <span class="btn-icon">▼</span>
     </button>
 
@@ -57,14 +56,14 @@
         
         <div class="search-bar">
           <label for="search-input">search :</label>
-          <input type="text" id="search-input" placeholder="Type to filter..." />
+          <input type="text" id="search-input" placeholder="type to filter..." />
         </div>
 
         <div class="controls-vertical">
           <div class="controls-row">
             <span class="controls-label">tags :</span>
             <div class="and-filter-group">
-              <button class="is-checked" data-tag="all">All</button>
+              <button class="is-checked" data-tag="all">all</button>
               {{ range sort $tags }}
                 <button data-tag=".{{ . }}">{{ index $tagNameMap . }}</button>
               {{ end }}
@@ -74,19 +73,19 @@
           <div class="controls-row">
             <span class="controls-label">sort :</span>
             <div class="and-sort-group">
-              <button class="is-checked" data-sort="title:asc">A-Z</button>
-              <button data-sort="title:desc">Z-A</button>
-              <button data-sort="date:desc">Newest</button>
-              <button data-sort="date:asc">Oldest</button>
+              <button class="is-checked" data-sort="date:desc">newest</button>
+              <button data-sort="date:asc">oldest</button>
+              <button data-sort="title:asc">a-z</button>
+              <button data-sort="title:desc">z-a</button>
             </div>
           </div>
 
           <div class="controls-row">
             <span class="controls-label">view :</span>
             <div class="and-view-group">
-              <button class="is-checked" data-view="icons">Icons</button>
-              <button data-view="details">Details</button>
-              <button data-view="content">Content</button>
+              <button class="is-checked" data-view="icons">icons</button>
+              <button data-view="details">details</button>
+              <button data-view="content">content</button>
             </div>
           </div>
         </div>

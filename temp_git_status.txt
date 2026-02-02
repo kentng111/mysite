@@ -2,7 +2,17 @@
  M layouts/_default/list.html
  M public/404.html
  M public/about-us/index.html
- D public/book.min.b1f267b98ca6d2911ca8a6614be74cfcaf4114d462b768ecfda4136faee07f73.css
+ D public/book.min.028539729a0d1dd5893fabae2ab5dffcd2dc9d87af5e1213e45c1cf9508b9941.css
+ D public/book.min.067c530465abcc6e40cf484259ba17cc858b3e00838617d8888eeb6de9d813e7.css
+ D public/book.min.1700a739d0bc116582bf42ef3335d2c6f22f0e59631ca4cf3207ddf80ee48d2f.css
+ D public/book.min.3a35af4a87579a585886ab8b28891bd992060467a17fb64c8c57d94a603eeaf4.css
+ D public/book.min.585d8b0c81793c1a3e0eaf52f58e2f603d84eb3a911d4dc3024971394e567905.css
+ D public/book.min.684294c2592af175a72c53806e8e8793f38e385ac9a5f8a00a8e579d265c1eec.css
+ D public/book.min.7586b813ec2d706a6f338093bdcb8c43f5e89c6aef5f1eb65765d743a21bad35.css
+ D public/book.min.7e4d435fe5f6ca15968b35ba6fc108cc673f83496809fef146abf82784b846c1.css
+ D public/book.min.864791241bee8e11b481c74bf7acb7120ca93d9934c209774aef9469a5f6894f.css
+ D public/book.min.8eb7477feceee944652b1052cb721b6956d91de3e174773c8a22521512effa54.css
+ D public/book.min.e8d73939647644006e55a3c653cd4ea8de5344c5d9e5c884a027df7c4a348024.css
  M public/categories/index.html
  M public/contact/index.html
  M public/index.html
@@ -23,15 +33,12 @@
  M resources/_gen/assets/book.scss_b807c86e8030af4cdc30edccea379f5f.content
  M resources/_gen/assets/book.scss_b807c86e8030af4cdc30edccea379f5f.json
  M temp_git_status.txt
-?? public/book.min.028539729a0d1dd5893fabae2ab5dffcd2dc9d87af5e1213e45c1cf9508b9941.css
-?? public/book.min.067c530465abcc6e40cf484259ba17cc858b3e00838617d8888eeb6de9d813e7.css
-?? public/book.min.1700a739d0bc116582bf42ef3335d2c6f22f0e59631ca4cf3207ddf80ee48d2f.css
-?? public/book.min.3a35af4a87579a585886ab8b28891bd992060467a17fb64c8c57d94a603eeaf4.css
-?? public/book.min.585d8b0c81793c1a3e0eaf52f58e2f603d84eb3a911d4dc3024971394e567905.css
-?? public/book.min.684294c2592af175a72c53806e8e8793f38e385ac9a5f8a00a8e579d265c1eec.css
-?? public/book.min.7586b813ec2d706a6f338093bdcb8c43f5e89c6aef5f1eb65765d743a21bad35.css
-?? public/book.min.7e4d435fe5f6ca15968b35ba6fc108cc673f83496809fef146abf82784b846c1.css
-?? public/book.min.864791241bee8e11b481c74bf7acb7120ca93d9934c209774aef9469a5f6894f.css
-?? public/book.min.8eb7477feceee944652b1052cb721b6956d91de3e174773c8a22521512effa54.css
-?? public/book.min.a354bcf00685efdbd7a5ccc71797928426ceb7fdc25a2d7d291ea8426ab7e5b4.css
-?? public/book.min.e8d73939647644006e55a3c653cd4ea8de5344c5d9e5c884a027df7c4a348024.css
+?? public/book.min.1607fa2e6f3dc1162b5748bab55b9282f3ea099d76eff42e05c21c017d8cb5cd.css
+?? public/book.min.4ad312eb7b13c441dc02b5799f973fd9ba38be2b324c900b20b41f6749890eaa.css
+?? public/book.min.5263be6098549d93b643e4f313c6802d0b3fe16322cf279d330b72f811396b6f.css
+?? public/book.min.880120cbbb594457d3f2784d5b4627f574472d88284afa7f6687498a04546b88.css
+?? public/book.min.8a997fb113fe235b8b71e77cb4a811d9b655750ba14ed229ad0ffc3734533d3c.css
+?? public/book.min.99b67a1eed10b58caf970634f3ea5f368ff144453bb755f5e01969b2a790cbf7.css
+?? public/book.min.a1caa31edce3c3a7e40fba99440e2af19e3a42a31c42237630b859792b22d4b7.css
+?? public/book.min.d4def8c3961baaeca2921ce168fb8f3595b0278dd36073887e46dca83f7715f5.css
+?? public/book.min.e4a4bd5c1a0b1f4ed738d1ca88fde2363a6533dd5125ae224fdee6f0cda4d0f0.css
