@@ -62,7 +62,7 @@
 
         <div class="controls-vertical">
           <div class="controls-row">
-            <span class="controls-label">filter :</span>
+            <span class="controls-label">tags :</span>
             <div class="and-filter-group">
               <button class="is-checked" data-tag="all">All</button>
               {{ range sort $tags }}
@@ -130,7 +130,18 @@
             {{ end }}
 
             <div class="card-inner">
-              <div class="title">{{ .Title }}</div>
+  
+              <div class="card-main-col">
+                <div class="title">{{ .Title }}</div>
+
+                <div class="card-tags">
+                  {{ with .Params.tags }}
+                    {{ range . }}
+                      <span class="tag-pill">#{{ . }}</span>
+                    {{ end }}
+                  {{ end }}
+                </div>
+              </div>
               <div class="meta">{{ .Date.Format "2006-01-02" }}</div>
               <div class="excerpt">{{ with .Summary }}{{ . }}{{ end }}</div>
             </div>

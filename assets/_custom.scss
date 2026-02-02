@@ -144,7 +144,7 @@ a:hover {
 // nnn 3.1.2 動的列数（icons view）
 .view--icons {
   --col-count: 2; // JSが動く前のデフォルトをスマホ向けにしておく
-
+    margin: 0 -.3rem;
   .grid-item {
     box-sizing: border-box;
     padding: .3rem;
@@ -272,7 +272,8 @@ a:hover {
   input {
     flex: 1;
     max-width: 300px;
-    padding: .4rem .6rem;
+    padding: 0rem .4rem;
+    height: 25px;
     border: 1px solid #ccc;
     border-radius: 0rem;
   }
@@ -308,10 +309,11 @@ a:hover {
   flex-wrap: wrap;
 }
 
+/* 1. ボタンの基本スタイル（全グループ共通・四角） */
 .and-filter-group button,
 .and-sort-group button,
 .and-view-group button {
-  padding: .2rem .2rem;
+  padding: .2rem .4rem;
   border: 1px solid #ddd;
   border-radius: 0rem;
   background: #fff;
@@ -319,6 +321,21 @@ a:hover {
   transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
 }
 
+/* 2. Filterボタンの「All以外」を角丸（ピル型）にする */
+.and-filter-group button:not([data-tag="all"]) {
+  border-radius: 99px;
+  padding: .2rem .8rem;
+}
+
+/* 「All」ボタンの未選択時をグレーにする */
+.and-filter-group button[data-tag="all"] {
+  background: rgba(182, 182, 182, 0.8); /* 薄いグレー */
+  color: rgb(102, 102, 102);
+  border-color: #ddd;
+}
+
+
+/* ダークモード対応（ボタン背景） */
 @media (prefers-color-scheme: dark) {
   .and-filter-group button,
   .and-sort-group button,
@@ -327,15 +344,35 @@ a:hover {
     border-color: #444;
     color: #fff;
   }
+  
+  /* Allボタンのダークモード用グレー */
+  .and-filter-group button[data-tag="all"] {
+    background: #cdcdcd;
+    color: #2f2f2f;
+  }
 }
 
+
+/* 3. 選択中（Active）のデザイン */
+
+/* Filterグループの選択時（基本設定） */
 .and-filter-group .is-checked {
   background: #3ad761;
   color: #fff;
   border-color: #299444;
-  border-radius: 0rem;
+  border-radius: 99px; /* 丸くする */
 }
 
+/* ★修正：「All」が選択されている時は「四角」かつ「緑色」にする */
+/* ここに色を明記しないと、上のグレー設定が勝ってしまうため再定義します */
+.and-filter-group button[data-tag="all"].is-checked {
+  background: #3ad761;   /* 緑色 */
+  color: #fff;
+  border-color: #299444;
+  border-radius: 0rem;   /* 形は四角 */
+}
+
+/* Sortグループの選択時 */
 .and-sort-group .is-checked {
   background: #3b82f6;
   color: #fff;
@@ -343,6 +380,7 @@ a:hover {
   border-radius: 0rem;
 }
 
+/* Viewグループの選択時 */
 .and-view-group .is-checked {
   background: #f59e0b;
   color: #fff;
@@ -350,8 +388,15 @@ a:hover {
   border-radius: 0rem;
 }
 
+/* ダークモード対応（選択色） */
 @media (prefers-color-scheme: dark) {
   .and-filter-group .is-checked {
+    background: #2a8f4a;
+    border-color: #1f6835;
+  }
+  
+  /* Allボタン選択時のダークモード緑 */
+  .and-filter-group button[data-tag="all"].is-checked {
     background: #2a8f4a;
     border-color: #1f6835;
   }
@@ -360,7 +405,6 @@ a:hover {
     background: #1e40af;
     border-color: #1e3a8a;
   }
-
   .and-view-group .is-checked {
     background: #b45309;
     border-color: #92400e;
@@ -523,6 +567,109 @@ a:hover {
   overflow: hidden;
 }
 
+//nnn 4.4 カード内タグ表示設定
+
+// 1. タグのデザイン共通定義（グローバル）
+.tag-pill {
+  display: inline-block;   /* 横並びにする設定 */
+  font-size: 0.75rem;
+  font-weight: normal;
+  color: #666;
+  border: 1px solid #ddd;
+  background-color: #f9f9f9;
+  padding: 2px 10px;
+  border-radius: 99px;     /* 丸くする */
+  white-space: nowrap;
+  line-height: 1.4;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  width: auto;             /* ★重要：幅が勝手に広がらないようにする */
+}
+
+// ダークモード対応（共通）
+@media (prefers-color-scheme: dark) {
+  .tag-pill {
+    color: #ccc;
+    border-color: #555;
+    background-color: rgba(255,255,255,0.05);
+  }
+}
+
+
+// 2. 各ビューでの配置設定
+
+// Icons ビュー
+.view--icons .card-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin-top: 0.4rem;
+}
+
+// Content ビュー
+.view--content .card-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin-top: 0.5rem;
+}
+
+// Details ビュー
+.view--details {
+  .card-main-col {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    flex-wrap: wrap;
+    min-width: 0;
+  }
+
+  .card-tags {
+    display: flex;
+    gap: 4px;
+  }
+}
+
+// 3. 共通クラスの適用（リスト側）
+.card-tags .tag-pill {
+  /* 定義済みスタイルがそのまま適用されます */
+}
+
+
+//nnn 4.5 個別ページ（Single）のタグ表示
+
+// ★ここを修正しました：Flexboxをやめて安定したブロック配置にします
+.page-tags {
+  display: block;          /* 通常のブロック要素として表示 */
+  margin-top: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.page-tags .tag-item {
+  @extend .tag-pill;       // デザインを継承
+  
+  /* 配置の微調整（marginで間隔を空ける） */
+  margin-right: 0.5rem;
+  margin-bottom: 0.5rem;
+  
+  /* 個別ページ用のサイズ調整 */
+  font-size: 0.8rem; 
+  
+  /* ホバー設定 */
+  &:hover {
+    background-color: #eee;
+    color: #333;
+    text-decoration: none !important;
+  }
+}
+
+// ダークモード対応（個別ページ用）
+@media (prefers-color-scheme: dark) {
+  .page-tags .tag-item:hover {
+    background-color: rgba(255,255,255,0.15);
+    color: #fff;
+  }
+}
 
 //nnn 5. 外部埋め込み・フッター・特殊ページ
 

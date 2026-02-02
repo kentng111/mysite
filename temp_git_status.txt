@@ -1,3 +1,37 @@
- M public/favicon.png
- M static/favicon.png
+ M assets/_custom.scss
+ M layouts/_default/list.html
+ M public/404.html
+ M public/about-us/index.html
+ D public/book.min.b1f267b98ca6d2911ca8a6614be74cfcaf4114d462b768ecfda4136faee07f73.css
+ M public/categories/index.html
+ M public/contact/index.html
+ M public/index.html
+ M public/people/index.html
+ M public/tags/contact/index.html
+ M public/tags/even/index.html
+ M public/tags/five/index.html
+ M public/tags/index.html
+ M public/tags/information/index.html
+ M public/tags/odd/index.html
+ M public/tags/one/index.html
+ M public/tags/tree/index.html
+ M public/test-page-1/index.html
+ M public/test-page-2/index.html
+ M public/test-page-3/index.html
+ M public/test-page-4/index.html
+ M public/test-page-5/index.html
+ M resources/_gen/assets/book.scss_b807c86e8030af4cdc30edccea379f5f.content
+ M resources/_gen/assets/book.scss_b807c86e8030af4cdc30edccea379f5f.json
  M temp_git_status.txt
+?? public/book.min.028539729a0d1dd5893fabae2ab5dffcd2dc9d87af5e1213e45c1cf9508b9941.css
+?? public/book.min.067c530465abcc6e40cf484259ba17cc858b3e00838617d8888eeb6de9d813e7.css
+?? public/book.min.1700a739d0bc116582bf42ef3335d2c6f22f0e59631ca4cf3207ddf80ee48d2f.css
+?? public/book.min.3a35af4a87579a585886ab8b28891bd992060467a17fb64c8c57d94a603eeaf4.css
+?? public/book.min.585d8b0c81793c1a3e0eaf52f58e2f603d84eb3a911d4dc3024971394e567905.css
+?? public/book.min.684294c2592af175a72c53806e8e8793f38e385ac9a5f8a00a8e579d265c1eec.css
+?? public/book.min.7586b813ec2d706a6f338093bdcb8c43f5e89c6aef5f1eb65765d743a21bad35.css
+?? public/book.min.7e4d435fe5f6ca15968b35ba6fc108cc673f83496809fef146abf82784b846c1.css
+?? public/book.min.864791241bee8e11b481c74bf7acb7120ca93d9934c209774aef9469a5f6894f.css
+?? public/book.min.8eb7477feceee944652b1052cb721b6956d91de3e174773c8a22521512effa54.css
+?? public/book.min.a354bcf00685efdbd7a5ccc71797928426ceb7fdc25a2d7d291ea8426ab7e5b4.css
+?? public/book.min.e8d73939647644006e55a3c653cd4ea8de5344c5d9e5c884a027df7c4a348024.css
