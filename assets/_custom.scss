@@ -51,8 +51,15 @@ a:hover {
 }
 
 //nnn 2.1.2 ヘッダー高さとページ余白
-:root { --header-h: 40px; --page-title-color: inherit; }
-.book-page { padding-top: calc(var(--header-h) * 1.1); }
+:root { 
+  --header-h: 40px; /* タイトルがある時を考慮して少し高めに設定 */
+  --page-title-color: inherit; 
+}
+
+/* ページ全体の余白を、固定値ではなく余裕を持たせる */
+.book-page { 
+  padding-top: calc(var(--header-h) + 0px) !important; 
+}
 
 //nnn 2.1.3 ヘッダーバーのレイアウト
 .header-bar {
@@ -61,25 +68,36 @@ a:hover {
   display: grid;
   grid-template-columns: 1fr auto 1fr;
   align-items: center;
-  padding: 10px 16px;
+  padding: 4px 16px; /* 上下パディングを少し削る */
+  min-height: var(--header-h); /* 最小高さを確保 */
   box-sizing: border-box;
 }
 
-//nnn 2.1.4 ロゴ表示制御（brand-slot / site-logo）
-// 1. ロゴとタイトルを包むコンテナ（aタグ）
+//nnn 2.1.4 ロゴ表示制御
 .brand-container {
   display: flex !important;
-  flex-direction: column;    /* 縦に並べる */
-  align-items: center;       /* 中央揃え */
-  justify-content: center;   /* 上下中央揃え */
-  gap: 2px;                  /* ロゴとタイトルの隙間 */
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
   text-decoration: none !important;
-  
-  // PC表示で消さないようにする場合の調整（nnn 2.2に関連）
   visibility: visible !important;
+  min-height: 30px; /* ロゴ(28px)+タイトル(約14px)+余白をカバーする高さ */
 }
 
-// 2. ロゴ画像を表示するスロット
+/* タイトルがない（空の）場合でも高さを維持、あるいは微調整 */
+.header-page-title {
+  font-size: .9rem;
+  font-weight: 600;
+  color: var(--page-title-color, inherit);
+  line-height: 0.5;//ロゴとのギャップ調整
+  text-align: center;
+  white-space: nowrap;
+  opacity: 1;
+  /* タイトルが空の時に要素が消えてもレイアウトが崩れないようにする */
+  min-height: 1em; 
+}
+// ロゴ画像を表示するスロット
 .brand-slot {
   display: block !important;
   width: 180px;              /* ロゴの幅 */
@@ -88,16 +106,7 @@ a:hover {
   margin: 0 auto;
 }
 
-// 3. ページタイトルのテキスト
-.header-page-title {
-  font-size: 0.75rem;         /* 小さめに設定 */
-  font-weight: 600;          /* 太字で視認性を確保 */
-  color: var(--page-title-color, inherit);
-  line-height: 1.1;
-  text-align: center;
-  white-space: nowrap;       /* 改行させない */
-  opacity: 0.9;              /* 少し馴染ませる */
-}
+
 
 //nnn 2.2 ヘッダーブランド表示のPC最適化
 @media (min-width: 897px) {
@@ -132,28 +141,15 @@ a:hover {
       justify-content: flex-start;
   }
 
-//nnn 3.1.2 レスポンシブ列数（icons view）
-/* Mobile: 1列（100%） */
-.view--icons .grid-item {
-  box-sizing: border-box;
-  padding: .1rem;
-  width: 100%;
-  flex: 0 0 100%; /* 伸びない・縮まない・基準100% */
-}
+// nnn 3.1.2 動的列数（icons view）
+.view--icons {
+  --col-count: 2; // JSが動く前のデフォルトをスマホ向けにしておく
 
-/* Tablet: 2列（50%） */
-@media (min-width: 640px) {
-  .view--icons .grid-item {
-    width: 50%;
-    flex: 0 0 50%;
-  }
-}
-
-/* PC: 3列（33.333%） */
-@media (min-width: 1024px) {
-  .view--icons .grid-item {
-    width: 33.333%;
-    flex: 0 0 33.333%;
+  .grid-item {
+    box-sizing: border-box;
+    padding: .3rem;
+    width: calc(100% / var(--col-count)) !important;
+    flex: 0 0 calc(100% / var(--col-count)) !important;
   }
 }
 
@@ -286,7 +282,7 @@ a:hover {
 .controls-vertical {
   display: flex;
   flex-direction: column;
-  gap: .5rem;
+  gap: .2rem;
   margin: 0 0 .5rem;
 }
 
@@ -308,14 +304,14 @@ a:hover {
 .and-sort-group,
 .and-view-group {
   display: flex;
-  gap: .5rem;
+  gap: .3rem;
   flex-wrap: wrap;
 }
 
 .and-filter-group button,
 .and-sort-group button,
 .and-view-group button {
-  padding: .25rem 1rem;
+  padding: .2rem .2rem;
   border: 1px solid #ddd;
   border-radius: 0rem;
   background: #fff;
@@ -371,6 +367,67 @@ a:hover {
   }
 }
 
+// nnn 4.1.4 スライダーのカスタマイズ
+.slider-row {
+  margin-top: 0.5rem;
+  padding: 0.5rem 0;
+  border-top: 1px dashed rgba(0, 0, 0, 0.1); // 境目を分かりやすく
+  
+  input[type="range"] {
+    -webkit-appearance: none;
+    appearance: none;
+    background: transparent;
+    cursor: pointer;
+    width: 100%;
+
+    // トラック（棒の部分）
+    &::-webkit-slider-runnable-track {
+      background: #e5e7eb;
+      height: 5px;
+      border-radius: 2px;
+    }
+    &::-moz-range-track {
+      background: #e5e7eb;
+      height: px;
+      border-radius: 2px;
+    }
+
+    // つまみ（丸い部分）
+    &::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      margin-top: -4px; // トラックの真ん中に配置
+      background-color: #f59e0b; // Viewボタンと同じオレンジ
+      height: 12px;
+      width: 12px;
+      border-radius: 50%;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+    }
+    &::-moz-range-thumb {
+      border: none;
+      background-color: #f59e0b;
+      height: 12px;
+      width: 12px;
+      border-radius: 50%;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+    }
+  }
+}
+
+// ダークモード対応
+@media (prefers-color-scheme: dark) {
+  .slider-row {
+    border-top-color: rgba(255, 255, 255, 0.1);
+    
+    input[type="range"] {
+      &::-webkit-slider-runnable-track { background: #4b5563; }
+      &::-moz-range-track { background: #4b5563; }
+      &::-webkit-slider-thumb { background-color: #b45309; }
+      &::-moz-range-thumb { background-color: #b45309; }
+    }
+  }
+}
+
 //nnn 4.2 Viewモード別レイアウト
 
 //nnn 4.2.1 icons view
@@ -389,7 +446,7 @@ a:hover {
   grid-template-columns: 1fr 160px;
   gap: .5rem;
   align-items: center;
-  padding: .75rem .25rem;
+  padding: .25rem 1rem;
 }
 .view--details .title { margin: 0; }
 .view--details .meta { text-align: right; }

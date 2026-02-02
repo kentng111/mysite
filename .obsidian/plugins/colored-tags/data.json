@@ -10,12 +10,12 @@
     "highTextContrast": true
   },
   "knownTags": {
-    "architecture": 1,
     "contact": 2,
+    "even": 3,
     "information": 5,
     "mixitup": 6,
-    "photo": 7,
-    "recommend": 8
+    "odd": 7,
+    "qgjypbqzo": 8
   },
   "tagColors": {},
   "_version": 4

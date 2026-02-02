@@ -27,34 +27,43 @@
       </div>
     {{ end }}
 
-    {{/* === タグ収集（MixItUp ボタン自動生成） === */}}
+{{/* === タグ収集（MixItUp ボタン自動生成） === */}}
     {{ $tags := slice }}
+    {{ $tagNameMap := dict }} 
+
     {{ range $pages }}
       {{ with .Params.tags }}
         {{ range . }}
-          {{ $t := urlize . }}
-          {{ if not (in $tags $t) }}{{ $tags = $tags | append $t }}{{ end }}
+          {{ $originalName := . }}
+          {{/* ▼▼▼ 修正: urlize ではなく md5 を使い、安全な英数字IDを生成 ▼▼▼ */}}
+          {{ $id := printf "tag-%s" (md5 $originalName) }}
+          
+          {{ if not (in $tags $id) }}
+            {{ $tags = $tags | append $id }}
+            {{ $tagNameMap = merge $tagNameMap (dict $id $originalName) }}
+          {{ end }}
         {{ end }}
       {{ end }}
     {{ end }}
 
     <!-- ===== 検索ボックス（filter の上） ===== -->
-    <div class="search-bar">
+<div class="search-bar">
       <label for="search-input">search :</label>
       <input type="text" id="search-input" placeholder="Type to filter..." />
     </div>
 
     <!-- ===== コントロール（縦に分離：filter → sort → view） ===== -->
-    <div class="controls-vertical">
+<div class="controls-vertical">
       <div class="controls-row">
-        <span class="controls-label">filter :</span>
-        <div class="and-filter-group">
-          <button class="is-checked" data-filter="*">All</button>
-          {{ range sort $tags }}
-            <button data-filter=".{{ . }}">{{ . }}</button>
-          {{ end }}
-        </div>
+      <span class="controls-label">filter :</span>
+      <div class="and-filter-group">
+        <button class="is-checked" data-tag="all">All</button>
+        {{ range sort $tags }}
+          {{/* 表示名（Mapから取得）と内部IDを使い分ける */}}
+          <button data-tag=".{{ . }}">{{ index $tagNameMap . }}</button>
+        {{ end }}
       </div>
+    </div>
 
       <div class="controls-row">
         <span class="controls-label">sort :</span>
@@ -76,11 +85,20 @@
       </div>
     </div>
 
+    <div class="controls-row slider-row" id="column-slider-container">
+  <span class="controls-label">columns :</span>
+  <input type="range" id="column-slider" min="1" max="10" value="3" step="1" style="flex: 1; max-width: 200px;">
+  <span id="column-value" style="min-width: 1.5rem; font-weight: bold; margin-left: 0.5rem;">3</span>
+</div>
+
     <!-- ===== グリッド（Hugoでタイトル昇順に出力） ===== -->
     <div class="grid view--icons">
       {{ range sort $pages "Title" "asc" }}
         {{ $classes := slice }}
-        {{ with .Params.tags }}{{ range . }}{{ $classes = $classes | append (urlize .) }}{{ end }}{{ end }}
+        {{ with .Params.tags }}
+        {{ range . }}
+        {{ $classes = $classes | append (printf "tag-%s" (md5 .)) }}
+        {{ end }}{{ end }}
         <a class="grid-item {{ delimit $classes " " }}" href="{{ .RelPermalink }}"
            data-title="{{ lower .Title }}"
            data-date="{{ .Date.Format "20060102" }}"
@@ -113,165 +131,230 @@
       {{ end }}
     </div>
 
-
     <!-- ===== 初期化（検索=クラス付与方式 / タグOR / ソート / ビュー / URL初期フィルタ） ===== -->
-    <script>
-    document.addEventListener('DOMContentLoaded', function () {
-      if (!window.mixitup) { console.warn('mixitup not found'); return; }
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  if (!window.mixitup) { console.warn('mixitup not found'); return; }
 
-      const grid        = document.querySelector('.grid');
-      const targets     = () => Array.from(document.querySelectorAll('.grid .grid-item'));
-      const filterGroup = document.querySelector('.and-filter-group');
-      const sortGroup   = document.querySelector('.and-sort-group');
-      const viewGroup   = document.querySelector('.and-view-group');
-      const searchInput = document.querySelector('#search-input');
+  const grid        = document.querySelector('.grid');
+  const filterGroup = document.querySelector('.and-filter-group');
+  const sortGroup   = document.querySelector('.and-sort-group');
+  const viewGroup   = document.querySelector('.and-view-group');
+  const searchInput = document.querySelector('#search-input');
 
-      if (!grid) return;
+  if (!grid) return;
 
-      const mixer = mixitup(grid, {
-        selectors: { target: '.grid-item' },
-        animation: { duration: 280, queueLimit: 10, effects: 'fade translateZ(-1px)' },
-        controls: { enable: false } // 自動コントロール無効化（重要）
+  // MixItUp初期化
+  const mixer = mixitup(grid, {
+    selectors: { target: '.grid-item' },
+    animation: { duration: 280, queueLimit: 10, effects: 'fade translateZ(-1px)' },
+    // data-filter属性を使わないため、controls設定はデフォルトのままでOKですが
+    // 念のため自動バインドを無効化しておきます
+    controls: { scope: 'local' } 
+  });
+
+  let searchQuery = '';
+
+  // --- 1. フィルタリング実行関数 ---
+  function applyFilter() {
+    // 1. 検索ワードによるクラス付与（.__match）
+    const q = searchQuery.toLowerCase().trim();
+    const items = grid.querySelectorAll('.grid-item');
+    
+    // 検索語がある場合のみマッチ判定を行う
+    if (q) {
+      items.forEach(el => {
+        const text = el.textContent.toLowerCase();
+        // data-title属性も検索対象に含めると精度が上がります
+        const title = el.getAttribute('data-title') || ''; 
+        if (text.includes(q) || title.includes(q)) {
+          el.classList.add('__match');
+        } else {
+          el.classList.remove('__match');
+        }
       });
+    } else {
+      // 検索語がない場合は全員マッチ扱い（クラスはつけないが、ロジックで対応）
+      items.forEach(el => el.classList.remove('__match'));
+    }
 
-      // ---- 状態 ------------------------------------------------------------
-      let selected    = [];  // ["tag-a","tag-b"]（OR）
-      let searchQuery = '';  // lowercased
+    // 2. 選択されたタグの収集
+    const checkedBtns = Array.from(filterGroup.querySelectorAll('.is-checked'));
+    const selectedTags = checkedBtns
+      .map(btn => btn.getAttribute('data-tag'))
+      .filter(tag => tag !== 'all'); // "all" は除外
 
-      // ---- セレクタ合成（タグOR × 検索AND）---------------------------------
-      function buildSelector() {
-        const hasSearch = !!searchQuery;
+    // 3. セレクタの構築
+    let selector = '';
 
-        // タグ未選択
-        if (selected.length === 0) {
-          return hasSearch ? '.__match' : 'all';
-        }
-
-        // OR: ".a, .b, .c"（検索中は各トークンに.__matchを付与）
-        const parts = selected.map(s => '.' + s + (hasSearch ? '.__match' : ''));
-        return parts.join(', ');
+    if (selectedTags.length === 0) {
+      // タグ未選択（またはAll）の場合
+      selector = q ? '.__match' : 'all';
+    } else {
+      // タグ選択ありの場合（OR検索: .tagA, .tagB）
+      // 検索語があるなら (.tagA.__match, .tagB.__match) にする
+      if (q) {
+        selector = selectedTags.map(tag => `${tag}.__match`).join(', ');
+      } else {
+        selector = selectedTags.join(', ');
       }
+    }
 
-      // ---- 検索マッチのクラス更新 ------------------------------------------
-      function updateMatchClass() {
-        const q = searchQuery;
-        const tgs = targets();
-        if (!q) {
-          tgs.forEach(el => el.classList.remove('__match'));
-          return;
-        }
-        tgs.forEach(el => {
-          const text = (el.textContent || '').toLowerCase();
-          if (text.includes(q)) el.classList.add('__match');
-          else el.classList.remove('__match');
+    // console.log("Filter:", selector); // デバッグ用
+    mixer.filter(selector);
+  }
+
+// --- 2. URLパラメータ読み込み ---
+  (function fromURL(){
+    const params = new URLSearchParams(window.location.search);
+    const filterParam = params.get('filter');
+    if (filterParam) {
+      const tags = filterParam.split(',').map(s => s.trim()).filter(Boolean);
+      
+      if (filterGroup && tags.length > 0) {
+        // Allを外す
+        filterGroup.querySelector('[data-tag="all"]')?.classList.remove('is-checked');
+        
+        tags.forEach(tagName => {
+          // ▼▼▼ 修正: クラス名ではなく、ボタンのテキスト(日本語)で探す ▼▼▼
+          // ボタン一覧を取得し、テキストが一致するものを探してONにする
+          const buttons = Array.from(filterGroup.querySelectorAll('button[data-tag]'));
+          const targetBtn = buttons.find(btn => btn.textContent.trim() === tagName);
+          
+          if (targetBtn) {
+            targetBtn.classList.add('is-checked');
+          }
         });
       }
+    }
+  })();
 
-      // ---- URL ?filter=a,b 初期反映（ORとして読む） ------------------------
-      (function fromURL(){
-        const params = new URLSearchParams(window.location.search);
-        const filterParam = params.get('filter');
-        if (!filterParam) return;
-        const slugs = filterParam.split(',').map(s=>s.trim()).filter(Boolean);
-        if (!slugs.length) return;
+  // --- 3. タグボタンのクリック制御 ---
+  if (filterGroup) {
+    filterGroup.addEventListener('click', (e) => {
+      // data-tag を持つ要素を探す（data-filterではない）
+      const btn = e.target.closest('[data-tag]');
+      if (!btn) return;
+      e.preventDefault();
+      
+      const tag = btn.getAttribute('data-tag');
 
-        selected = slugs.slice(0);
-        if (filterGroup) {
-          filterGroup.querySelectorAll('.is-checked').forEach(el=>el.classList.remove('is-checked'));
-          slugs.forEach(slug=>{
-            const btn = filterGroup.querySelector(`[data-filter=".${slug}"]`);
-            if (btn) btn.classList.add('is-checked');
-          });
-          const allBtn = filterGroup.querySelector('[data-filter="*"]');
-          if (allBtn) allBtn.classList.toggle('is-checked', slugs.length === 0);
+      if (tag === 'all') {
+        // Allをクリック：他を全解除して自分だけON
+        filterGroup.querySelectorAll('.is-checked').forEach(el => el.classList.remove('is-checked'));
+        btn.classList.add('is-checked');
+      } else {
+        // 個別タグをクリック：トグル動作
+        btn.classList.toggle('is-checked');
+        
+        // Allのチェックを外す
+        filterGroup.querySelector('[data-tag="all"]')?.classList.remove('is-checked');
+
+        // もし全部オフになったらAllを復活させる
+        if (filterGroup.querySelectorAll('.is-checked').length === 0) {
+          filterGroup.querySelector('[data-tag="all"]')?.classList.add('is-checked');
         }
-      })();
-
-      // ---- タグ（ORトグル） -------------------------------------------------
-      if (filterGroup) {
-        filterGroup.addEventListener('click', (e)=>{
-          const btn = e.target.closest('[data-filter]');
-          if (!btn) return;
-          e.preventDefault();
-
-          const val = btn.getAttribute('data-filter');
-
-          // All = クリア
-          if (val === '*') {
-            filterGroup.querySelectorAll('.is-checked').forEach(el=>el.classList.remove('is-checked'));
-            btn.classList.add('is-checked');
-            selected = [];
-            mixer.filter(buildSelector());
-            return;
-          }
-
-          // トグル & All を解除
-          btn.classList.toggle('is-checked');
-          const allBtn = filterGroup.querySelector('[data-filter="*"]');
-          if (allBtn) allBtn.classList.remove('is-checked');
-
-          // 現在ONのボタンから slug 配列を作る（".foo" → "foo"）
-          selected = [...filterGroup.querySelectorAll('.is-checked[data-filter]')]
-            .map(b => b.getAttribute('data-filter'))
-            .filter(f => f && f.startsWith('.'))
-            .map(f => f.slice(1).replace(/\s+/g, ''));
-
-          // 1個も選ばれていなければ All 扱い（見た目も戻す）
-          if (selected.length === 0 && allBtn) allBtn.classList.add('is-checked');
-
-          mixer.filter(buildSelector());
-        }, true);
       }
-
-      // ---- 検索（150ms デバウンス） ----------------------------------------
-      function debounce(fn, wait){
-        let t; return function(...args){ clearTimeout(t); t = setTimeout(()=>fn.apply(this, args), wait); };
-      }
-      if (searchInput) {
-        searchInput.addEventListener('input', debounce(()=>{
-          searchQuery = searchInput.value.toLowerCase().trim();
-          updateMatchClass();            // __match を更新
-          mixer.filter(buildSelector()); // セレクタでフィルタ
-        }, 150));
-      }
-
-      // ---- ソート -----------------------------------------------------------
-      if (sortGroup) {
-        sortGroup.addEventListener('click', (e)=>{
-          const btn = e.target.closest('[data-sort]');
-          if (!btn) return;
-          e.preventDefault();
-
-          sortGroup.querySelectorAll('.is-checked').forEach(el=>el.classList.remove('is-checked'));
-          btn.classList.add('is-checked');
-
-          const sortCmd = btn.getAttribute('data-sort') || 'title:asc';
-          mixer.sort(sortCmd);
-        }, true);
-      }
-
-      // ---- View 切替 --------------------------------------------------------
-      if (viewGroup) {
-        viewGroup.addEventListener('click', (e)=>{
-          const btn = e.target.closest('[data-view]');
-          if (!btn) return;
-          e.preventDefault();
-
-          viewGroup.querySelectorAll('.is-checked').forEach(el=>el.classList.remove('is-checked'));
-          btn.classList.add('is-checked');
-
-          const view = btn.getAttribute('data-view') || 'icons';
-          grid.classList.remove('view--icons','view--details','view--content');
-          grid.classList.add(`view--${view}`);
-
-          mixer.forceRefresh();
-        }, true);
-      }
-
-      // ---- 初期表示 ---------------------------------------------------------
-      mixer.filter('all');
+      applyFilter();
     });
-    </script>
+  }
+
+  // --- 4. 検索入力 ---
+  let debounceTimer;
+  if (searchInput) {
+    searchInput.addEventListener('input', () => {
+      clearTimeout(debounceTimer);
+      debounceTimer = setTimeout(() => {
+        searchQuery = searchInput.value;
+        applyFilter();
+      }, 150);
+    });
+  }
+
+// --- 5. ソートとビュー ---
+  if (viewGroup) {
+    viewGroup.addEventListener('click', (e) => {
+      const btn = e.target.closest('[data-view]');
+      if (!btn) return;
+
+      // チェック状態の更新
+      viewGroup.querySelectorAll('.is-checked').forEach(el => el.classList.remove('is-checked'));
+      btn.classList.add('is-checked');
+
+      // ビューの切り替え
+      const view = btn.getAttribute('data-view');
+      grid.classList.remove('view--icons','view--details','view--content');
+      grid.classList.add(`view--${view}`);
+
+      // 【追加】スライダーの表示制御
+      if (view === 'icons') {
+        sliderContainer.style.display = 'flex';
+      } else {
+        sliderContainer.style.display = 'none';
+      }
+
+      mixer.forceRefresh();
+    });
+  }
+
+// --- 6. カラム数スライダー制御 ---
+const columnSlider = document.querySelector('#column-slider');
+const columnValue = document.querySelector('#column-value');
+const sliderContainer = document.querySelector('#column-slider-container');
+
+function updateColumns(val) {
+  grid.style.setProperty('--col-count', val);
+  columnValue.textContent = val;
+  columnSlider.value = val; // スライダーのつまみの位置も同期
+}
+
+// デバイスサイズに基づいて初期値を決定する関数
+function getInitialColumns() {
+  if (window.innerWidth < 640) {
+    return 2; // スマホは2列
+  } else if (window.innerWidth < 1024) {
+    return 4; // タブレットは4列
+  } else {
+    return 6; // PCは6列
+  }
+}
+
+if (columnSlider) {
+  // 1. ページ読み込み時にデバイスに合わせた初期値をセット
+  const initialVal = getInitialColumns();
+  updateColumns(initialVal);
+
+  // 2. スライダー操作時のイベント
+  columnSlider.addEventListener('input', (e) => {
+    updateColumns(e.target.value);
+  });
+}
+
+// view切り替え時にスライダーの表示/非表示を制御する（既存のviewGroupイベントに追加）
+if (viewGroup) {
+  viewGroup.addEventListener('click', (e) => {
+    const btn = e.target.closest('[data-view]');
+    if (!btn) return;
+    
+    const view = btn.getAttribute('data-view');
+    // Iconsビューの時だけスライダーを表示
+    if (view === 'icons') {
+      sliderContainer.style.display = 'flex';
+    } else {
+      sliderContainer.style.display = 'none';
+    }
+    
+    // ...既存の処理（is-checkedの付け替えやgridのクラス付与など）...
+  });
+}
+
+// 初期化時に一度実行
+updateColumns(columnSlider.value);
+
+  // 初期実行
+  applyFilter();
+});
+</script>
 
   </article>
 </main>

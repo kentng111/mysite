@@ -2,7 +2,8 @@
 title: test page 1
 date: 2026-01-28
 tags:
-  - architecture
+  - odd
+  - one
 draft: true
 color: "#BF5A75"
 ---

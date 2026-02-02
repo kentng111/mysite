@@ -21,11 +21,11 @@ https://github.com/alex-shpak/hugo-book
 <link rel="icon" href="/favicon.png" >
 <link rel="manifest" href="/manifest.json">
 <link rel="canonical" href="http://localhost:1313/">
-<link rel="stylesheet" href="/book.min.1b3bc65d10e6208e4a9c4c680238b6e8464cb8a2086d31aa17e0d6fd8799ac06.css" integrity="sha256-GzvGXRDmII5KnExoAji26EZMuKIIbTGqF&#43;DW/YeZrAY=" crossorigin="anonymous">
+<link rel="stylesheet" href="/book.min.25ff53dbd643e599b9b14fea77511ab5c07d76bc243bf747536a25e2a061e8ed.css" integrity="sha256-Jf9T29ZD5Zm5sU/qd1EatcB9drwkO/dHU2ol4qBh6O0=" crossorigin="anonymous">
 
 
   <script defer src="/fuse.min.js"></script>
-  <script defer src="/en.search.min.0b76467d37e496e11571b84af1ce8975345cae3e63cc3e0f3eb1a9a164d699f6.js" integrity="sha256-C3ZGfTfkluEVcbhK8c6JdTRcrj5jzD4PPrGpoWTWmfY=" crossorigin="anonymous"></script>
+  <script defer src="/en.search.min.98da819c0b59b2b24f94fbf1f429a7cae09dbf2aaa30643942b6a27fe0a25651.js" integrity="sha256-mNqBnAtZsrJPlPvx9CmnyuCdvyqqMGQ5Qraif&#43;CiVlE=" crossorigin="anonymous"></script>
 <link rel="alternate" type="application/rss+xml" href="http://localhost:1313/index.xml" title="s.n.u" />
 
 
@@ -290,36 +290,29 @@ https://github.com/alex-shpak/hugo-book
     
     
 
+
     
-    
-    
-      
-        
-          
-          
-        
-      
+     
+
     
       
         
           
           
-        
-      
-    
-      
-        
           
           
-        
-      
-    
-      
-        
           
+            
+            
           
         
           
+          
+          
+          
+          
+            
+            
           
         
       
@@ -328,11 +321,16 @@ https://github.com/alex-shpak/hugo-book
         
           
           
+          
+          
+          
+            
+            
+          
         
-      
-    
-      
-        
+          
+          
+          
           
           
         
@@ -342,11 +340,75 @@ https://github.com/alex-shpak/hugo-book
         
           
           
+          
+          
+          
+            
+            
+          
         
       
     
       
         
+          
+          
+          
+          
+          
+        
+          
+          
+          
+          
+          
+            
+            
+          
+        
+      
+    
+      
+        
+          
+          
+          
+          
+          
+        
+      
+    
+      
+        
+          
+          
+          
+          
+          
+            
+            
+          
+        
+      
+    
+      
+        
+          
+          
+          
+          
+          
+            
+            
+          
+        
+      
+    
+      
+        
+          
+          
+          
           
           
         
@@ -354,30 +416,41 @@ https://github.com/alex-shpak/hugo-book
     
 
     
-    <div class="search-bar">
+<div class="search-bar">
       <label for="search-input">search :</label>
       <input type="text" id="search-input" placeholder="Type to filter..." />
     </div>
 
     
-    <div class="controls-vertical">
+<div class="controls-vertical">
       <div class="controls-row">
-        <span class="controls-label">filter :</span>
-        <div class="and-filter-group">
-          <button class="is-checked" data-filter="*">All</button>
+      <span class="controls-label">filter :</span>
+      <div class="and-filter-group">
+        <button class="is-checked" data-tag="all">All</button>
+        
           
-            <button data-filter=".architecture">architecture</button>
+          <button data-tag=".tag-2f8a6bf31f3bd67bd2d9720c58b19c9a">contact</button>
+        
           
-            <button data-filter=".contact">contact</button>
+          <button data-tag=".tag-30056e1cab7a61d256fc8edd970d14f5">five</button>
+        
           
-            <button data-filter=".information">information</button>
+          <button data-tag=".tag-a2b6f2a6066ed8700d83335fc50a2b8e">odd</button>
+        
           
-            <button data-filter=".photo">photo</button>
+          <button data-tag=".tag-bb3ccd5881d651448ded1dac904054ac">information</button>
+        
           
-            <button data-filter=".recommend">recommend</button>
+          <button data-tag=".tag-c0af77cf8294ff93a5cdb2963ca9f038">tree</button>
+        
           
-        </div>
+          <button data-tag=".tag-cc935c5faf4c8f7a0468d7552a9b8138">even</button>
+        
+          
+          <button data-tag=".tag-f97c5d29941bfb1b2fdab0874906ab82">one</button>
+        
       </div>
+    </div>
 
       <div class="controls-row">
         <span class="controls-label">sort :</span>
@@ -399,12 +472,21 @@ https://github.com/alex-shpak/hugo-book
       </div>
     </div>
 
+    <div class="controls-row slider-row" id="column-slider-container">
+  <span class="controls-label">columns :</span>
+  <input type="range" id="column-slider" min="1" max="10" value="3" step="1" style="flex: 1; max-width: 200px;">
+  <span id="column-value" style="min-width: 1.5rem; font-weight: bold; margin-left: 0.5rem;">3</span>
+</div>
+
     
     <div class="grid view--icons">
       
         
         
-        <a class="grid-item information" href="/about-us/"
+        
+        
+        
+        <a class="grid-item tag-bb3ccd5881d651448ded1dac904054ac" href="/about-us/"
            data-title="about us"
            data-date="20240101"
 
@@ -434,7 +516,10 @@ s.n.uは日本およびポーランドを拠点とするグローバルな建築
       
         
         
-        <a class="grid-item contact" href="/contact/"
+        
+        
+        
+        <a class="grid-item tag-2f8a6bf31f3bd67bd2d9720c58b19c9a" href="/contact/"
            data-title="contact"
            data-date="20240102"
 
@@ -494,7 +579,10 @@ s.n.uは日本およびポーランドを拠点とするグローバルな建築
       
         
         
-        <a class="grid-item information" href="/people/"
+        
+        
+        
+        <a class="grid-item tag-bb3ccd5881d651448ded1dac904054ac" href="/people/"
            data-title="people"
            data-date="20240101"
 
@@ -527,7 +615,12 @@ Kento Nagao</p>
       
         
         
-        <a class="grid-item architecture" href="/test-page-1/"
+        
+        
+        
+        
+        
+        <a class="grid-item tag-a2b6f2a6066ed8700d83335fc50a2b8e tag-f97c5d29941bfb1b2fdab0874906ab82" href="/test-page-1/"
            data-title="test page 1"
            data-date="20260128"
 
@@ -557,7 +650,10 @@ Kento Nagao</p>
       
         
         
-        <a class="grid-item architecture" href="/test-page-2/"
+        
+        
+        
+        <a class="grid-item tag-cc935c5faf4c8f7a0468d7552a9b8138" href="/test-page-2/"
            data-title="test page 2"
            data-date="20251229"
 
@@ -586,7 +682,12 @@ Kento Nagao</p>
       
         
         
-        <a class="grid-item architecture recommend" href="/test-page-3/"
+        
+        
+        
+        
+        
+        <a class="grid-item tag-a2b6f2a6066ed8700d83335fc50a2b8e tag-c0af77cf8294ff93a5cdb2963ca9f038" href="/test-page-3/"
            data-title="test page 3"
            data-date="20260104"
 
@@ -615,7 +716,10 @@ Kento Nagao</p>
       
         
         
-        <a class="grid-item photo" href="/test-page-4/"
+        
+        
+        
+        <a class="grid-item tag-cc935c5faf4c8f7a0468d7552a9b8138" href="/test-page-4/"
            data-title="test page 4"
            data-date="20260109"
 
@@ -645,7 +749,12 @@ Kento Nagao</p>
       
         
         
-        <a class="grid-item architecture" href="/test-page-5/"
+        
+        
+        
+        
+        
+        <a class="grid-item tag-30056e1cab7a61d256fc8edd970d14f5 tag-a2b6f2a6066ed8700d83335fc50a2b8e" href="/test-page-5/"
            data-title="test page 5"
            data-date="20260125"
 
@@ -674,165 +783,230 @@ Kento Nagao</p>
       
     </div>
 
+    
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  if (!window.mixitup) { console.warn('mixitup not found'); return; }
+
+  const grid        = document.querySelector('.grid');
+  const filterGroup = document.querySelector('.and-filter-group');
+  const sortGroup   = document.querySelector('.and-sort-group');
+  const viewGroup   = document.querySelector('.and-view-group');
+  const searchInput = document.querySelector('#search-input');
+
+  if (!grid) return;
+
+  
+  const mixer = mixitup(grid, {
+    selectors: { target: '.grid-item' },
+    animation: { duration: 280, queueLimit: 10, effects: 'fade translateZ(-1px)' },
+    
+    
+    controls: { scope: 'local' } 
+  });
+
+  let searchQuery = '';
+
+  
+  function applyFilter() {
+    
+    const q = searchQuery.toLowerCase().trim();
+    const items = grid.querySelectorAll('.grid-item');
+    
+    
+    if (q) {
+      items.forEach(el => {
+        const text = el.textContent.toLowerCase();
+        
+        const title = el.getAttribute('data-title') || ''; 
+        if (text.includes(q) || title.includes(q)) {
+          el.classList.add('__match');
+        } else {
+          el.classList.remove('__match');
+        }
+      });
+    } else {
+      
+      items.forEach(el => el.classList.remove('__match'));
+    }
 
     
-    <script>
-    document.addEventListener('DOMContentLoaded', function () {
-      if (!window.mixitup) { console.warn('mixitup not found'); return; }
+    const checkedBtns = Array.from(filterGroup.querySelectorAll('.is-checked'));
+    const selectedTags = checkedBtns
+      .map(btn => btn.getAttribute('data-tag'))
+      .filter(tag => tag !== 'all'); 
 
-      const grid        = document.querySelector('.grid');
-      const targets     = () => Array.from(document.querySelectorAll('.grid .grid-item'));
-      const filterGroup = document.querySelector('.and-filter-group');
-      const sortGroup   = document.querySelector('.and-sort-group');
-      const viewGroup   = document.querySelector('.and-view-group');
-      const searchInput = document.querySelector('#search-input');
+    
+    let selector = '';
 
-      if (!grid) return;
-
-      const mixer = mixitup(grid, {
-        selectors: { target: '.grid-item' },
-        animation: { duration: 280, queueLimit: 10, effects: 'fade translateZ(-1px)' },
-        controls: { enable: false } 
-      });
-
+    if (selectedTags.length === 0) {
       
-      let selected    = [];  
-      let searchQuery = '';  
-
+      selector = q ? '.__match' : 'all';
+    } else {
       
-      function buildSelector() {
-        const hasSearch = !!searchQuery;
-
-        
-        if (selected.length === 0) {
-          return hasSearch ? '.__match' : 'all';
-        }
-
-        
-        const parts = selected.map(s => '.' + s + (hasSearch ? '.__match' : ''));
-        return parts.join(', ');
+      
+      if (q) {
+        selector = selectedTags.map(tag => `${tag}.__match`).join(', ');
+      } else {
+        selector = selectedTags.join(', ');
       }
+    }
 
+    
+    mixer.filter(selector);
+  }
+
+
+  (function fromURL(){
+    const params = new URLSearchParams(window.location.search);
+    const filterParam = params.get('filter');
+    if (filterParam) {
+      const tags = filterParam.split(',').map(s => s.trim()).filter(Boolean);
       
-      function updateMatchClass() {
-        const q = searchQuery;
-        const tgs = targets();
-        if (!q) {
-          tgs.forEach(el => el.classList.remove('__match'));
-          return;
-        }
-        tgs.forEach(el => {
-          const text = (el.textContent || '').toLowerCase();
-          if (text.includes(q)) el.classList.add('__match');
-          else el.classList.remove('__match');
+      if (filterGroup && tags.length > 0) {
+        
+        filterGroup.querySelector('[data-tag="all"]')?.classList.remove('is-checked');
+        
+        tags.forEach(tagName => {
+          
+          
+          const buttons = Array.from(filterGroup.querySelectorAll('button[data-tag]'));
+          const targetBtn = buttons.find(btn => btn.textContent.trim() === tagName);
+          
+          if (targetBtn) {
+            targetBtn.classList.add('is-checked');
+          }
         });
       }
+    }
+  })();
 
+  
+  if (filterGroup) {
+    filterGroup.addEventListener('click', (e) => {
       
-      (function fromURL(){
-        const params = new URLSearchParams(window.location.search);
-        const filterParam = params.get('filter');
-        if (!filterParam) return;
-        const slugs = filterParam.split(',').map(s=>s.trim()).filter(Boolean);
-        if (!slugs.length) return;
+      const btn = e.target.closest('[data-tag]');
+      if (!btn) return;
+      e.preventDefault();
+      
+      const tag = btn.getAttribute('data-tag');
 
-        selected = slugs.slice(0);
-        if (filterGroup) {
-          filterGroup.querySelectorAll('.is-checked').forEach(el=>el.classList.remove('is-checked'));
-          slugs.forEach(slug=>{
-            const btn = filterGroup.querySelector(`[data-filter=".${slug}"]`);
-            if (btn) btn.classList.add('is-checked');
-          });
-          const allBtn = filterGroup.querySelector('[data-filter="*"]');
-          if (allBtn) allBtn.classList.toggle('is-checked', slugs.length === 0);
+      if (tag === 'all') {
+        
+        filterGroup.querySelectorAll('.is-checked').forEach(el => el.classList.remove('is-checked'));
+        btn.classList.add('is-checked');
+      } else {
+        
+        btn.classList.toggle('is-checked');
+        
+        
+        filterGroup.querySelector('[data-tag="all"]')?.classList.remove('is-checked');
+
+        
+        if (filterGroup.querySelectorAll('.is-checked').length === 0) {
+          filterGroup.querySelector('[data-tag="all"]')?.classList.add('is-checked');
         }
-      })();
-
-      
-      if (filterGroup) {
-        filterGroup.addEventListener('click', (e)=>{
-          const btn = e.target.closest('[data-filter]');
-          if (!btn) return;
-          e.preventDefault();
-
-          const val = btn.getAttribute('data-filter');
-
-          
-          if (val === '*') {
-            filterGroup.querySelectorAll('.is-checked').forEach(el=>el.classList.remove('is-checked'));
-            btn.classList.add('is-checked');
-            selected = [];
-            mixer.filter(buildSelector());
-            return;
-          }
-
-          
-          btn.classList.toggle('is-checked');
-          const allBtn = filterGroup.querySelector('[data-filter="*"]');
-          if (allBtn) allBtn.classList.remove('is-checked');
-
-          
-          selected = [...filterGroup.querySelectorAll('.is-checked[data-filter]')]
-            .map(b => b.getAttribute('data-filter'))
-            .filter(f => f && f.startsWith('.'))
-            .map(f => f.slice(1).replace(/\s+/g, ''));
-
-          
-          if (selected.length === 0 && allBtn) allBtn.classList.add('is-checked');
-
-          mixer.filter(buildSelector());
-        }, true);
       }
-
-      
-      function debounce(fn, wait){
-        let t; return function(...args){ clearTimeout(t); t = setTimeout(()=>fn.apply(this, args), wait); };
-      }
-      if (searchInput) {
-        searchInput.addEventListener('input', debounce(()=>{
-          searchQuery = searchInput.value.toLowerCase().trim();
-          updateMatchClass();            
-          mixer.filter(buildSelector()); 
-        }, 150));
-      }
-
-      
-      if (sortGroup) {
-        sortGroup.addEventListener('click', (e)=>{
-          const btn = e.target.closest('[data-sort]');
-          if (!btn) return;
-          e.preventDefault();
-
-          sortGroup.querySelectorAll('.is-checked').forEach(el=>el.classList.remove('is-checked'));
-          btn.classList.add('is-checked');
-
-          const sortCmd = btn.getAttribute('data-sort') || 'title:asc';
-          mixer.sort(sortCmd);
-        }, true);
-      }
-
-      
-      if (viewGroup) {
-        viewGroup.addEventListener('click', (e)=>{
-          const btn = e.target.closest('[data-view]');
-          if (!btn) return;
-          e.preventDefault();
-
-          viewGroup.querySelectorAll('.is-checked').forEach(el=>el.classList.remove('is-checked'));
-          btn.classList.add('is-checked');
-
-          const view = btn.getAttribute('data-view') || 'icons';
-          grid.classList.remove('view--icons','view--details','view--content');
-          grid.classList.add(`view--${view}`);
-
-          mixer.forceRefresh();
-        }, true);
-      }
-
-      
-      mixer.filter('all');
+      applyFilter();
     });
-    </script>
+  }
+
+  
+  let debounceTimer;
+  if (searchInput) {
+    searchInput.addEventListener('input', () => {
+      clearTimeout(debounceTimer);
+      debounceTimer = setTimeout(() => {
+        searchQuery = searchInput.value;
+        applyFilter();
+      }, 150);
+    });
+  }
+
+
+  if (viewGroup) {
+    viewGroup.addEventListener('click', (e) => {
+      const btn = e.target.closest('[data-view]');
+      if (!btn) return;
+
+      
+      viewGroup.querySelectorAll('.is-checked').forEach(el => el.classList.remove('is-checked'));
+      btn.classList.add('is-checked');
+
+      
+      const view = btn.getAttribute('data-view');
+      grid.classList.remove('view--icons','view--details','view--content');
+      grid.classList.add(`view--${view}`);
+
+      
+      if (view === 'icons') {
+        sliderContainer.style.display = 'flex';
+      } else {
+        sliderContainer.style.display = 'none';
+      }
+
+      mixer.forceRefresh();
+    });
+  }
+
+
+const columnSlider = document.querySelector('#column-slider');
+const columnValue = document.querySelector('#column-value');
+const sliderContainer = document.querySelector('#column-slider-container');
+
+function updateColumns(val) {
+  grid.style.setProperty('--col-count', val);
+  columnValue.textContent = val;
+  columnSlider.value = val; 
+}
+
+
+function getInitialColumns() {
+  if (window.innerWidth < 640) {
+    return 2; 
+  } else if (window.innerWidth < 1024) {
+    return 4; 
+  } else {
+    return 6; 
+  }
+}
+
+if (columnSlider) {
+  
+  const initialVal = getInitialColumns();
+  updateColumns(initialVal);
+
+  
+  columnSlider.addEventListener('input', (e) => {
+    updateColumns(e.target.value);
+  });
+}
+
+
+if (viewGroup) {
+  viewGroup.addEventListener('click', (e) => {
+    const btn = e.target.closest('[data-view]');
+    if (!btn) return;
+    
+    const view = btn.getAttribute('data-view');
+    
+    if (view === 'icons') {
+      sliderContainer.style.display = 'flex';
+    } else {
+      sliderContainer.style.display = 'none';
+    }
+    
+    
+  });
+}
+
+
+updateColumns(columnSlider.value);
+
+  
+  applyFilter();
+});
+</script>
 
   </article>
 </main>
