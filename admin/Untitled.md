@@ -1,6 +1,0 @@
----
-draft:
-title:
-date:
-tags:
----
