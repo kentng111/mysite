@@ -568,3 +568,14 @@ a:hover {
   font-weight: 400;
   letter-spacing: .5em;
 }
+
+//nnn 5.4 アイコンダークモード対応
+@media (prefers-color-scheme: dark) {
+  // 画像は background-image で設定されているため、そのクラス自体を反転させる
+  .brand-slot { 
+    filter: invert(1) hue-rotate(180deg);
+  }
+}
+
+
+
