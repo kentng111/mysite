@@ -47,49 +47,57 @@
     {{ end }}
 
     <!-- ===== 検索ボックス（filter の上） ===== -->
-<div class="search-bar">
-      <label for="search-input">search :</label>
-      <input type="text" id="search-input" placeholder="Type to filter..." />
-    </div>
+<button type="button" id="controls-toggle-btn" class="controls-toggle-btn">
+      <span class="btn-text">Controls</span>
+      <span class="btn-icon">▼</span>
+    </button>
 
-    <!-- ===== コントロール（縦に分離：filter → sort → view） ===== -->
-<div class="controls-vertical">
-      <div class="controls-row">
-      <span class="controls-label">filter :</span>
-      <div class="and-filter-group">
-        <button class="is-checked" data-tag="all">All</button>
-        {{ range sort $tags }}
-          {{/* 表示名（Mapから取得）と内部IDを使い分ける */}}
-          <button data-tag=".{{ . }}">{{ index $tagNameMap . }}</button>
-        {{ end }}
-      </div>
-    </div>
-
-      <div class="controls-row">
-        <span class="controls-label">sort :</span>
-        <div class="and-sort-group">
-          <button class="is-checked" data-sort="title:asc">A-Z</button>
-          <button data-sort="title:desc">Z-A</button>
-          <button data-sort="date:desc">Newest</button>
-          <button data-sort="date:asc">Oldest</button>
+    <div id="controls-wrapper" class="controls-wrapper">
+      <div class="controls-inner">
+        
+        <div class="search-bar">
+          <label for="search-input">search :</label>
+          <input type="text" id="search-input" placeholder="Type to filter..." />
         </div>
-      </div>
 
-      <div class="controls-row">
-        <span class="controls-label">view :</span>
-        <div class="and-view-group">
-          <button class="is-checked" data-view="icons">Icons</button>
-          <button data-view="details">Details</button>
-          <button data-view="content">Content</button>
+        <div class="controls-vertical">
+          <div class="controls-row">
+            <span class="controls-label">filter :</span>
+            <div class="and-filter-group">
+              <button class="is-checked" data-tag="all">All</button>
+              {{ range sort $tags }}
+                <button data-tag=".{{ . }}">{{ index $tagNameMap . }}</button>
+              {{ end }}
+            </div>
+          </div>
+
+          <div class="controls-row">
+            <span class="controls-label">sort :</span>
+            <div class="and-sort-group">
+              <button class="is-checked" data-sort="title:asc">A-Z</button>
+              <button data-sort="title:desc">Z-A</button>
+              <button data-sort="date:desc">Newest</button>
+              <button data-sort="date:asc">Oldest</button>
+            </div>
+          </div>
+
+          <div class="controls-row">
+            <span class="controls-label">view :</span>
+            <div class="and-view-group">
+              <button class="is-checked" data-view="icons">Icons</button>
+              <button data-view="details">Details</button>
+              <button data-view="content">Content</button>
+            </div>
+          </div>
         </div>
-      </div>
-    </div>
 
-    <div class="controls-row slider-row" id="column-slider-container">
-  <span class="controls-label">columns :</span>
-  <input type="range" id="column-slider" min="1" max="10" value="3" step="1" style="flex: 1; max-width: 200px;">
-  <span id="column-value" style="min-width: 1.5rem; font-weight: bold; margin-left: 0.5rem;">3</span>
-</div>
+        <div class="controls-row slider-row" id="column-slider-container">
+          <span class="controls-label">scale :</span>
+          <input type="range" id="column-slider" min="1" max="10" value="3" step="1" style="flex: 1; max-width: 200px;">
+          <span id="column-value" style="min-width: 1.5rem; font-weight: bold; margin-left: 0.5rem;">3</span>
+        </div>
+
+      </div></div>
 
     <!-- ===== グリッド（Hugoでタイトル昇順に出力） ===== -->
     <div class="grid view--icons">
@@ -152,6 +160,17 @@ document.addEventListener('DOMContentLoaded', function () {
     // 念のため自動バインドを無効化しておきます
     controls: { scope: 'local' } 
   });
+
+// --- 0. コントロール開閉制御（追加） ---
+  const toggleBtn = document.getElementById('controls-toggle-btn');
+  const wrapper = document.getElementById('controls-wrapper');
+
+  if (toggleBtn && wrapper) {
+    toggleBtn.addEventListener('click', () => {
+      const isClosed = wrapper.classList.toggle('is-closed');
+      toggleBtn.classList.toggle('is-closed', isClosed);
+    });
+  }
 
   let searchQuery = '';
 
@@ -268,6 +287,22 @@ document.addEventListener('DOMContentLoaded', function () {
         searchQuery = searchInput.value;
         applyFilter();
       }, 150);
+    });
+  }
+
+// --- 4.5 ソートボタン制御（追加） ---
+  if (sortGroup) {
+    sortGroup.addEventListener('click', (e) => {
+      const btn = e.target.closest('[data-sort]');
+      if (!btn) return;
+
+      // チェック状態の更新
+      sortGroup.querySelectorAll('.is-checked').forEach(el => el.classList.remove('is-checked'));
+      btn.classList.add('is-checked');
+
+      // MixItUpのソート実行
+      const sortCommand = btn.getAttribute('data-sort');
+      mixer.sort(sortCommand);
     });
   }
 

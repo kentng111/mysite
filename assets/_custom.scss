@@ -414,6 +414,57 @@ a:hover {
   }
 }
 
+// nnn 4.1.5
+// --- コントロール開閉ボタン ---
+.controls-toggle-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+  padding: 0.4rem 0.8rem;
+  background: transparent;
+  border: 1px solid #ddd;
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 600;
+  transition: background 0.2s;
+
+  &:hover {
+    background: rgba(0,0,0,0.05);
+  }
+
+  // 閉じた時にアイコンを回転させるクラス
+  &.is-closed .btn-icon {
+    transform: rotate(-90deg);
+  }
+  .btn-icon {
+    font-size: 0.8em;
+    transition: transform 0.3s ease;
+  }
+}
+
+// --- 開閉アニメーション（Grid rows トランジション） ---
+.controls-wrapper {
+  display: grid;
+  grid-template-rows: 1fr; // 開いている状態（高さ自動）
+  transition: grid-template-rows 0.4s ease-out, opacity 0.4s ease-out, margin-bottom 0.4s ease;
+  margin-bottom: 1rem;
+  opacity: 1;
+}
+
+// 閉じている状態
+.controls-wrapper.is-closed {
+  grid-template-rows: 0fr; // 高さ0へ
+  margin-bottom: 0;
+  opacity: 0;
+  pointer-events: none; // 閉じた時にクリック判定を消す
+}
+
+// Gridアニメーションには内部要素のoverflow:hiddenが必須
+.controls-inner {
+  overflow: hidden;
+}
+
 // ダークモード対応
 @media (prefers-color-scheme: dark) {
   .slider-row {

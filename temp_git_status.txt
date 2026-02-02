@@ -1,93 +1,21 @@
- M .obsidian/plugins/colored-tags/data.json
  M .obsidian/workspace.json
  M assets/_custom.scss
- M "content/test page 1/index.md"
- M "content/test page 2/index.md"
- M "content/test page 3/index.md"
- M "content/test page 4/index.md"
- M "content/test page 5/index.md"
  M layouts/_default/list.html
  M public/404.html
  M public/about-us/index.html
- D public/book.min.05c34ce01d69331465ef859dbdab8549d0fbc2e8428d14d4e12267f779bf2b18.css
- D public/book.min.085d1bc4c6e4c2afa80cea37fe332c49ab48e6496e8718c387b29402f729df8a.css
- D public/book.min.16123aea159d76210d0ad63838ca1ba7537819e3698b31dcbc9b61d9ba580cae.css
- D public/book.min.17f191055a6630269901c98ac0042929ba251df2fbbfa2851b48269cc101c02e.css
- D public/book.min.1b3bc65d10e6208e4a9c4c680238b6e8464cb8a2086d31aa17e0d6fd8799ac06.css
- D public/book.min.2bb9fbb4500c97699a5f4adfdb994eaa6feb1a38c2bad6490f1e081e6bb8265c.css
- D public/book.min.2c310fde4f81dc3774411008fa3aee43c7b4abfcc390eeed49acb9bfe757254d.css
- D public/book.min.2d1ae5324ee630e78c8ae2ae9748ab41c2f34c68ac8989098fb5ce483b9f522c.css
- D public/book.min.37e66d37da171e80266e28b71f032f87729f9be4b8da8af9250106424b0d394e.css
- D public/book.min.3af6108c1b60cfc2e5546e883d64b56a74a70a8f713976058b6483d70f2c85d6.css
- D public/book.min.3bc601000acb87a8cfc3802811c9b32e48bf916c4b59e38346329f7306cfad89.css
- D public/book.min.3beb868dd7fea443e6d11b47688cd31a54e294166b3c3e74ed4e0b8e4cca2840.css
- D public/book.min.418554fb0279f15724760997661bf8f997760b5012379ee848defbfb25f9ff50.css
- D public/book.min.42691d50b99590badabb05bb31a104901df05448ef1da09594b9fd1fbe66cb6c.css
- D public/book.min.46af5a9d49e5528efb4e8bdfdbb47ae7ca43a8279a03cbe6552c5e406f4ad4bc.css
- D public/book.min.47e70b9b8e250b009ce0c6305b10cd2e7e02ff50cfb8d7ea371df342063d1824.css
- D public/book.min.48155c592046d21bbe517dd1ded49a26b94c2dc71d9e2f254142ed6cb254a4d5.css
- D public/book.min.4af979f383b61d65a2eb7c63fe7816dd218e855d7fe040cf0ee02cc3899dc78d.css
- D public/book.min.4cc2aa2684c9c598405dc77d13084a0b33c60997c27b6c15e8a912d850c28d91.css
- D public/book.min.4e2389194848e2360a08d27a88ecd658faf391dcba5fee63f280892bb19e67df.css
- D public/book.min.5061bc7e2eea57c8c4f7853bbe7bfc6f419865fbe67c41e3a82a81a95f2195c9.css
- D public/book.min.50c7c2940607e0e870110d624ce31f3856330eeab0d1296f6dc51468cec3acdd.css
- D public/book.min.5106647db9779646f2c5c7b3a29883f46eb00cc4d2b2788853dd223ad3e88ee9.css
- D public/book.min.57eb8e3e9834b8e6c997adbc680797e5b58849fe1a995390d46eb871e481b5b0.css
- D public/book.min.5a36363cab9c1c49f2aca97ccd5acc7d345398f9d4d597e1688d5d5c17c7dbd3.css
- D public/book.min.5e32a0ef7456119d627329eef3910138a013c816ae2b4d1db951adfeba80d4ea.css
- D public/book.min.62ff60e6e1069b8ba2b5a7dc5106f29c925cb75ec06a52838cbe4967b85d0098.css
- D public/book.min.6c6a9774c9da4b1ff431bd776c2aee067b04322f251386aec1f9fbb16da42f5a.css
- D public/book.min.6dc7a32bb658b21e6cfb01429fdcad0cf4e172406ec3b4c0fd7acd030196b676.css
- D public/book.min.77f5703d5086eeaac2e8be548e3ae086e7daede4dbc65bda72363392f617f390.css
- D public/book.min.7a04f781d66b3af7b7cae20723e89ee25c975807ce13ae81019dd2c8f900a157.css
- D public/book.min.7e3ba616b73c995e17ddaba00fdd38f95a22505034294dd50f93ec6a677ab35b.css
- D public/book.min.888f41833297e62ad7fa574e697ea4491918967f6002e7e64b8b31276e3f61ac.css
- D public/book.min.9a2daeba102d4c1e786aacc7bd06caf8ddd980ede3b9e954ef187b0fb8517072.css
- D public/book.min.9af792533111b293316a0eeccdb80ec13290f2796231d0c4d519443409fb20d2.css
- D public/book.min.a3fc5b0d8266754836208d1fc48bf8761ceb3055655073a2eba5b0561f07e545.css
- D public/book.min.ac3abedb7867db69874e0bc0302e64e6cfb6f7e84afe59f764ff72d307cc9383.css
- D public/book.min.b1843d94e72120bc44ebe7e6c9a47950eb0995708ecad732a9b2dcd928e0fc78.css
- D public/book.min.b514428365f80403dc19076226e0fe49ebb6f349612a22950d75f96fecc09d7c.css
- D public/book.min.b5729ccc136779d519ec2f12a1003803952bfc74303c0dbe5376d70cbd2bac77.css
- D public/book.min.b79efe3dcc662f536b9c2e738439a8a254af3264c32521b77ac905491e0d11a0.css
- D public/book.min.b907ae581cd41f167a3d3d9323dd47d7fb5bc5a9188a9b0fec62004e00207e6d.css
- D public/book.min.c000d21214dfc78b0fb7d1f84f938ff1b902b6dc98ab24e42be4e0b3b3ebe611.css
- D public/book.min.c6348e62efc2a75909b58eed398837cd2187584c66fa87e7b0eb77475555f265.css
- D public/book.min.c69e964a16dcda249fd8dc0d0e4cfe913e539014a7be37ae8ebe6ea4e6c92670.css
- D public/book.min.c8003546a8d6eadf3d0db0bd3a0f79f65c7b5a96dbdf00d2390446c0b66971ab.css
- D public/book.min.c8967efbb90e9907d33809db26d1034bad12408ed50177671b8e852e9c4c85d8.css
- D public/book.min.cceec7a2642188fa2a0531a67117b8a8bb81993c6078266a7b0c19b2a57cf8ac.css
- D public/book.min.cefb9372fe446e022ae35cda26e6cb3589671c8731dfc49051da0ecd4b9cd8e7.css
- D public/book.min.d1387f129b43a451729f7e12442022f8ff980800221819fa0cdfa3991ecae9d4.css
- D public/book.min.d4aba6b4df25fed31a26dfa2610d06369a72281ae7c93f7a1eb6ec02bdb014e7.css
- D public/book.min.d53cd475020e43f6c9d1d8aaeb17e938f9778d0982f1319bb1493794d3e8959e.css
- D public/book.min.e454729a34f3ced114b070d14989540eb37b5e854f3aa72accd514e1c7b2ed8d.css
- D public/book.min.e4e8675c83c077b290a477425d765690ffd4809f313d73a9379e1cfe8ffb76b0.css
- D public/book.min.eb73de0f00c7ce7d058288937c38691b35cf7758fd39ce2db600b5ca3fce0d02.css
- D public/book.min.f86f81d36e9538c85f39c7112aced3e2f3b755d194bf8df3e56c9384cfa8e67f.css
- D public/book.min.f8ed6fb693d940ebffcb7b1fc811791dba941c60abf4d7bd954ae8e0bc34b5e2.css
+ D public/book.min.25ff53dbd643e599b9b14fea77511ab5c07d76bc243bf747536a25e2a061e8ed.css
  M public/categories/index.html
  M public/contact/index.html
- D public/en.search-data.min.1a6ad916de720b7e95490805ffe628f6b542bbcd8873c6a1ebe3053eb28131d2.json
- D public/en.search.min.0b76467d37e496e11571b84af1ce8975345cae3e63cc3e0f3eb1a9a164d699f6.js
  M public/index.html
  M public/people/index.html
- D public/s.n.u/cover_snu.jpeg
- D public/s.n.u/index.html
- M public/sitemap.xml
- D public/tags/architecture/index.html
- D public/tags/architecture/index.xml
- D public/tags/architecture/page/1/index.html
  M public/tags/contact/index.html
+ M public/tags/even/index.html
+ M public/tags/five/index.html
  M public/tags/index.html
- M public/tags/index.xml
  M public/tags/information/index.html
- D public/tags/photo/index.html
- D public/tags/photo/index.xml
- D public/tags/photo/page/1/index.html
- D public/tags/recommend/index.html
- D public/tags/recommend/index.xml
- D public/tags/recommend/page/1/index.html
+ M public/tags/odd/index.html
+ M public/tags/one/index.html
+ M public/tags/tree/index.html
  M public/test-page-1/index.html
  M public/test-page-2/index.html
  M public/test-page-3/index.html
@@ -96,11 +24,4 @@
  M resources/_gen/assets/book.scss_b807c86e8030af4cdc30edccea379f5f.content
  M resources/_gen/assets/book.scss_b807c86e8030af4cdc30edccea379f5f.json
  M temp_git_status.txt
-?? public/book.min.25ff53dbd643e599b9b14fea77511ab5c07d76bc243bf747536a25e2a061e8ed.css
-?? public/en.search-data.min.6f632e145cf244e4730bac43172fc8d656a6395168bc4a070d4fcdbfa0e24b84.json
-?? public/en.search.min.98da819c0b59b2b24f94fbf1f429a7cae09dbf2aaa30643942b6a27fe0a25651.js
-?? public/tags/even/
-?? public/tags/five/
-?? public/tags/odd/
-?? public/tags/one/
-?? public/tags/tree/
+?? public/book.min.0e4b724a2353b53b1819546316058e98898d9579de2bea24a3f6fc8c59373a85.css
