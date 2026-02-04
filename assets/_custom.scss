@@ -300,6 +300,12 @@ a:hover {
   min-width: 3.4rem;
 }
 
+// column-value の幅を確保
+#column-value {
+  min-width: 2.5rem; // 1/10 と表示されても余裕があるように
+  display: inline-block;
+}
+
 //nnn 4.1.3 ボタン状態
 .and-filter-group,
 .and-sort-group,
@@ -523,40 +529,56 @@ a:hover {
   }
 }
 
-// nnn 4.1.6 表示オプション（Display Options）行のスタイル
+// nnn 4.1.6 表示オプション（Display Options）をボタン形式へ
 .display-options-row {
   display: flex;
   align-items: center;
-  gap: 1rem;
+  /* 項目間の余白を調整（黒丸のスペースを含めて少し広めに） */
+  gap: 1.8rem; 
   flex-wrap: wrap;
+  padding-left: 1rem; /* 左端の黒丸がはみ出さないように調整 */
 
-  // チェックボックスとラベルのセット
-  .checkbox-label {
-    display: flex;
-    align-items: center;
-    gap: 0.3rem;
-    font-size: 0.85rem;
+  .display-dot-btn {
+    position: relative;
+    /* 判定をテキストのみにするため、paddingを0にする */
+    padding: 0;
+    border: none;
+    background: transparent;
     cursor: pointer;
-    user-select: none;
-    color: #555;
+    font-size: 1rem;
+    color: inherit;
+    transition: opacity 0.2s ease;
 
+    /* ホバー時の効果はテキスト部分に乗った時だけ発生するようになります */
     &:hover {
-      color: #000;
+      opacity: 0.6;
     }
 
-    input[type="checkbox"] {
-      cursor: pointer;
-      margin: 0;
-      transform: translateY(0.5px); // 微調整
+    &::before {
+      content: "*";
+      position: absolute;
+      /* ボタンのボックスの外（左側）に配置 */
+      left: -.75rem; 
+      top: 75%;
+      transform: translateY(-50%);
+      font-size: 1.2rem;
+      color: #000;
+      opacity: 0;
+      transition: opacity 0.2s ease;
+      /* マウスイベントを無視させることで、丸の上ではカーソルが反応しないようにする */
+      pointer-events: none;
+    }
+
+    &.is-checked::before {
+      opacity: 1;
     }
   }
 }
 
-// ダークモード対応
+/* ダークモード対応 */
 @media (prefers-color-scheme: dark) {
-  .display-options-row .checkbox-label {
-    color: #aaa;
-    &:hover { color: #fff; }
+  .display-options-row .display-dot-btn::before {
+    color: #fff;
   }
 }
 

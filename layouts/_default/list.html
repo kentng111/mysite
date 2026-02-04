@@ -92,25 +92,15 @@
 
         <div class="controls-row slider-row" id="column-slider-container">
           <span class="controls-label">scale :</span>
-          <input type="range" id="column-slider" min="1" max="10" value="3" step="1" style="flex: 1; max-width: 200px;">
-          <span id="column-value" style="min-width: 1.5rem; font-weight: bold; margin-left: 0.5rem;">3</span>
+          <input type="range" id="column-slider" min="1" max="10" value="8" step="1" style="flex: 1; max-width: 200px;">
+          <span id="column-value" style="min-width: 2.5rem; font-weight: bold; margin-left: 0.5rem;">1/3</span>
         </div>
 
         <div class="controls-row display-options-row" id="display-options-container" style="padding-bottom: 0.5rem;">
-          <span class="controls-label">display :</span>
-          
-          <label class="checkbox-label">
-            <input type="checkbox" id="check-image" checked> image
-          </label>
-          <label class="checkbox-label">
-            <input type="checkbox" id="check-title" checked> title
-          </label>
-          <label class="checkbox-label">
-            <input type="checkbox" id="check-tag"> tag
-          </label>
-          <label class="checkbox-label">
-            <input type="checkbox" id="check-date"> date
-          </label>
+          <button type="button" class="display-dot-btn is-checked" data-target="image">image</button>
+          <button type="button" class="display-dot-btn is-checked" data-target="title">title</button>
+          <button type="button" class="display-dot-btn" data-target="tag">tag</button>
+          <button type="button" class="display-dot-btn" data-target="date">date</button>
         </div>
         </div></div>
 
@@ -275,55 +265,88 @@ if (sortGroup) {
   }
 
   // --- 6. カラム数スライダー (変更なし) ---
-  const columnSlider = document.querySelector('#column-slider');
-  const columnValue = document.querySelector('#column-value');
-  function updateColumns(val) {
-    grid.style.setProperty('--col-count', val);
-    columnValue.textContent = val;
-    columnSlider.value = val;
-  }
-  function getInitialColumns() { /* 既存ロジック */
-    if (window.innerWidth < 640) return 2;
-    else if (window.innerWidth < 1024) return 4;
-    else return 6;
-  }
-  if (columnSlider) {
-    updateColumns(getInitialColumns());
-    columnSlider.addEventListener('input', (e) => updateColumns(e.target.value));
-  }
+// list.html 内の updateColumns 関数付近を以下に書き換え
 
+const columnSlider = document.querySelector('#column-slider');
+const columnValue = document.querySelector('#column-value');
 
-  // ▼▼▼ 追加: 表示オプションの制御ロジック ▼▼▼
-  const checkImage = document.getElementById('check-image');
-  const checkTitle = document.getElementById('check-title');
-  const checkTag   = document.getElementById('check-tag');
-  const checkDate  = document.getElementById('check-date');
+/**
+ * val: スライダーの生の値 (1〜10)
+ */
+function updateColumns(val) {
+  // スライダーが右(10)に行くほど、実際の列数(displayCol)を小さく(1)する
+  // 計算式: 11 - 10 = 1列（最大拡大） / 11 - 1 = 10列（最大縮小）
+  const displayCol = 11 - parseInt(val);
 
-  function updateDisplayOptions() {
-    // image: チェックOFFなら hide-cover クラス付与
-    if (!checkImage.checked) grid.classList.add('hide-cover');
-    else grid.classList.remove('hide-cover');
+  // CSS変数に実際の列数をセット
+  grid.style.setProperty('--col-count', displayCol);
 
-    // title: チェックOFFなら hide-title クラス付与
-    if (!checkTitle.checked) grid.classList.add('hide-title');
-    else grid.classList.remove('hide-title');
+  // ラベルを「1/列数」の形式で表示
+  columnValue.textContent = `1/${displayCol}`;
+  
+  // スライダーのつまみ位置を同期
+  columnSlider.value = val;
+}
 
-    // tag: チェックONなら show-tags クラス付与 (デフォルトOFFのため)
-    if (checkTag.checked) grid.classList.add('show-tags');
-    else grid.classList.remove('show-tags');
+// 初期状態の設定ロジックを修正
+function getInitialColumns() {
+  let cols;
+  if (window.innerWidth < 640) cols = 2;
+  else if (window.innerWidth < 1024) cols = 4;
+  else cols = 6;
+  
+  // 実際の列数(cols)からスライダーの生の値(val)に逆算
+  // val = 11 - cols
+  return 11 - cols;
+}
 
-    // date: チェックONなら show-date クラス付与 (デフォルトOFFのため)
-    if (checkDate.checked) grid.classList.add('show-date');
-    else grid.classList.remove('show-date');
-  }
-
-  // 各チェックボックスにイベントリスナー設定
-  [checkImage, checkTitle, checkTag, checkDate].forEach(el => {
-    if(el) el.addEventListener('change', updateDisplayOptions);
+if (columnSlider) {
+  // 初回実行
+  updateColumns(getInitialColumns());
+  
+  // 入力時のイベントリスナー
+  columnSlider.addEventListener('input', (e) => {
+    updateColumns(e.target.value);
   });
+}
 
-  // 初期実行
-  updateDisplayOptions();
+
+// list.html 内の表示オプション制御ロジックを書き換え
+
+// 取得するクラス名を修正
+const displayBtns = document.querySelectorAll('.display-dot-btn');
+
+function updateDisplayOptions() {
+  displayBtns.forEach(btn => {
+    const target = btn.getAttribute('data-target');
+    const isActive = btn.classList.contains('is-checked');
+
+    // 各ターゲットの表示・非表示を切り替え
+    if (target === 'image') {
+      isActive ? grid.classList.remove('hide-cover') : grid.classList.add('hide-cover');
+    }
+    if (target === 'title') {
+      isActive ? grid.classList.remove('hide-title') : grid.classList.add('hide-title');
+    }
+    if (target === 'tag') {
+      isActive ? grid.classList.add('show-tags') : grid.classList.remove('show-tags');
+    }
+    if (target === 'date') {
+      isActive ? grid.classList.add('show-date') : grid.classList.remove('show-date');
+    }
+  });
+}
+
+// クリック時の挙動
+displayBtns.forEach(btn => {
+  btn.addEventListener('click', () => {
+    btn.classList.toggle('is-checked'); // 黒丸の有無を切り替え
+    updateDisplayOptions();
+  });
+});
+
+// 初期実行
+updateDisplayOptions();
 
   applyFilter();
 });
