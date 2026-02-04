@@ -3,8 +3,10 @@ title: test page 4
 date: 2026-01-09
 tags:
   - even
+  - four
 draft: true
 color: "#F28DA8"
+year: 2025-06
 ---
 test page
 

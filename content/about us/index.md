@@ -5,6 +5,7 @@ tags:
   - information
 draft: false
 color: "#2C5159"
+year: 0000-01
 ---
 ![](cover_snu.jpeg)
 s.n.uは日本およびポーランドを拠点とするグローバルな建築・デザイン事務所です。

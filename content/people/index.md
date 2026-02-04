@@ -5,6 +5,7 @@ tags:
   - information
 draft: true
 color: "#AABDBF"
+year: 0000-00
 ---
 ---
 下岡 未歩

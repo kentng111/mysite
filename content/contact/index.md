@@ -4,7 +4,8 @@ tags:
   - contact
 date: 2024-01-02
 draft: false
-color: "#F1F0F2"
+color: "#F1F9F2"
+year: 9999-00
 ---
 <form action="https://ssgform.com/s/8GZjIVpyN5AV" method="post">
   <p>
