@@ -1,7 +1,5 @@
  M assets/_custom.scss
  M layouts/_default/list.html
- M preview_local.bat
  M resources/_gen/assets/book.scss_b807c86e8030af4cdc30edccea379f5f.content
  M resources/_gen/assets/book.scss_b807c86e8030af4cdc30edccea379f5f.json
  M temp_git_status.txt
-?? "preview_local - \343\202\263\343\203\224\343\203\274.bat"

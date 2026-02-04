@@ -95,7 +95,7 @@
       </div>
 
       <div class="controls-row slider-row" id="column-slider-container">
-        <input type="range" id="column-slider" min="1" max="10" value="8" step="1" style="flex: 1; max-width: 300px;">
+        <input type="range" id="column-slider" min="1" max="10" value="8" step="1" style="flex: 1; max-width: 350px;">
       </div>
 
       <div class="controls-row display-options-row" id="display-options-container" style="padding-bottom: 0.5rem;">
@@ -129,7 +129,7 @@
               <div class="card-main-col">
                 <div class="title">{{ .Title }}</div>
                 <div class="card-tags">
-                  {{ with .Params.tags }}{{ range . }}<span class="tag-pill">#{{ . }}</span>{{ end }}{{ end }}
+                  {{ with .Params.tags }}{{ range . }}<span class="tag-pill">{{ . }}</span>{{ end }}{{ end }}
                 </div>
               </div>
               <div class="meta">{{ .Date.Format "2006-01-02" }}</div>

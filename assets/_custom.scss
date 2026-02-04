@@ -263,7 +263,6 @@ a:hover {
 //nnn 4.1 MixItUp：検索・フィルタ・表示切替UI
 
 //nnn 4.1.1 検索バー
-// nnn 4.1.1 検索バー
 .search-bar {
   margin: 0 0 .5rem;
   display: flex;
@@ -272,7 +271,7 @@ a:hover {
 
   input {
     flex: 1;
-    max-width: 300px; // ← 250pxから300pxに変更
+    max-width: 350px; // ← 250pxから350pxに変更
     padding: 0rem .4rem;
     height: 25px;
     border: 1px solid #ccc;
@@ -412,7 +411,7 @@ a:hover {
   align-items: center;
   margin-top: 0rem;
   margin-bottom: 0.3rem;
-  max-width: 300px; // ← スライダーと同じ幅に固定
+  max-width: 350px; // ← スライダーと同じ幅に固定
 
   button {
     background: none !important;
@@ -694,7 +693,7 @@ a:hover {
   font-weight: normal;
   color: #666;
   border: 1px solid #ddd;
-  background-color: #f9f9f9;
+  background-color: rgba(255, 255, 255, 0.4);  /* 半透明に変更 */
   padding: 1px 10px;
   border-radius: 99px;     /* 丸くする */
   white-space: nowrap;
@@ -707,9 +706,9 @@ a:hover {
 // ダークモード対応（共通）
 @media (prefers-color-scheme: dark) {
   .tag-pill {
-    color: #ccc;
+    color: #1e1e1e;
     border-color: #555;
-    background-color: rgba(255,255,255,0.05);
+    background-color: rgba(255,255,255,0.3);  /* ダークモード用半透明 */
   }
 }
 
