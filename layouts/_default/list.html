@@ -77,15 +77,6 @@
       </div>
 
       <div class="controls-row">
-        <div class="and-sort-group">
-          <button class="is-checked" data-sort="date:desc">newest</button>
-          <button data-sort="date:asc">oldest</button>
-          <button data-sort="title:asc">a-z</button>
-          <button data-sort="title:desc">z-a</button>
-        </div>
-      </div>
-
-      <div class="controls-row">
         <div class="and-filter-group">
           <button class="is-checked" data-tag="all">all</button>
           {{ range sort $tags }}
@@ -146,7 +137,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
   const grid        = document.querySelector('.grid');
   const filterGroup = document.querySelector('.and-filter-group');
-  const sortGroup   = document.querySelector('.and-sort-group');
   const viewGroup   = document.querySelector('.and-view-group');
   const searchInput = document.querySelector('#search-input');
   
@@ -222,24 +212,6 @@ document.addEventListener('DOMContentLoaded', function () {
       });
   }
   // URLパラメータ処理、検索Input処理、ソート処理も既存のまま...
-
-// --- ソート制御 ---
-if (sortGroup) {
-  sortGroup.addEventListener('click', (e) => {
-    const btn = e.target.closest('[data-sort]');
-    if (!btn) return;
-    
-    e.preventDefault();
-
-    // アクティブなクラスの付け替え
-    sortGroup.querySelectorAll('.is-checked').forEach(el => el.classList.remove('is-checked'));
-    btn.classList.add('is-checked');
-
-    // MixItUpのソート実行
-    const sortString = btn.getAttribute('data-sort');
-    mixer.sort(sortString);
-  });
-}
 
   // --- 5. View制御と表示オプション連動 ---
   if (viewGroup) {

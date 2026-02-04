@@ -310,8 +310,7 @@ a:hover {
 }
 
 /* 1. ボタンの基本スタイル（全グループ共通・四角） */
-.and-filter-group button,
-.and-sort-group button {
+.and-filter-group button,{
     display: inline-block;   /* 横並びにする設定 */
   font-size: 0.75rem;
   font-weight: normal;
@@ -360,7 +359,15 @@ a:hover {
 /* 3. 選択中（Active）のデザイン */
 
 /* Filterグループの選択時（基本設定） */
-.and-filter-group .is-checked {
+/* 「All」ボタンの未選択時を四角にする */
+.and-filter-group button[data-tag="all"]:not(.is-checked) {
+  border-radius: 0rem !important;
+}
+
+/* 3. 選択中（Active）のデザイン */
+
+/* Filterグループの選択時（基本設定） */
+.and-filter-group button.is-checked {
   background: #3ad761;
   color: #fff;
   border-color: #299444;
@@ -368,25 +375,16 @@ a:hover {
 }
 
 /* ★修正：「All」が選択されている時は「四角」かつ「緑色」にする */
-/* ここに色を明記しないと、上のグレー設定が勝ってしまうため再定義します */
 .and-filter-group button[data-tag="all"].is-checked {
   background: #3ad761;   /* 緑色 */
   color: #fff;
   border-color: #299444;
-  border-radius: 0rem;   /* 形は四角 */
-}
-
-/* Sortグループの選択時 */
-.and-sort-group .is-checked {
-  background: #3b82f6;
-  color: #fff;
-  border-color: #1d4ed8;
-  border-radius: 0rem;
+  border-radius: 0rem !important;   /* ★ここを !important で四角に固定 */
 }
 
 /* ダークモード対応（選択色） */
 @media (prefers-color-scheme: dark) {
-  .and-filter-group .is-checked {
+  .and-filter-group button.is-checked {
     background: #2a8f4a;
     border-color: #1f6835;
   }
@@ -395,13 +393,8 @@ a:hover {
   .and-filter-group button[data-tag="all"].is-checked {
     background: #2a8f4a;
     border-color: #1f6835;
+    border-radius: 0rem !important;
   }
-
-  .and-sort-group .is-checked {
-    background: #2446b3;
-    border-color: #1e3a8a;
-  }
-
 }
 
 // nnn 4.1.4 View切替ボタン
@@ -587,18 +580,21 @@ a:hover {
   }
 }
 
-// nnn 4.1.7 表示オプション（Display Options）をボタン形式へ
+// nnn 4.1.7 表示オプション（Display Options）
 .display-options-row {
   display: flex;
   align-items: center;
-  /* 項目間の余白を調整（黒丸のスペースを含めて少し広めに） */
-  gap: 1.8rem; 
-  flex-wrap: wrap;
-  padding-left: 1rem; /* 左端の黒丸がはみ出さないように調整 */
+  
+  justify-content: space-between; /* 両端揃えで等間隔に配置 */
+  gap: 0;                         /* 固定の間隔を解除 */
+  max-width: 350px;               /* スライダーやView切替ボタンと幅を合わせる */
+
+  flex-wrap: nowrap;              /* 折り返さないように固定 */
+  padding-left: 1.2rem;           /* 左端の黒丸(*)のスペースを確保 */
+  padding-right: 0.5rem;          /* 右側の余白微調整 */
 
   .display-dot-btn {
     position: relative;
-    /* 判定をテキストのみにするため、paddingを0にする */
     padding: 0;
     border: none;
     background: transparent;
@@ -606,8 +602,11 @@ a:hover {
     font-size: 1rem;
     color: inherit;
     transition: opacity 0.2s ease;
+    
+    /* ボタン自体の幅を安定させる（任意） */
+    flex: 0 1 auto;
+    text-align: center;
 
-    /* ホバー時の効果はテキスト部分に乗った時だけ発生するようになります */
     &:hover {
       opacity: 0.6;
     }
@@ -615,28 +614,19 @@ a:hover {
     &::before {
       content: "*";
       position: absolute;
-      /* ボタンのボックスの外（左側）に配置 */
-      left: -.75rem; 
-      top: 75%;
-      transform: translateY(-50%);
+      left: -.75rem; /* 丸の位置を微調整 */
+      top: 60%;      /* 中央に配置 */
+      transform: translateY(-40%);
       font-size: 1.2rem;
       color: #000;
       opacity: 0;
       transition: opacity 0.2s ease;
-      /* マウスイベントを無視させることで、丸の上ではカーソルが反応しないようにする */
       pointer-events: none;
     }
 
     &.is-checked::before {
       opacity: 1;
     }
-  }
-}
-
-/* ダークモード対応 */
-@media (prefers-color-scheme: dark) {
-  .display-options-row .display-dot-btn::before {
-    color: #fff;
   }
 }
 
