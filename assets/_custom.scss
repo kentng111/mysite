@@ -124,7 +124,7 @@ a:hover {
 .site-search .book-search { width: 100%; }
 .site-search input[type="search"] {
   width: 100%;
-  height: 38px;
+  height: 38spx;
   box-sizing: border-box;
 }
 
@@ -263,6 +263,7 @@ a:hover {
 //nnn 4.1 MixItUp：検索・フィルタ・表示切替UI
 
 //nnn 4.1.1 検索バー
+// nnn 4.1.1 検索バー
 .search-bar {
   margin: 0 0 .5rem;
   display: flex;
@@ -271,7 +272,7 @@ a:hover {
 
   input {
     flex: 1;
-    max-width: 300px;
+    max-width: 300px; // ← 250pxから300pxに変更
     padding: 0rem .4rem;
     height: 25px;
     border: 1px solid #ccc;
@@ -300,15 +301,10 @@ a:hover {
   min-width: 3.4rem;
 }
 
-// column-value の幅を確保
-#column-value {
-  min-width: 2.5rem; // 1/10 と表示されても余裕があるように
-  display: inline-block;
-}
 
 //nnn 4.1.3 ボタン状態
 .and-filter-group,
-.and-sort-group,{
+.and-sort-group {
   display: flex;
   gap: .3rem;
   flex-wrap: wrap;
@@ -316,19 +312,26 @@ a:hover {
 
 /* 1. ボタンの基本スタイル（全グループ共通・四角） */
 .and-filter-group button,
-.and-sort-group button, {
-  padding: .2rem .4rem;
+.and-sort-group button {
+    display: inline-block;   /* 横並びにする設定 */
+  font-size: 0.75rem;
+  font-weight: normal;
+  color: #666;
   border: 1px solid #ddd;
-  border-radius: 0rem;
-  background: #fff;
-  cursor: pointer;
-  transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+  background-color: #f9f9f9;
+  padding: 1px 10px;
+  border-radius: 99px;     /* 丸くする */
+  white-space: nowrap;
+  line-height: 1.4;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  width: auto;             /* ★重要：幅が勝手に広がらないようにする */
 }
 
 /* 2. Filterボタンの「All以外」を角丸（ピル型）にする */
 .and-filter-group button:not([data-tag="all"]) {
   border-radius: 99px;
-  padding: .2rem .8rem;
+  padding: 1px 10px; // ★ピル型ボタンの横幅の余白をここで調整
 }
 
 /* 「All」ボタンの未選択時をグレーにする */
@@ -341,7 +344,7 @@ a:hover {
 /* ダークモード対応（ボタン背景） */
 @media (prefers-color-scheme: dark) {
   .and-filter-group button,
-  .and-sort-group button, {
+  .and-sort-group button {
     background: #2a2a2a;
     border-color: #444;
     color: #fff;
@@ -396,21 +399,22 @@ a:hover {
   }
 
   .and-sort-group .is-checked {
-    background: #1e40af;
+    background: #2446b3;
     border-color: #1e3a8a;
   }
 
 }
 
-//nnn 4.1.4 View切替ボタン
+// nnn 4.1.4 View切替ボタン
 .and-view-group {
   display: flex;
-  gap: 20px; /* ボタン同士の間隔 */
+  justify-content: space-between; // ← gapの代わりに両端揃えに設定
   align-items: center;
-  margin-top: 0.3rem; /* 上からの距離を調整 */
+  margin-top: 0rem;
+  margin-bottom: 0.3rem;
+  max-width: 300px; // ← スライダーと同じ幅に固定
 
   button {
-    /* 枠と背景を完全に消す */
     background: none !important;
     border: none !important;
     padding: 0 !important;
@@ -418,12 +422,13 @@ a:hover {
     cursor: pointer;
     outline: none;
     
-    /* サイズをSVGの比率に合わせる */
-    width: 50px;
+    /* 3つのボタンが等幅に並ぶよう、個別の幅を調整 */
+    /* 60pxのままでも両端揃えになりますが、クリック範囲を広げる場合は調整 */
+    width: 60px; 
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: opacity 0.3s ease; /* ホバー時の演出用 */
+    transition: opacity 0.3s ease;
 
     .view-img {
       width: 100%;
@@ -472,7 +477,7 @@ a:hover {
 // nnn 4.1.5 スライダーのカスタマイズ
 .slider-row {
   margin-top: 0.5rem;
-  padding: 0.5rem 0;
+  padding: 1rem 0;
   border-top: 1px dashed rgba(0, 0, 0, 0.1); // 境目を分かりやすく
   
   input[type="range"] {
@@ -480,8 +485,10 @@ a:hover {
     appearance: none;
     background: transparent;
     cursor: pointer;
-    width: 100%;
+    width: 100%;       /* 親要素いっぱいに広げる場合 */
+    max-width: 300px;  /* 上限を決めたい場合 */
 
+  
     // トラック（棒の部分）
     &::-webkit-slider-runnable-track {
       background: #e5e7eb;
@@ -490,7 +497,7 @@ a:hover {
     }
     &::-moz-range-track {
       background: #e5e7eb;
-      height: px;
+      height: 5px;
       border-radius: 2px;
     }
 
@@ -499,7 +506,7 @@ a:hover {
       -webkit-appearance: none;
       appearance: none;
       margin-top: -4px; // トラックの真ん中に配置
-      background-color: #f59e0b; // Viewボタンと同じオレンジ
+      background-color: #7a7a7a; // オレンジ色
       height: 12px;
       width: 12px;
       border-radius: 50%;
@@ -507,7 +514,7 @@ a:hover {
     }
     &::-moz-range-thumb {
       border: none;
-      background-color: #f59e0b;
+      background-color: #7a7a7a;
       height: 12px;
       width: 12px;
       border-radius: 50%;
