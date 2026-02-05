@@ -905,14 +905,14 @@ a:hover {
   }
 
 
-  // --- 4. 日付 (Date) の制御 ---
+  // --- 4. 年月 (Year) の制御 ---
   // デフォルト: 非表示
   .meta {
     display: none; 
   }
 
-  // show-dateクラスがある時: 表示
-  &.show-date .meta {
+  // show-year クラスがある時: 表示
+  &.show-year .meta {
     display: block;
     margin-top: 0.2rem;
     font-size: 0.75rem;

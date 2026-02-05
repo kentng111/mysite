@@ -12,24 +12,21 @@
 {{ with .Params.tags }}
 <div class="page-tags">
   {{ range . }}
-    {{ $slug := . | urlize }}
-    <a href="{{ "/" | relURL }}?filter={{ $slug }}" class="tag-item">#{{ . }}</a>
+    {{ $id := printf "tag-%s" (md5 .) }}
+    <a href="{{ "/" | relURL }}" 
+   onclick="sessionStorage.setItem('jumpToTag', '.{{ $id }}')" 
+   class="tag-item">{{ . }}</a>
   {{ end }}
 </div>
 {{ end }}
 
 
     <!-- 日付（partialを使わずテーマ非依存で安全に表示） -->
-    {{/* 優先順: .Date -> .PublishDate -> .Lastmod */}}
-    {{ $d := .Date }}
-    {{ if not $d }}{{ $d = .PublishDate }}{{ end }}
-    {{ if not $d }}{{ $d = .Lastmod }}{{ end }}
-    {{ with $d }}
-      <div class="page-date">{{ . | time.Format "2006-01-02" }}</div>
-    {{ end }}
-
-    <!-- 本文 -->
-    {{ .Content }}
+{{ with .Params.year }}
+    <div class="page-date">{{ . }}</div>
+  {{ end }}
+  <!-- 本文 -->
+  {{ .Content }}
 
   </article>
 </main>

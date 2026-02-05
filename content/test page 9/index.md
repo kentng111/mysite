@@ -7,6 +7,7 @@ tags:
 draft: true
 color: "#F28EA8"
 year: 2025-07
+index: p009
 ---
 test page
 

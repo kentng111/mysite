@@ -101,8 +101,8 @@
             </div>
 
             <div class="display-option-item">
-              <button type="button" class="display-dot-btn" data-target="date">date</button>
-              <button type="button" class="sort-btn" data-sort="date" data-dir="default">-</button>
+              <button type="button" class="display-dot-btn" data-target="year">year</button>
+              <button type="button" class="sort-btn" data-sort="year" data-dir="default">-</button>
             </div>
 
           </div>
@@ -114,9 +114,9 @@
           {{ $classes := slice }}
           {{ with .Params.tags }}{{ range . }}{{ $classes = $classes | append (printf "tag-%s" (md5 .)) }}{{ end }}{{ end }}
           <a class="grid-item {{ delimit $classes " " }}" href="{{ .RelPermalink }}"
-             data-title="{{ lower .Title }}"
-             data-date="{{ .Date.Format "20060102" }}"
-             {{ with .Params.color }}style="--card-color: {{ . }};"{{ end }}>
+              data-title="{{ lower .Title }}"
+              data-year="{{ .Params.year }}" 
+              {{ with .Params.color }}style="--card-color: {{ . }};"{{ end }}>
 
             <div class="card">
               {{ $cover := index (.Resources.Match "cover_*") 0 }}
@@ -133,7 +133,7 @@
                     {{ with .Params.tags }}{{ range . }}<span class="tag-pill">{{ . }}</span>{{ end }}{{ end }}
                   </div>
                 </div>
-                <div class="meta">{{ .Date.Format "2006-01-02" }}</div>
+                <div class="meta">{{ .Params.year }}</div>
                 <div class="excerpt">{{ with .Summary }}{{ . }}{{ end }}</div>
               </div>
             </div>
@@ -150,7 +150,6 @@ document.addEventListener('DOMContentLoaded', function () {
       const filterGroup = document.querySelector('.and-filter-group');
       const viewGroup   = document.querySelector('.and-view-group');
       const searchInput = document.querySelector('#search-input');
-      
       const sliderContainer = document.querySelector('#column-slider-container');
       const displayOptionsContainer = document.querySelector('#display-options-container');
 
@@ -172,6 +171,15 @@ document.addEventListener('DOMContentLoaded', function () {
           toggleBtn.classList.toggle('is-closed', isClosed);
         });
       }
+
+      //nnn検索入力のイベントリスナー
+      if (searchInput) {
+        searchInput.addEventListener('input', (e) => {
+          searchQuery = e.target.value; // 入力された値を保持
+          applyFilter();                // フィルタリング処理を実行
+        });
+      }
+      // ------------------------------------------
 
       //nnn フィルター適用ロジック
       let searchQuery = '';
@@ -306,8 +314,8 @@ document.addEventListener('DOMContentLoaded', function () {
           if (target === 'tag') {
             isActive ? grid.classList.add('show-tags') : grid.classList.remove('show-tags');
           }
-          if (target === 'date') {
-            isActive ? grid.classList.add('show-date') : grid.classList.remove('show-date');
+          if (target === 'year') {
+             isActive ? grid.classList.add('show-year') : grid.classList.remove('show-year');
           }
         });
       }
@@ -351,7 +359,28 @@ document.addEventListener('DOMContentLoaded', function () {
         });
       });
 
-      applyFilter();
+// --- 修正：セッションストレージからタグを読み取ってフィルタを適用 ---
+const initialFilter = sessionStorage.getItem('jumpToTag');
+
+if (initialFilter) {
+  // 1. メモを読み取ったら、すぐに削除する（次回普通に開いたときにフィルタされないようにするため）
+  sessionStorage.removeItem('jumpToTag');
+
+  // 2. "all" ボタンのチェックを外す
+  const allBtn = filterGroup.querySelector('[data-tag="all"]');
+  if (allBtn) allBtn.classList.remove('is-checked');
+
+  // 3. 保存されていたフィルタ（.tag-xxxx）に一致するボタンを探す
+  const targetBtn = filterGroup.querySelector(`[data-tag="${initialFilter}"]`);
+  if (targetBtn) {
+    // 4. そのボタンにチェックを付ける
+    targetBtn.classList.add('is-checked');
+  }
+}
+// -------------------------------------------------------------
+
+// 最後にフィルタを適用
+applyFilter();
     });
     </script>
 

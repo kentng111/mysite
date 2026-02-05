@@ -6,6 +6,7 @@ tags:
 draft: true
 color: "#AABDBF"
 year: 0000-00
+index: a002
 ---
 ---
 下岡 未歩

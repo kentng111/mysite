@@ -7,6 +7,7 @@ tags:
 draft: true
 color: "#BF3A75"
 year: 2025-11
+index: p008
 ---
 test page
 
