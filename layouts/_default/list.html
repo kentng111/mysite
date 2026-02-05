@@ -90,10 +90,27 @@
       </div>
 
       <div class="controls-row display-options-row" id="display-options-container" style="padding-bottom: 0.5rem;">
-        <button type="button" class="display-dot-btn is-checked" data-target="image">image</button>
-        <button type="button" class="display-dot-btn is-checked" data-target="title">title</button>
-        <button type="button" class="display-dot-btn" data-target="tag">tag</button>
-        <button type="button" class="display-dot-btn" data-target="date">date</button>
+        
+        <div class="display-option-item">
+          <button type="button" class="display-dot-btn is-checked" data-target="image">image</button>
+          <button type="button" class="img-fit-btn" id="img-fit-toggle" data-state="cover">[ ]</button>
+        </div>
+
+        <div class="display-option-item">
+          <button type="button" class="display-dot-btn is-checked" data-target="title">title</button>
+          <button type="button" class="sort-btn" data-sort="title" data-dir="default">-</button>
+        </div>
+
+        <div class="display-option-item">
+          <button type="button" class="display-dot-btn" data-target="tag">tag</button>
+          <div class="sort-btn" style="cursor: default; opacity: 0;">&nbsp;</div>
+        </div>
+
+        <div class="display-option-item">
+          <button type="button" class="display-dot-btn" data-target="date">date</button>
+          <button type="button" class="sort-btn" data-sort="date" data-dir="default">-</button>
+        </div>
+
       </div>
       
     </div> </div> </div> 
@@ -286,8 +303,42 @@ if (columnSlider) {
 // list.html 内の表示オプション制御ロジックを書き換え
 
 // 取得するクラス名を修正
+// 全ての表示切替ボタンを取得
 const displayBtns = document.querySelectorAll('.display-dot-btn');
+// 画像フィットボタンを取得
+const imgFitBtn = document.getElementById('img-fit-toggle');
 
+// --- 表示オプションのクリックイベント ---
+displayBtns.forEach(btn => {
+  btn.addEventListener('click', (e) => {
+    // もしクリックされたのが「ソートボタン（-）」だったら、ここでは何もしない
+    if (e.target.closest('.sort-btn')) return;
+
+    // テキスト部分（image, titleなど）が押されたらチェック状態を反転
+    btn.classList.toggle('is-checked');
+    updateDisplayOptions();
+  });
+});
+
+// --- 画像フィット（[ ] / < >）のクリックイベント ---
+if (imgFitBtn) {
+  imgFitBtn.addEventListener('click', (e) => {
+    // 親要素（display-dot-btn）のクリックイベントが発生しないように止める
+    e.stopPropagation();
+
+    const currentState = imgFitBtn.getAttribute('data-state');
+    
+    if (currentState === 'cover') {
+      imgFitBtn.setAttribute('data-state', 'fit');
+      imgFitBtn.textContent = '< >';
+      grid.classList.add('is-fit'); // CSSで background-size: contain を適用
+    } else {
+      imgFitBtn.setAttribute('data-state', 'cover');
+      imgFitBtn.textContent = '[ ]';
+      grid.classList.remove('is-fit');
+    }
+  });
+}
 function updateDisplayOptions() {
   displayBtns.forEach(btn => {
     const target = btn.getAttribute('data-target');
@@ -317,8 +368,44 @@ displayBtns.forEach(btn => {
   });
 });
 
-// 初期実行
-updateDisplayOptions();
+// ... (前略: 表示オプション制御ロジック updateDisplayOptions など)
+
+  updateDisplayOptions(); // 既存の初期実行
+
+  // === 追加: ソートボタンの制御ロジック ===
+  const sortBtns = document.querySelectorAll('.sort-btn[data-sort]');
+
+  sortBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const sortType = btn.getAttribute('data-sort'); // 'title' or 'date'
+      let currentDir = btn.getAttribute('data-dir');  // 'default', 'asc', 'desc'
+      let nextDir = 'asc'; // デフォルトからの切り替えは昇順
+
+      // ローテーションロジック: default(-) -> asc(∧) -> desc(∨) -> asc(∧)...
+      if (currentDir === 'asc') {
+        nextDir = 'desc';
+      } else if (currentDir === 'desc') {
+        nextDir = 'asc';
+      }
+      
+      // 1. 他のソートボタンを全てリセット ('-') に戻す
+      sortBtns.forEach(otherBtn => {
+        if (otherBtn !== btn) {
+          otherBtn.textContent = '-';
+          otherBtn.setAttribute('data-dir', 'default');
+        }
+      });
+
+      // 2. クリックされたボタンの状態を更新
+      btn.textContent = (nextDir === 'asc') ? '∧' : '∨';
+      btn.setAttribute('data-dir', nextDir);
+
+      // 3. MixItUpでソート実行
+      // data-title, data-date 属性に基づいてソートします
+      // 例: mixer.sort('title:asc')
+      mixer.sort(`${sortType}:${nextDir}`);
+    });
+  });
 
   applyFilter();
 });

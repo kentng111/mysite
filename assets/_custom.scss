@@ -580,19 +580,27 @@ a:hover {
   }
 }
 
-// nnn 4.1.7 表示オプション（Display Options）
+//nnn 4.1.7 表示オプション（Display Options）
 .display-options-row {
   display: flex;
-  align-items: center;
-  
-  justify-content: space-between; /* 両端揃えで等間隔に配置 */
-  gap: 0;                         /* 固定の間隔を解除 */
-  max-width: 350px;               /* スライダーやView切替ボタンと幅を合わせる */
+  justify-content: space-between; /* 両端揃え */
+  align-items: flex-start;        /* 上揃えにして高さを合わせる */
+  gap: 0;
+  max-width: 350px;
+  flex-wrap: nowrap;
+  padding-left: 1.2rem;
+  padding-right: 0.5rem;
+  margin-top: 0.5rem;             /* 少しスペースを空ける */
 
-  flex-wrap: nowrap;              /* 折り返さないように固定 */
-  padding-left: 1.2rem;           /* 左端の黒丸(*)のスペースを確保 */
-  padding-right: 0.5rem;          /* 右側の余白微調整 */
+  // 個々のアイテムを縦並び（テキスト＋ソートボタン）にするためのラッパー
+  .display-option-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 60px; /* 各項目の幅を固定して均等配置 */
+  }
 
+  // 1段目：表示切替ボタン（テキスト）
   .display-dot-btn {
     position: relative;
     padding: 0;
@@ -602,31 +610,116 @@ a:hover {
     font-size: 1rem;
     color: inherit;
     transition: opacity 0.2s ease;
-    
-    /* ボタン自体の幅を安定させる（任意） */
-    flex: 0 1 auto;
     text-align: center;
+    line-height: 1.2;
 
     &:hover {
       opacity: 0.6;
     }
 
+    /* 左側の黒丸(*) */
     &::before {
       content: "*";
       position: absolute;
-      left: -.75rem; /* 丸の位置を微調整 */
-      top: 60%;      /* 中央に配置 */
-      transform: translateY(-40%);
+      left: -0.6rem; 
+      top: 0.1rem;
       font-size: 1.2rem;
       color: #000;
       opacity: 0;
       transition: opacity 0.2s ease;
       pointer-events: none;
+      line-height: 1;
     }
 
     &.is-checked::before {
       opacity: 1;
     }
+  }
+
+  // 2段目：ソートボタン（-, ∧, ∨）
+  .sort-btn {
+    margin-top: 2px;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    font-size: 1rem;       /* 記号のサイズ */
+    font-weight: bold;
+    color: #999;           /* 少し薄くする */
+    line-height: 1;
+    padding: 2px 10px;     /* クリックしやすく */
+    min-height: 20px;
+
+    transition: color 0.2s;
+
+    &:hover {
+      color: #333;
+    }
+
+    /* ソートがアクティブな時（∧か∨が表示されている時）の色 */
+    &[data-dir="asc"],
+    &[data-dir="desc"] {
+      color: #000;
+    }
+  }
+
+  // ダークモード対応
+  @media (prefers-color-scheme: dark) {
+    .display-dot-btn::before { color: #fff; }
+    .sort-btn { color: #777; }
+    .sort-btn:hover { color: #fff; }
+    .sort-btn[data-dir="asc"],
+    .sort-btn[data-dir="desc"] { color: #fff; }
+  }
+}
+
+// ...既存の .display-option-item の中 ...
+
+.display-option-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  // 画像フィットボタン
+  .img-fit-btn {
+    display: block;
+    background: none;
+    border: none;
+    font-size: 1rem;
+    line-height: 1;
+    margin-top: 1px;
+    cursor: pointer;
+    font-weight: bold;
+    color: #777;
+    padding: 2px 5px;
+    transition: color 0.2s;
+  }
+
+  // ソートボタン
+  .sort-btn {
+    display: block;
+    background: none;
+    border: none;
+    font-size: 1rem;
+    line-height: 1;
+    margin-top: 3px;
+    cursor: pointer;
+    font-weight: bold;
+    color: #777;
+    padding: 2px 5px;
+    transition: color 0.2s;
+  }
+
+    &:hover { color: #000; }
+  }
+
+// --- ファイルの最後の方（または .grid の設定内）に追記 ---
+// gridに is-fit クラスがついた時、中の画像を「全体表示」に強制する
+.grid.is-fit {
+  .card-bg {
+    background-size: contain !important; // 切り取らずに全体を収める
+    background-repeat: no-repeat;        // 繰り返さない
+    background-position: center;         // 中央に配置
+    transform: scale(1) !important;      // ズームを無効化
   }
 }
 
