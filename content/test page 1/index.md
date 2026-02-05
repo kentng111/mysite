@@ -8,7 +8,7 @@ draft: true
 color: "#BF5A75"
 year: 2025-01
 ---
-test page
+
 
 ![](cover_test1.jpeg)
 

@@ -1,13 +1,27 @@
 {{ define "main" }}
+
+<style>
+  .page-tags {
+    margin-top: -10px;    /* 上のスペース */
+    margin-bottom: 0px; /* 下のスペース */
+    /* 必要に応じて、タグ同士の行間も調整できます */
+    line-height: 1.5;
+  }
+
+  .page-date {
+    border-bottom: 1px dashed #ccc; /* 1pxの太さ、点線(dashed)、グレーの色 */
+    padding-bottom: 5px;          /* 点線と文字の間のスペース */
+    margin-bottom: 0px;           /* 点線と本文の間のスペース */
+  }
+
+</style>
+
 <main class="book-page">
   <article class="markdown">
-
-
     <!-- ★ 固定タイトルバー -->
     <div class="page-title-bar">
       <h3 class="page-title">{{ .Title }}</h3>
     </div>    
-
     <!-- タグ：タイトル直下（Front Matter の tags を表示） -->
 {{ with .Params.tags }}
 <div class="page-tags">
@@ -19,8 +33,6 @@
   {{ end }}
 </div>
 {{ end }}
-
-
     <!-- 日付（partialを使わずテーマ非依存で安全に表示） -->
 {{ with .Params.year }}
     <div class="page-date">{{ . }}</div>

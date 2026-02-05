@@ -1,8 +1,8 @@
 ---
 title: test page 4
 tags:
-  - even
   - four
+  - even
 draft: true
 color: "#F28DA8"
 year: 2025-06

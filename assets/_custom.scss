@@ -279,6 +279,15 @@ a:hover {
   }
 }
 
+@media (prefers-color-scheme: dark) {
+  .search-bar input {
+    background-color: var(--body-background);
+    color: inherit;
+    border-color: #444;
+    border: 1px solid #c2c2c2;
+  }
+}
+
 //nnn 4.1.2 コントロール配置
 .controls-vertical {
   display: flex;
@@ -470,7 +479,6 @@ a:hover {
 .slider-row {
   margin-top: 0.5rem;
   padding: 1rem 0;
-  border-top: 1px dashed rgba(0, 0, 0, 0.1); // 境目を分かりやすく
   
   input[type="range"] {
     -webkit-appearance: none;
@@ -723,6 +731,21 @@ a:hover {
   }
 }
 
+//nnn 4.1.7 セクション区切り
+.controls-divider {
+  margin: 0.5rem 0;
+  border-top: 1px dashed rgba(0, 0, 0, 0.5);
+  width: 100%;
+  max-width: none; // 画面端まで伸ばす
+}
+
+// ダークモード対応も追加
+@media (prefers-color-scheme: dark) {
+  .controls-divider {
+    border-top-color: rgba(255, 255, 255, 0.1);
+  }
+}
+
 //nnn 4.2 Viewモード別レイアウト
 
 //nnn 4.2.1 icons view
@@ -790,7 +813,9 @@ $details-grid-layout: 40px 50px 1.5fr 1fr;
   width: 100%;
   grid-template-columns: $details-grid-layout;  
   gap: 1.2rem;
-  padding: 0.5rem 1rem;
+  padding: 0.5rem;
+  margin-top: -2rem;
+  margin-bottom: 0rem;
   border-bottom: 1px solid #ddd;
   font-size: 0.85rem; 
   font-weight: 600;  
