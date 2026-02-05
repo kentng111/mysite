@@ -120,10 +120,9 @@
 
           <div class="grid-header-row">
               <div class="header-index">#</div>
-              <div class="header-title">title</div>
+              <div class="header-year">year</div> <div class="header-title">title</div>
               <div class="header-tag">tag</div>
-              <div class="header-year">year</div>
-            </div>
+          </div>
 
         {{ range sort $pages "Title" "asc" }}
           {{ $classes := slice }}
@@ -145,12 +144,11 @@
               <div class="card-inner">
                 <div class="card-main-col">
                   <div class="index-number">{{ .Params.index }}</div>
-                  <div class="title">{{ .Title }}</div>
+                  <div class="meta">{{ .Params.year }}</div> <div class="title">{{ .Title }}</div>
                   <div class="card-tags">
                     {{ with .Params.tags }}{{ range . }}<span class="tag-pill">{{ . }}</span>{{ end }}{{ end }}
                   </div>
                 </div>
-                <div class="meta">{{ .Params.year }}</div>
                 <div class="excerpt">{{ with .Summary }}{{ . }}{{ end }}</div>
               </div>
             </div>
