@@ -310,7 +310,7 @@ a:hover {
 }
 
 /* 1. ボタンの基本スタイル（全グループ共通・四角） */
-.and-filter-group button,{
+.and-filter-group button {
     display: inline-block;   /* 横並びにする設定 */
   font-size: 0.75rem;
   font-weight: normal;
@@ -643,7 +643,6 @@ a:hover {
     background: transparent;
     cursor: pointer;
     font-size: 1rem;       /* 記号のサイズ */
-    font-weight: bold;
     color: #999;           /* 少し薄くする */
     line-height: 1;
     padding: 2px 10px;     /* クリックしやすく */
@@ -829,12 +828,6 @@ a:hover {
     gap: 4px;
   }
 }
-
-// 3. 共通クラスの適用（リスト側）
-.card-tags .tag-pill {
-  /* 定義済みスタイルがそのまま適用されます */
-}
-
 
 //nnn 4.5 個別ページ（Single）のタグ表示
 

@@ -2,16 +2,13 @@
 <main class="book-page">
   <article class="markdown">
 
-    {{/* === published 配下の index.md（各フォルダのトップ）だけを堅牢に収集 === */}}
     {{ $pages := slice }}
     {{ range site.RegularPages }}
-        {{/* ファイル名が index のページのみ抽出（published 限定を撤廃） */}}
         {{ if eq .File.BaseFileName "index" }}
         {{ $pages = $pages | append . }}
       {{ end }}
     {{ end }}
 
-    {{/* 0件なら空メッセージ（デバッグ用に一時表示） */}}
     {{ if eq (len $pages) 0 }}
       <div class="book-hint info" style="margin-bottom:1rem">
         <strong>No entries found.</strong>
@@ -27,7 +24,6 @@
       </div>
     {{ end }}
 
-{{/* === タグ収集（MixItUp ボタン自動生成） === */}}
     {{ $tags := slice }}
     {{ $tagNameMap := dict }} 
 
@@ -35,7 +31,6 @@
       {{ with .Params.tags }}
         {{ range . }}
           {{ $originalName := . }}
-          {{/* ▼▼▼ 修正: urlize ではなく md5 を使い、安全な英数字IDを生成 ▼▼▼ */}}
           {{ $id := printf "tag-%s" (md5 $originalName) }}
           
           {{ if not (in $tags $id) }}
@@ -46,370 +41,319 @@
       {{ end }}
     {{ end }}
 
-
-<button type="button" id="controls-toggle-btn" class="controls-toggle-btn">
+    <button type="button" id="controls-toggle-btn" class="controls-toggle-btn">
       <span class="btn-icon">▼</span>
     </button>
 
-<div id="controls-wrapper" class="controls-wrapper">
-  <div class="controls-inner">
-    
-    <div class="search-bar">
-      <input type="text" id="search-input" placeholder="search..." />
-    </div>
-
-    <div class="controls-vertical">
-      
-      <div class="controlsfv-row">
-        <div class="and-view-group">
-          <button class="is-checked" data-view="icons" aria-label="Icons view">
-            <img src="/img/view-button_1.svg" alt="" class="view-img">
-          </button>
-          
-          <button data-view="details" aria-label="Details view">
-            <img src="/img/view-button_2.svg" alt="" class="view-img">
-          </button>
-          
-          <button data-view="content" aria-label="Content view">
-            <img src="/img/view-button_3.svg" alt="" class="view-img">
-          </button>
-        </div>
-      </div>
-
-      <div class="controls-row">
-        <div class="and-filter-group">
-          <button class="is-checked" data-tag="all">all</button>
-          {{ range sort $tags }}
-            <button data-tag=".{{ . }}">{{ index $tagNameMap . }}</button>
-          {{ end }}
-        </div>
-      </div>
-
-      <div class="controls-row slider-row" id="column-slider-container">
-        <input type="range" id="column-slider" min="1" max="10" value="8" step="1" style="flex: 1; max-width: 350px;">
-      </div>
-
-      <div class="controls-row display-options-row" id="display-options-container" style="padding-bottom: 0.5rem;">
+    <div id="controls-wrapper" class="controls-wrapper">
+      <div class="controls-inner">
         
-        <div class="display-option-item">
-          <button type="button" class="display-dot-btn is-checked" data-target="image">image</button>
-          <button type="button" class="img-fit-btn" id="img-fit-toggle" data-state="cover">[ ]</button>
+        <div class="search-bar">
+          <input type="text" id="search-input" placeholder="search..." />
         </div>
 
-        <div class="display-option-item">
-          <button type="button" class="display-dot-btn is-checked" data-target="title">title</button>
-          <button type="button" class="sort-btn" data-sort="title" data-dir="default">-</button>
-        </div>
-
-        <div class="display-option-item">
-          <button type="button" class="display-dot-btn" data-target="tag">tag</button>
-          <div class="sort-btn" style="cursor: default; opacity: 0;">&nbsp;</div>
-        </div>
-
-        <div class="display-option-item">
-          <button type="button" class="display-dot-btn" data-target="date">date</button>
-          <button type="button" class="sort-btn" data-sort="date" data-dir="default">-</button>
-        </div>
-
-      </div>
-      
-    </div> </div> </div> 
-
-      <div class="grid view--icons">
-      {{ range sort $pages "Title" "asc" }}
-        {{/* ... (グリッドアイテム生成コードはそのまま維持) ... */}}
-        {{ $classes := slice }}
-        {{ with .Params.tags }}{{ range . }}{{ $classes = $classes | append (printf "tag-%s" (md5 .)) }}{{ end }}{{ end }}
-        <a class="grid-item {{ delimit $classes " " }}" href="{{ .RelPermalink }}"
-           data-title="{{ lower .Title }}"
-           data-date="{{ .Date.Format "20060102" }}"
-           {{ with .Params.color }}style="--card-color: {{ . }};"{{ end }}>
-
-          <div class="card">
-            {{ $cover := index (.Resources.Match "cover_*") 0 }}
-            {{ if $cover }}
-              <div class="card-bg" style="background-image: url('{{ $cover.RelPermalink }}');"></div>
-            {{ else if .Params.color }}
-              <div class="card-bg is-color" style="background-color: {{ .Params.color }};"></div>
-            {{ end }}
-
-            <div class="card-inner">
-              <div class="card-main-col">
-                <div class="title">{{ .Title }}</div>
-                <div class="card-tags">
-                  {{ with .Params.tags }}{{ range . }}<span class="tag-pill">{{ . }}</span>{{ end }}{{ end }}
-                </div>
-              </div>
-              <div class="meta">{{ .Date.Format "2006-01-02" }}</div>
-              <div class="excerpt">{{ with .Summary }}{{ . }}{{ end }}</div>
+        <div class="controls-vertical">
+          
+          <div class="controlsfv-row">
+            <div class="and-view-group">
+              <button class="is-checked" data-view="icons" aria-label="Icons view">
+                <img src="/img/view-button_1.svg" alt="" class="view-img">
+              </button>
+              
+              <button data-view="details" aria-label="Details view">
+                <img src="/img/view-button_2.svg" alt="" class="view-img">
+              </button>
+              
+              <button data-view="content" aria-label="Content view">
+                <img src="/img/view-button_3.svg" alt="" class="view-img">
+              </button>
             </div>
           </div>
-        </a>
-      {{ end }}
-    </div>
 
-<script>
+          <div class="controls-row">
+            <div class="and-filter-group">
+              <button class="is-checked" data-tag="all">all</button>
+              {{ range sort $tags }}
+                <button data-tag=".{{ . }}">{{ index $tagNameMap . }}</button>
+              {{ end }}
+            </div>
+          </div>
+
+          <div class="controls-row slider-row" id="column-slider-container">
+            <input type="range" id="column-slider" min="1" max="10" value="8" step="1" style="flex: 1; max-width: 350px;">
+          </div>
+
+          <div class="controls-row display-options-row" id="display-options-container" style="padding-bottom: 0.5rem;">
+            
+            <div class="display-option-item">
+              <button type="button" class="display-dot-btn is-checked" data-target="image">image</button>
+              <button type="button" class="img-fit-btn" id="img-fit-toggle" data-state="cover">[ ]</button>
+            </div>
+
+            <div class="display-option-item">
+              <button type="button" class="display-dot-btn is-checked" data-target="title">title</button>
+              <button type="button" class="sort-btn" data-sort="title" data-dir="default">-</button>
+            </div>
+
+            <div class="display-option-item">
+              <button type="button" class="display-dot-btn" data-target="tag">tag</button>
+              <div class="sort-btn" style="cursor: default; opacity: 0;">&nbsp;</div>
+            </div>
+
+            <div class="display-option-item">
+              <button type="button" class="display-dot-btn" data-target="date">date</button>
+              <button type="button" class="sort-btn" data-sort="date" data-dir="default">-</button>
+            </div>
+
+          </div>
+          
+        </div> </div> </div> 
+
+      <div class="grid view--icons">
+        {{ range sort $pages "Title" "asc" }}
+          {{ $classes := slice }}
+          {{ with .Params.tags }}{{ range . }}{{ $classes = $classes | append (printf "tag-%s" (md5 .)) }}{{ end }}{{ end }}
+          <a class="grid-item {{ delimit $classes " " }}" href="{{ .RelPermalink }}"
+             data-title="{{ lower .Title }}"
+             data-date="{{ .Date.Format "20060102" }}"
+             {{ with .Params.color }}style="--card-color: {{ . }};"{{ end }}>
+
+            <div class="card">
+              {{ $cover := index (.Resources.Match "cover_*") 0 }}
+              {{ if $cover }}
+                <div class="card-bg" style="background-image: url('{{ $cover.RelPermalink }}');"></div>
+              {{ else if .Params.color }}
+                <div class="card-bg is-color" style="background-color: {{ .Params.color | safeCSS }};"></div>
+              {{ end }}
+
+              <div class="card-inner">
+                <div class="card-main-col">
+                  <div class="title">{{ .Title }}</div>
+                  <div class="card-tags">
+                    {{ with .Params.tags }}{{ range . }}<span class="tag-pill">{{ . }}</span>{{ end }}{{ end }}
+                  </div>
+                </div>
+                <div class="meta">{{ .Date.Format "2006-01-02" }}</div>
+                <div class="excerpt">{{ with .Summary }}{{ . }}{{ end }}</div>
+              </div>
+            </div>
+          </a>
+        {{ end }}
+      </div>
+
+    <script>
+    //nnn JavaScriptメイン処理
 document.addEventListener('DOMContentLoaded', function () {
-  if (!window.mixitup) { console.warn('mixitup not found'); return; }
+      if (!window.mixitup) { console.warn('mixitup not found'); return; }
 
-  const grid        = document.querySelector('.grid');
-  const filterGroup = document.querySelector('.and-filter-group');
-  const viewGroup   = document.querySelector('.and-view-group');
-  const searchInput = document.querySelector('#search-input');
-  
-  // スライダーと新規追加のコンテナを取得
-  const sliderContainer = document.querySelector('#column-slider-container');
-  const displayOptionsContainer = document.querySelector('#display-options-container');
-
-  if (!grid) return;
-
-  // MixItUp初期化 (変更なし)
-  const mixer = mixitup(grid, {
-    selectors: { target: '.grid-item' },
-    animation: { duration: 280, queueLimit: 10, effects: 'fade translateZ(-1px)' },
-    controls: { scope: 'local' } 
-  });
-
-  // --- 0. コントロール開閉制御 (変更なし) ---
-  const toggleBtn = document.getElementById('controls-toggle-btn');
-  const wrapper = document.getElementById('controls-wrapper');
-  if (toggleBtn && wrapper) {
-    toggleBtn.addEventListener('click', () => {
-      const isClosed = wrapper.classList.toggle('is-closed');
-      toggleBtn.classList.toggle('is-closed', isClosed);
-    });
-  }
-
-  // --- 1～4 (フィルタ、URL、検索等既存ロジックは省略せずに維持してください) ---
-  // ※既存コードのままでOKですが、filter, URL, TagClick, SearchInput のロジックが存在する前提です。
-  let searchQuery = '';
-  function applyFilter() {
-    /* 既存のフィルタロジック (変更不要) */
-    const q = searchQuery.toLowerCase().trim();
-    const items = grid.querySelectorAll('.grid-item');
-    if (q) {
-      items.forEach(el => {
-        const text = el.textContent.toLowerCase();
-        const title = el.getAttribute('data-title') || ''; 
-        if (text.includes(q) || title.includes(q)) el.classList.add('__match');
-        else el.classList.remove('__match');
-      });
-    } else {
-      items.forEach(el => el.classList.remove('__match'));
-    }
-    const checkedBtns = Array.from(filterGroup.querySelectorAll('.is-checked'));
-    const selectedTags = checkedBtns.map(btn => btn.getAttribute('data-tag')).filter(tag => tag !== 'all');
-    let selector = '';
-    if (selectedTags.length === 0) selector = q ? '.__match' : 'all';
-    else selector = q ? selectedTags.map(tag => `${tag}.__match`).join(', ') : selectedTags.join(', ');
-    mixer.filter(selector);
-  }
-
-  /* ...既存の URL読込処理, タグクリック処理, 検索処理, ソート処理 はここにそのまま残してください... */
-  // (スペース節約のため省略していますが、元のファイルの内容を消さないでください)
-  
-  // 必須: イベントリスナー再設定の例
-  if (filterGroup) {
-      filterGroup.addEventListener('click', (e) => {
-          const btn = e.target.closest('[data-tag]');
-          if (!btn) return;
-          e.preventDefault();
-          const tag = btn.getAttribute('data-tag');
-          if (tag === 'all') {
-              filterGroup.querySelectorAll('.is-checked').forEach(el => el.classList.remove('is-checked'));
-              btn.classList.add('is-checked');
-          } else {
-              btn.classList.toggle('is-checked');
-              filterGroup.querySelector('[data-tag="all"]')?.classList.remove('is-checked');
-              if (filterGroup.querySelectorAll('.is-checked').length === 0) {
-                  filterGroup.querySelector('[data-tag="all"]')?.classList.add('is-checked');
-              }
-          }
-          applyFilter();
-      });
-  }
-  // URLパラメータ処理、検索Input処理、ソート処理も既存のまま...
-
-  // --- 5. View制御と表示オプション連動 ---
-  if (viewGroup) {
-    viewGroup.addEventListener('click', (e) => {
-      const btn = e.target.closest('[data-view]');
-      if (!btn) return;
-
-      viewGroup.querySelectorAll('.is-checked').forEach(el => el.classList.remove('is-checked'));
-      btn.classList.add('is-checked');
-
-      const view = btn.getAttribute('data-view');
-      grid.classList.remove('view--icons','view--details','view--content');
-      grid.classList.add(`view--${view}`);
-
-      // Iconsの時だけスライダーと表示オプションを表示
-      if (view === 'icons') {
-        sliderContainer.style.display = 'flex';
-        displayOptionsContainer.style.display = 'flex';
-      } else {
-        sliderContainer.style.display = 'none';
-        displayOptionsContainer.style.display = 'none';
-      }
-
-      mixer.forceRefresh();
-    });
-  }
-
-  // --- 6. カラム数スライダー (変更なし) ---
-// list.html 内の updateColumns 関数付近を以下に書き換え
-
-const columnSlider = document.querySelector('#column-slider');
-const columnValue = document.querySelector('#column-value');
-
-/**
- * val: スライダーの生の値 (1〜10)
- */
-function updateColumns(val) {
-  // スライダーが右(10)に行くほど、実際の列数(displayCol)を小さく(1)する
-  // 計算式: 11 - 10 = 1列（最大拡大） / 11 - 1 = 10列（最大縮小）
-  const displayCol = 11 - parseInt(val);
-
-  // CSS変数に実際の列数をセット
-  grid.style.setProperty('--col-count', displayCol);
-
-  // スライダーのつまみ位置を同期
-  columnSlider.value = val;
-}
-
-// 初期状態の設定ロジックを修正
-function getInitialColumns() {
-  let cols;
-  if (window.innerWidth < 640) cols = 2;
-  else if (window.innerWidth < 1024) cols = 4;
-  else cols = 6;
-  
-  // 実際の列数(cols)からスライダーの生の値(val)に逆算
-  // val = 11 - cols
-  return 11 - cols;
-}
-
-if (columnSlider) {
-  // 初回実行
-  updateColumns(getInitialColumns());
-  
-  // 入力時のイベントリスナー
-  columnSlider.addEventListener('input', (e) => {
-    updateColumns(e.target.value);
-  });
-}
-
-
-// list.html 内の表示オプション制御ロジックを書き換え
-
-// 取得するクラス名を修正
-// 全ての表示切替ボタンを取得
-const displayBtns = document.querySelectorAll('.display-dot-btn');
-// 画像フィットボタンを取得
-const imgFitBtn = document.getElementById('img-fit-toggle');
-
-// --- 表示オプションのクリックイベント ---
-displayBtns.forEach(btn => {
-  btn.addEventListener('click', (e) => {
-    // もしクリックされたのが「ソートボタン（-）」だったら、ここでは何もしない
-    if (e.target.closest('.sort-btn')) return;
-
-    // テキスト部分（image, titleなど）が押されたらチェック状態を反転
-    btn.classList.toggle('is-checked');
-    updateDisplayOptions();
-  });
-});
-
-// --- 画像フィット（[ ] / < >）のクリックイベント ---
-if (imgFitBtn) {
-  imgFitBtn.addEventListener('click', (e) => {
-    // 親要素（display-dot-btn）のクリックイベントが発生しないように止める
-    e.stopPropagation();
-
-    const currentState = imgFitBtn.getAttribute('data-state');
-    
-    if (currentState === 'cover') {
-      imgFitBtn.setAttribute('data-state', 'fit');
-      imgFitBtn.textContent = '< >';
-      grid.classList.add('is-fit'); // CSSで background-size: contain を適用
-    } else {
-      imgFitBtn.setAttribute('data-state', 'cover');
-      imgFitBtn.textContent = '[ ]';
-      grid.classList.remove('is-fit');
-    }
-  });
-}
-function updateDisplayOptions() {
-  displayBtns.forEach(btn => {
-    const target = btn.getAttribute('data-target');
-    const isActive = btn.classList.contains('is-checked');
-
-    // 各ターゲットの表示・非表示を切り替え
-    if (target === 'image') {
-      isActive ? grid.classList.remove('hide-cover') : grid.classList.add('hide-cover');
-    }
-    if (target === 'title') {
-      isActive ? grid.classList.remove('hide-title') : grid.classList.add('hide-title');
-    }
-    if (target === 'tag') {
-      isActive ? grid.classList.add('show-tags') : grid.classList.remove('show-tags');
-    }
-    if (target === 'date') {
-      isActive ? grid.classList.add('show-date') : grid.classList.remove('show-date');
-    }
-  });
-}
-
-// クリック時の挙動
-displayBtns.forEach(btn => {
-  btn.addEventListener('click', () => {
-    btn.classList.toggle('is-checked'); // 黒丸の有無を切り替え
-    updateDisplayOptions();
-  });
-});
-
-// ... (前略: 表示オプション制御ロジック updateDisplayOptions など)
-
-  updateDisplayOptions(); // 既存の初期実行
-
-  // === 追加: ソートボタンの制御ロジック ===
-  const sortBtns = document.querySelectorAll('.sort-btn[data-sort]');
-
-  sortBtns.forEach(btn => {
-    btn.addEventListener('click', () => {
-      const sortType = btn.getAttribute('data-sort'); // 'title' or 'date'
-      let currentDir = btn.getAttribute('data-dir');  // 'default', 'asc', 'desc'
-      let nextDir = 'asc'; // デフォルトからの切り替えは昇順
-
-      // ローテーションロジック: default(-) -> asc(∧) -> desc(∨) -> asc(∧)...
-      if (currentDir === 'asc') {
-        nextDir = 'desc';
-      } else if (currentDir === 'desc') {
-        nextDir = 'asc';
-      }
+      const grid        = document.querySelector('.grid');
+      const filterGroup = document.querySelector('.and-filter-group');
+      const viewGroup   = document.querySelector('.and-view-group');
+      const searchInput = document.querySelector('#search-input');
       
-      // 1. 他のソートボタンを全てリセット ('-') に戻す
-      sortBtns.forEach(otherBtn => {
-        if (otherBtn !== btn) {
-          otherBtn.textContent = '-';
-          otherBtn.setAttribute('data-dir', 'default');
-        }
+      const sliderContainer = document.querySelector('#column-slider-container');
+      const displayOptionsContainer = document.querySelector('#display-options-container');
+
+      if (!grid) return;
+
+      //nnn MixItUp初期化
+      const mixer = mixitup(grid, {
+        selectors: { target: '.grid-item' },
+        animation: { duration: 280, queueLimit: 10, effects: 'fade translateZ(-1px)' },
+        controls: { scope: 'local' } 
       });
 
-      // 2. クリックされたボタンの状態を更新
-      btn.textContent = (nextDir === 'asc') ? '∧' : '∨';
-      btn.setAttribute('data-dir', nextDir);
+      //nnn コントロール開閉制御
+      const toggleBtn = document.getElementById('controls-toggle-btn');
+      const wrapper = document.getElementById('controls-wrapper');
+      if (toggleBtn && wrapper) {
+        toggleBtn.addEventListener('click', () => {
+          const isClosed = wrapper.classList.toggle('is-closed');
+          toggleBtn.classList.toggle('is-closed', isClosed);
+        });
+      }
 
-      // 3. MixItUpでソート実行
-      // data-title, data-date 属性に基づいてソートします
-      // 例: mixer.sort('title:asc')
-      mixer.sort(`${sortType}:${nextDir}`);
+      //nnn フィルター適用ロジック
+      let searchQuery = '';
+      function applyFilter() {
+        const q = searchQuery.toLowerCase().trim();
+        const items = grid.querySelectorAll('.grid-item');
+        if (q) {
+          items.forEach(el => {
+            const text = el.textContent.toLowerCase();
+            const title = el.getAttribute('data-title') || ''; 
+            if (text.includes(q) || title.includes(q)) el.classList.add('__match');
+            else el.classList.remove('__match');
+          });
+        } else {
+          items.forEach(el => el.classList.remove('__match'));
+        }
+        const checkedBtns = Array.from(filterGroup.querySelectorAll('.is-checked'));
+        const selectedTags = checkedBtns.map(btn => btn.getAttribute('data-tag')).filter(tag => tag !== 'all');
+        let selector = '';
+        if (selectedTags.length === 0) selector = q ? '.__match' : 'all';
+        else selector = q ? selectedTags.map(tag => `${tag}.__match`).join(', ') : selectedTags.join(', ');
+        mixer.filter(selector);
+      }
+
+      //nnn タグフィルタクリック処理
+      if (filterGroup) {
+          filterGroup.addEventListener('click', (e) => {
+              const btn = e.target.closest('[data-tag]');
+              if (!btn) return;
+              e.preventDefault();
+              const tag = btn.getAttribute('data-tag');
+              if (tag === 'all') {
+                  filterGroup.querySelectorAll('.is-checked').forEach(el => el.classList.remove('is-checked'));
+                  btn.classList.add('is-checked');
+              } else {
+                  btn.classList.toggle('is-checked');
+                  filterGroup.querySelector('[data-tag="all"]')?.classList.remove('is-checked');
+                  if (filterGroup.querySelectorAll('.is-checked').length === 0) {
+                      filterGroup.querySelector('[data-tag="all"]')?.classList.add('is-checked');
+                  }
+              }
+              applyFilter();
+          });
+      }
+
+      //nnn 表示形式切替と条件付き表示制御
+      if (viewGroup) {
+        viewGroup.addEventListener('click', (e) => {
+          const btn = e.target.closest('[data-view]');
+          if (!btn) return;
+
+          viewGroup.querySelectorAll('.is-checked').forEach(el => el.classList.remove('is-checked'));
+          btn.classList.add('is-checked');
+
+          const view = btn.getAttribute('data-view');
+          grid.classList.remove('view--icons','view--details','view--content');
+          grid.classList.add(`view--${view}`);
+
+          if (view === 'icons') {
+            sliderContainer.style.display = 'flex';
+            displayOptionsContainer.style.display = 'flex';
+          } else {
+            sliderContainer.style.display = 'none';
+            displayOptionsContainer.style.display = 'none';
+          }
+
+          mixer.forceRefresh();
+        });
+      }
+
+      //nnn カラム数スライダー制御
+      const columnSlider = document.querySelector('#column-slider');
+
+      function updateColumns(val) {
+        const displayCol = 11 - parseInt(val);
+        grid.style.setProperty('--col-count', displayCol);
+        columnSlider.value = val;
+      }
+
+      function getInitialColumns() {
+        let cols;
+        if (window.innerWidth < 640) cols = 2;
+        else if (window.innerWidth < 1024) cols = 4;
+        else cols = 6;
+        
+        return 11 - cols;
+      }
+
+      if (columnSlider) {
+        updateColumns(getInitialColumns());
+        
+        columnSlider.addEventListener('input', (e) => {
+          updateColumns(e.target.value);
+        });
+      }
+
+      //nnn 表示オプションボタン群の取得
+      const displayBtns = document.querySelectorAll('.display-dot-btn');
+      const imgFitBtn = document.getElementById('img-fit-toggle');
+
+      //nnn 画像フィット切替ボタン制御
+      if (imgFitBtn) {
+        imgFitBtn.addEventListener('click', (e) => {
+          e.stopPropagation();
+
+          const currentState = imgFitBtn.getAttribute('data-state');
+          
+          if (currentState === 'cover') {
+            imgFitBtn.setAttribute('data-state', 'fit');
+            imgFitBtn.textContent = '< >';
+            grid.classList.add('is-fit');
+          } else {
+            imgFitBtn.setAttribute('data-state', 'cover');
+            imgFitBtn.textContent = '[ ]';
+            grid.classList.remove('is-fit');
+          }
+        });
+      }
+
+      //nnn 表示オプション更新関数
+      function updateDisplayOptions() {
+        displayBtns.forEach(btn => {
+          const target = btn.getAttribute('data-target');
+          const isActive = btn.classList.contains('is-checked');
+
+          if (target === 'image') {
+            isActive ? grid.classList.remove('hide-cover') : grid.classList.add('hide-cover');
+          }
+          if (target === 'title') {
+            isActive ? grid.classList.remove('hide-title') : grid.classList.add('hide-title');
+          }
+          if (target === 'tag') {
+            isActive ? grid.classList.add('show-tags') : grid.classList.remove('show-tags');
+          }
+          if (target === 'date') {
+            isActive ? grid.classList.add('show-date') : grid.classList.remove('show-date');
+          }
+        });
+      }
+
+      //nnn 表示オプションクリック処理
+      displayBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          btn.classList.toggle('is-checked');
+          updateDisplayOptions();
+        });
+      });
+
+      updateDisplayOptions();
+
+      //nnn ソートボタン制御
+      const sortBtns = document.querySelectorAll('.sort-btn[data-sort]');
+
+      sortBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          const sortType = btn.getAttribute('data-sort');
+          let currentDir = btn.getAttribute('data-dir');
+          let nextDir = 'asc';
+
+          if (currentDir === 'asc') {
+            nextDir = 'desc';
+          } else if (currentDir === 'desc') {
+            nextDir = 'asc';
+          }
+          
+          sortBtns.forEach(otherBtn => {
+            if (otherBtn !== btn) {
+              otherBtn.textContent = '-';
+              otherBtn.setAttribute('data-dir', 'default');
+            }
+          });
+
+          btn.textContent = (nextDir === 'asc') ? '∧' : '∨';
+          btn.setAttribute('data-dir', nextDir);
+
+          mixer.sort(`${sortType}:${nextDir}`);
+        });
+      });
+
+      applyFilter();
     });
-  });
-
-  applyFilter();
-});
-</script>
+    </script>
 
   </article>
 </main>
