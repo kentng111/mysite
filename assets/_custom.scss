@@ -524,10 +524,11 @@ a:hover {
   margin-bottom: 0.3rem;
   padding: 0.4rem 0.4rem;
   background: transparent;
-  border: 1px solid #ddd;
+  border: none;
   cursor: pointer;
-  font-size: 0.8rem;
+  font-size: 1rem;
   font-weight: 600;
+  color: #dde400;
   transition: background 0.2s;
 
   &:hover {
@@ -574,8 +575,8 @@ a:hover {
     input[type="range"] {
       &::-webkit-slider-runnable-track { background: #4b5563; }
       &::-moz-range-track { background: #4b5563; }
-      &::-webkit-slider-thumb { background-color: #b45309; }
-      &::-moz-range-thumb { background-color: #b45309; }
+      &::-webkit-slider-thumb { background-color: #fff711; }
+      &::-moz-range-thumb { background-color: #fff711; }
     }
   }
 }
