@@ -1,6 +1,5 @@
 ---
 title: people
-date: 2024-01-01
 tags:
   - information
 draft: true

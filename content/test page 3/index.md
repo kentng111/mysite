@@ -1,6 +1,5 @@
 ---
 title: test page 3
-date: 2026-01-04
 tags:
   - odd
   - three

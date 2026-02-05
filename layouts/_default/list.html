@@ -60,15 +60,14 @@
                 <img src="/img/view-button_1.svg" alt="" class="view-img">
               </button>
               
-              <button data-view="details" aria-label="Details view">
-                <img src="/img/view-button_2.svg" alt="" class="view-img">
-              </button>
-              
               <button data-view="content" aria-label="Content view">
                 <img src="/img/view-button_3.svg" alt="" class="view-img">
               </button>
+
+              <button data-view="details" aria-label="Details view">
+                <img src="/img/view-button_2.svg" alt="" class="view-img">
+              </button>
             </div>
-          </div>
 
           <div class="controls-row">
             <div class="and-filter-group">
@@ -85,6 +84,11 @@
 
           <div class="controls-row display-options-row" id="display-options-container" style="padding-bottom: 0.5rem;">
             
+            <div class="display-option-item">
+                <button type="button" class="display-dot-btn" data-target="index">index</button>
+                <button type="button" class="sort-btn" data-sort="index" data-dir="asc">∧</button>
+            </div>
+
             <div class="display-option-item">
               <button type="button" class="display-dot-btn is-checked" data-target="image">image</button>
               <button type="button" class="img-fit-btn" id="img-fit-toggle" data-state="cover">[ ]</button>
@@ -109,13 +113,25 @@
           
         </div> </div> </div> 
 
+
+
+
       <div class="grid view--icons">
+
+          <div class="grid-header-row">
+              <div class="header-index">#</div>
+              <div class="header-title">title</div>
+              <div class="header-tag">tag</div>
+              <div class="header-year">year</div>
+            </div>
+
         {{ range sort $pages "Title" "asc" }}
           {{ $classes := slice }}
           {{ with .Params.tags }}{{ range . }}{{ $classes = $classes | append (printf "tag-%s" (md5 .)) }}{{ end }}{{ end }}
           <a class="grid-item {{ delimit $classes " " }}" href="{{ .RelPermalink }}"
               data-title="{{ lower .Title }}"
               data-year="{{ .Params.year }}" 
+              data-index="{{ .Params.index | default 0 }}"
               {{ with .Params.color }}style="--card-color: {{ . }};"{{ end }}>
 
             <div class="card">
@@ -128,6 +144,7 @@
 
               <div class="card-inner">
                 <div class="card-main-col">
+                  <div class="index-number">{{ .Params.index }}</div>
                   <div class="title">{{ .Title }}</div>
                   <div class="card-tags">
                     {{ with .Params.tags }}{{ range . }}<span class="tag-pill">{{ . }}</span>{{ end }}{{ end }}
@@ -159,7 +176,8 @@ document.addEventListener('DOMContentLoaded', function () {
       const mixer = mixitup(grid, {
         selectors: { target: '.grid-item' },
         animation: { duration: 280, queueLimit: 10, effects: 'fade translateZ(-1px)' },
-        controls: { scope: 'local' } 
+        controls: { scope: 'local' },
+        load: { sort: 'index:asc' }
       });
 
       //nnn コントロール開閉制御
@@ -304,7 +322,9 @@ document.addEventListener('DOMContentLoaded', function () {
         displayBtns.forEach(btn => {
           const target = btn.getAttribute('data-target');
           const isActive = btn.classList.contains('is-checked');
-
+          if (target === 'index') {
+            isActive ? grid.classList.add('show-index') : grid.classList.remove('show-index');
+          }
           if (target === 'image') {
             isActive ? grid.classList.remove('hide-cover') : grid.classList.add('hide-cover');
           }

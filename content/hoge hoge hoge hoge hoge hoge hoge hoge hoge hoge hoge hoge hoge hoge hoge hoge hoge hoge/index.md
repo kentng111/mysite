@@ -1,13 +1,12 @@
 ---
-title: test page 10
-date: 2026-01-25
+title: hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge
 tags:
   - odd
   - ten
 draft: true
 color: "#F1F0F2"
 year: 2026-12
-index: p010
+index: p0100
 ---
 test page
 

@@ -1,6 +1,5 @@
 ---
 title: test page 7
-date: 2025-12-29
 tags:
   - even
   - seven

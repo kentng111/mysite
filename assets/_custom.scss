@@ -403,7 +403,7 @@ a:hover {
   justify-content: space-between; // ← gapの代わりに両端揃えに設定
   align-items: center;
   margin-top: 0rem;
-  margin-bottom: 0.3rem;
+  margin-bottom: .5rem;
   max-width: 350px; // ← スライダーと同じ幅に固定
 
   button {
@@ -727,7 +727,7 @@ a:hover {
 //nnn 4.2.1 icons view
 .view--icons .excerpt { display: none; }
 
-//nnn 4.2.2 details view
+//nnn 4.2.2.1 details view 
 .view--details .grid-item { width: 100%; }
 .view--details .card {
   aspect-ratio: auto;
@@ -736,15 +736,69 @@ a:hover {
   border-radius: 0;
 }
 .view--details .card-inner {
-  display: grid;
-  grid-template-columns: 1fr 160px;
-  gap: .5rem;
+  display: grid; 
+  /* 列の設定: [Index] 45px, [Title] 1.5fr, [Tags] 1fr, [Year] 160px */
+  grid-template-columns: 45px 1.5fr 1fr 160px; 
+  gap: 1rem;
   align-items: center;
   padding: .25rem 1rem;
 }
-.view--details .title { margin: 0; }
+
+// メインカラム内の配置を Grid にして位置を固定する
+.view--details .card-main-col {
+  display: grid !important;
+  display: contents !important; /* 子要素（Index, Title, Tags）を直接親のグリッドに参加させる */
+}
+
+.view--details .title { 
+  margin: 0; 
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis; // 長すぎるタイトルを「...」にする
+}
+
 .view--details .meta { text-align: right; }
 .view--details .excerpt { display: none; }
+
+// カード内タグ表示設定 (Detailsビュー部分の修正)
+.view--details .card-tags {
+  display: flex;
+  gap: 4px;
+  flex-wrap: nowrap; // Detailsでは1行に収める
+  overflow: hidden;  // はみ出し防止
+}
+
+//nnn 4.2.2.2 details view ヘッダー行
+// 通常（iconsビューなど）は見出しを隠す
+.grid-header-row {
+  display: none;
+}
+
+.view--details {
+  .grid-header-row {
+    display: grid;
+    /* ★カード側の grid-template-columns と完全に一致させる */
+    grid-template-columns: 45px 1.5fr 1fr 160px; 
+    gap: 1rem;
+    padding: 0.5rem 1rem;
+    border-bottom: 1px solid #ddd;
+    font-size: 1rem;
+    color: #000000;
+    letter-spacing: 0.05em;
+  }
+
+  .header-year {
+    text-align: right;
+  }
+}
+
+// ダークモード対応
+@media (prefers-color-scheme: dark) {
+  .view--details .grid-header-row {
+    border-bottom-color: #444;
+    color: #aaa;
+  }
+}
 
 //nnn 4.2.3 content view
 .view--content .grid-item { width: 100%; }
@@ -918,6 +972,23 @@ a:hover {
     font-size: 0.75rem;
     opacity: 0.6;
   }
+
+  // 5.1Indexの制御 ---
+  .index-number {
+    display: none; // デフォルト非表示
+    font-size: 0.75rem;
+    font-weight: bold;
+    color: #999;
+    margin-right: 0.4rem; // タイトルとの間隔
+    margin-bottom: 0.1rem;
+    white-space: nowrap;
+  }
+
+  // 5.2 表示状態 (show-index クラスがある時)
+  &.show-index .index-number {
+    display: block;
+  }
+
 }
 
 //nnn 5. 外部埋め込み・フッター・特殊ページ

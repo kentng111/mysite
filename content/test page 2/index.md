@@ -1,6 +1,5 @@
 ---
 title: test page 2
-date: 2025-12-29
 tags:
   - even
   - two

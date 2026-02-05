@@ -1,6 +1,5 @@
 ---
 title: test page 8
-date: 2026-01-04
 tags:
   - odd
   - eight

@@ -2,7 +2,6 @@
 title: contact
 tags:
   - contact
-date: 2024-01-02
 draft: false
 color: "#F1F9F2"
 year: 9999-00

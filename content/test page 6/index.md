@@ -1,6 +1,5 @@
 ---
 title: test page 6
-date: 2026-01-28
 tags:
   - odd
   - six

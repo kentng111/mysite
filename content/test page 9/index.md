@@ -1,6 +1,5 @@
 ---
 title: test page 9
-date: 2026-01-09
 tags:
   - even
   - nine

@@ -1,7 +1,6 @@
 ---
 index: p001
 title: test page 1
-date: 2026-01-28
 tags:
   - odd
   - one
