@@ -71,10 +71,10 @@
 
           <div class="controls-row">
             <div class="and-filter-group">
-              <button class="is-checked" data-tag="all">ALL</button>
-              {{ range sort $tags }}
-                <button type="button" data-tag=".{{ . }}">{{ index $tagNameMap . }}</button>
-              {{ end }}
+              <button class="is-checked" data-filter="all">ALL</button>
+                {{ range sort $tags }}
+                  <button type="button" data-filter=".{{ . }}">{{ index $tagNameMap . }}</button>
+                {{ end }}
             </div>
           </div>
 
@@ -141,7 +141,6 @@
                 data-year="{{ .Params.year }}" 
                 data-index="{{ .Params.index | default 0 }}"
                 data-tag="{{ with .Params.tags }}{{ index (sort .) 0 }}{{ end }}"
-                data-filter="{{ with .Params.tags }}{{ index (sort . "value" "asc") 0 }}{{ end }}" 
                 {{ with .Params.color }}style="--card-color: {{ . }};"{{ end }}>
 
             <div class="card">
@@ -236,24 +235,47 @@ document.addEventListener('DOMContentLoaded', function () {
 
       //nnn タグフィルタクリック処理
       if (filterGroup) {
-          filterGroup.addEventListener('click', (e) => {
-              const btn = e.target.closest('[data-tag]');
-              if (!btn) return;
-              e.preventDefault();
-              const tag = btn.getAttribute('data-tag');
-              if (tag === 'all') {
-                  filterGroup.querySelectorAll('.is-checked').forEach(el => el.classList.remove('is-checked'));
-                  btn.classList.add('is-checked');
-              } else {
-                  btn.classList.toggle('is-checked');
-                  filterGroup.querySelector('[data-tag="all"]')?.classList.remove('is-checked');
-                  if (filterGroup.querySelectorAll('.is-checked').length === 0) {
-                      filterGroup.querySelector('[data-tag="all"]')?.classList.add('is-checked');
-                  }
-              }
-              applyFilter();
-          });
-      }
+    filterGroup.addEventListener('click', function(e) {
+        const btn = e.target.closest('button');
+        if (!btn) return;
+
+        // 1. data-filter属性を使用するように変更
+        // MixItUpは data-filter 属性を持つボタンをクリックすると自動でフィルタリングしますが、
+        // 独自のクラス切り替え(.is-checked)を行うためにここで処理してもOKです。
+        
+        const filterValue = btn.getAttribute('data-filter'); // data-filter に変更
+        
+        // もしMixItUpの自動動作と重複する場合は mixer.filter(filterValue) は削除しても動きますが、
+        // 明示的に制御する場合はこのままでOKです。
+        if (filterValue) {
+             mixer.filter(filterValue);
+        }
+
+        // 2. 見た目の制御（.is-checked の付け替え）
+        filterGroup.querySelectorAll('button').forEach(b => b.classList.remove('is-checked'));
+        btn.classList.add('is-checked');
+            });
+        }
+
+        // --- セッションストレージによる初期フィルタの読み込み部分も修正 ---
+        const initialFilter = sessionStorage.getItem('jumpToTag');
+        if (initialFilter) {
+            sessionStorage.removeItem('jumpToTag');
+
+            // "all" ボタンのチェックを外す (data-tag="all" → data-filter="all")
+            const allBtn = filterGroup.querySelector('[data-filter="all"]'); // セレクタ修正
+            if (allBtn) allBtn.classList.remove('is-checked');
+
+            // ターゲットのボタンを探す
+            // クラス名(.tag-xxx)と一致する data-filter を持つボタンを探す
+            const targetBtn = filterGroup.querySelector(`[data-filter="${initialFilter}"]`); // 修正
+
+            if (targetBtn) {
+                targetBtn.classList.add('is-checked');
+                // Mixerに命令
+                if (mixer) mixer.filter(initialFilter);
+            }
+        }
 
       //nnn 表示形式切替と条件付き表示制御
       if (viewGroup) {

@@ -1,1 +1,2 @@
+ M layouts/_default/list.html
  M temp_git_status.txt
