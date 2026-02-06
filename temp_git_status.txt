@@ -1,6 +1,8 @@
  M assets/_custom.scss
- M content/people/index.md
- M "content/test page 6/index.md"
+ M "content/hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge/index.md"
+ M "content/test page 7/index.md"
+ M "content/test page 8/index.md"
+ M "content/test page 9/index.md"
  M layouts/_default/list.html
  M resources/_gen/assets/book.scss_b807c86e8030af4cdc30edccea379f5f.content
  M resources/_gen/assets/book.scss_b807c86e8030af4cdc30edccea379f5f.json

@@ -73,13 +73,12 @@
             <div class="and-filter-group">
               <button class="is-checked" data-tag="all">ALL</button>
               {{ range sort $tags }}
-                <button data-tag=".{{ . }}">{{ index $tagNameMap . }}</button>
+                <button type="button" data-tag=".{{ . }}">{{ index $tagNameMap . }}</button>
               {{ end }}
             </div>
           </div>
 
           <div class="controls-divider"></div>
-
           <div class="controls-row slider-row" id="column-slider-container">
             <input type="range" id="column-slider" min="1" max="10" value="8" step="1" style="flex: 1; max-width: 350px;">
           </div>
@@ -120,6 +119,13 @@
 
       <div class="grid view--icons">
 
+          <div class="details-controls">
+            <span class="d-control" data-target="color">color</span> / 
+            <span class="d-control" data-target="index">index</span> / 
+            <span class="d-control" data-target="year">year</span> / 
+            <span class="d-control" data-target="tag">tag</span>
+          </div>
+
           <div class="grid-header-row">
               <div class="header-index" data-sort="index"><span class="sort-arrow"></span>#</div>
               <div class="header-year" data-sort="year"><span class="sort-arrow"></span>year</div>
@@ -130,11 +136,11 @@
         {{ range sort $pages "Title" "asc" }}
           {{ $classes := slice }}
           {{ with .Params.tags }}{{ range . }}{{ $classes = $classes | append (printf "tag-%s" (md5 .)) }}{{ end }}{{ end }}
-            <a class="grid-item {{ delimit $classes " " }}" href="{{ .RelPermalink }}"
+            <a class="grid-item fv {{ delimit $classes " " }}" href="{{ .RelPermalink }}"
                 data-title="{{ lower .Title }}"
                 data-year="{{ .Params.year }}" 
                 data-index="{{ .Params.index | default 0 }}"
-                data-tag="{{ with .Params.tags }}{{ index (sort . "value" "asc") 0 }}{{ end }}" 
+                data-filter="{{ with .Params.tags }}{{ index (sort . "value" "asc") 0 }}{{ end }}" 
                 {{ with .Params.color }}style="--card-color: {{ . }};"{{ end }}>
 
             <div class="card">
@@ -221,8 +227,7 @@ document.addEventListener('DOMContentLoaded', function () {
           items.forEach(el => el.classList.remove('__match'));
         }
         const checkedBtns = Array.from(filterGroup.querySelectorAll('.is-checked'));
-        const selectedTags = checkedBtns.map(btn => btn.getAttribute('data-tag')).filter(tag => tag !== 'all');
-        let selector = '';
+        const selectedTags = checkedBtns.map(btn => btn.getAttribute('data-tag')).filter(tag => tag !== 'all');        let selector = '';
         if (selectedTags.length === 0) selector = q ? '.__match' : 'all';
         else selector = q ? selectedTags.map(tag => `${tag}.__match`).join(', ') : selectedTags.join(', ');
         mixer.filter(selector);
@@ -421,6 +426,19 @@ document.addEventListener('DOMContentLoaded', function () {
 
           // 4. MixItUpにソート命令を送る
           mixer.sort(`${sortAttr}:${nextDir}`);
+        });
+      });
+
+const dControls = document.querySelectorAll('.d-control');
+      dControls.forEach(ctrl => {
+        ctrl.addEventListener('click', () => {
+          const target = ctrl.dataset.target;
+          // 取消線の切り替え
+          ctrl.classList.toggle('is-disabled');
+          // グリッド全体へのクラス付与（CSSで非表示を制御）
+          if (grid) {
+            grid.classList.toggle('hide-' + target);
+          }
         });
       });
 

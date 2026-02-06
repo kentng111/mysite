@@ -1,8 +1,8 @@
 ---
 title: test page 7
 tags:
-  - even
   - seven
+  - odd
 draft: true
 color: "#F28DA8"
 year: 2023-01

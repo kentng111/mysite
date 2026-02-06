@@ -1,8 +1,8 @@
 ---
 title: hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge
 tags:
-  - odd
   - ten
+  - even
 draft: true
 color: "#F1F0F2"
 year: 2026-12

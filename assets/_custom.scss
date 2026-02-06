@@ -336,13 +336,13 @@ a:hover {
 }
 
 /* 2. Filterボタンの「All以外」を角丸（ピル型）にする */
-.and-filter-group button:not([data-tag="all"]) {
+.and-filter-group button:not([data-filter="all"]) {
   border-radius: 99px;
   padding: 1px 10px; // ★ピル型ボタンの横幅の余白をここで調整
 }
 
 /* 「All」ボタンの未選択時をグレーにする */
-.and-filter-group button[data-tag="all"] {
+.and-filter-group button[data-filter="all"] {
   background: rgba(182, 182, 182, 0.8); /* 薄いグレー */
   color: rgb(102, 102, 102);
   border-color: #ddd;
@@ -358,7 +358,7 @@ a:hover {
   }
   
   /* Allボタンのダークモード用グレー */
-  .and-filter-group button[data-tag="all"] {
+  .and-filter-group button[data-filter="all"] {
     background: #cdcdcd;
     color: #2f2f2f;
   }
@@ -369,7 +369,7 @@ a:hover {
 
 /* Filterグループの選択時（基本設定） */
 /* 「All」ボタンの未選択時を四角にする */
-.and-filter-group button[data-tag="all"]:not(.is-checked) {
+.and-filter-group button[data-filter="all"]:not(.is-checked) {
   border-radius: 0rem !important;
 }
 
@@ -384,7 +384,7 @@ a:hover {
 }
 
 /* ★修正：「All」が選択されている時は「四角」かつ「緑色」にする */
-.and-filter-group button[data-tag="all"].is-checked {
+.and-filter-group button[data-filter="all"].is-checked {
   background: #3ad761;   /* 緑色 */
   color: #fff;
   border-color: #299444;
@@ -399,7 +399,7 @@ a:hover {
   }
   
   /* Allボタン選択時のダークモード緑 */
-  .and-filter-group button[data-tag="all"].is-checked {
+  .and-filter-group button[data-filter="all"].is-checked {
     background: #2a8f4a;
     border-color: #1f6835;
     border-radius: 0rem !important;
@@ -879,6 +879,68 @@ $details-grid-layout: 55px 70px 1.5fr 1fr;
     > div.is-active { color: #fff; }
   }
 
+
+//nnn 4.2.2.4 Detailsビュー用コントロール行の追加スタイル
+
+// 1. コントロール行のレイアウト
+.details-controls {
+  display: none; // デフォルト（iconsビュー等）では非表示
+  width: 100%;
+  padding: 4px 8px;
+  font-size: 0.85rem;
+  color: #666;
+
+}
+
+// detailsビューの時のみ表示する
+.view--details .details-controls {
+  display: block;
+}
+
+// コントロール項目のスタイル
+.d-control {
+  cursor: pointer;
+  margin: 0 2px;
+  user-select: none;
+  transition: opacity 0.2s;
+
+  &:hover {
+    text-decoration: underline;
+    color: #333;
+  }
+
+  // 無効状態（クリック時）：取消線と薄く表示
+  &.is-disabled {
+    text-decoration: line-through;
+    opacity: 0.5;
+  }
+}
+
+// 2. 非表示・スタイル変更のロジック
+// (JavaScriptで .grid に .hide-xxx が付与された時の挙動)
+
+// --- Color: 背景色を透明にする ---
+.view--details.hide-color .card::before {
+  background: transparent !important;
+}
+
+// --- Index: ヘッダーと列を非表示 ---
+.view--details.hide-index .header-index,
+.view--details.hide-index .index-number {
+  display: none !important;
+}
+
+// --- Year: ヘッダーと列を非表示 ---
+.view--details.hide-year .header-year,
+.view--details.hide-year .meta {
+  display: none !important;
+}
+
+// --- Tag: ヘッダーと列を非表示 ---
+.view--details.hide-tag .header-tag,
+.view--details.hide-tag .card-tags {
+  display: none !important;
+}
 
 //nnn 4.2.3 content view
 .view--content .grid-item { width: 100%; }

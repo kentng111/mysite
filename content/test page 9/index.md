@@ -1,8 +1,8 @@
 ---
 title: test page 9
 tags:
-  - even
   - nine
+  - odd
 draft: true
 color: "#F28EA8"
 year: 2025-07
