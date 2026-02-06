@@ -336,13 +336,13 @@ a:hover {
 }
 
 /* 2. Filterボタンの「All以外」を角丸（ピル型）にする */
-.and-filter-group button:not([data-tag="all"]) {
+.and-filter-group button:not([data-filter="all"]) {
   border-radius: 99px;
   padding: 1px 10px; // ★ピル型ボタンの横幅の余白をここで調整
 }
 
 /* 「All」ボタンの未選択時をグレーにする */
-.and-filter-group button[data-tag="all"] {
+.and-filter-group button[data-filter="all"] {
   background: rgba(182, 182, 182, 0.8); /* 薄いグレー */
   color: rgb(102, 102, 102);
   border-color: #ddd;
@@ -369,7 +369,7 @@ a:hover {
 
 /* Filterグループの選択時（基本設定） */
 /* 「All」ボタンの未選択時を四角にする */
-.and-filter-group button[data-tag="all"]:not(.is-checked) {
+.and-filter-group button[data-filter="all"]:not(.is-checked) {
   border-radius: 0rem !important;
 }
 
@@ -384,7 +384,7 @@ a:hover {
 }
 
 /* ★修正：「All」が選択されている時は「四角」かつ「緑色」にする */
-.and-filter-group button[data-tag="all"].is-checked {
+.and-filter-group button[data-filter="all"].is-checked {
   background: #3ad761;   /* 緑色 */
   color: #fff;
   border-color: #299444;
@@ -399,7 +399,7 @@ a:hover {
   }
   
   /* Allボタン選択時のダークモード緑 */
-  .and-filter-group button[data-tag="all"].is-checked {
+  .and-filter-group button[data-filter="all"].is-checked {
     background: #2a8f4a;
     border-color: #1f6835;
     border-radius: 0rem !important;
@@ -758,7 +758,40 @@ a:hover {
   border-radius: 0;
 }
 
-$details-grid-layout: 55px 70px 1.5fr 1fr;
+// --- 修正: Detailsビューの列幅維持設定 ---
+
+// 1. 列幅をCSS変数で定義（通常時の幅）
+.view--details {
+  --d-col-index: 55px;
+  --d-col-year:  70px;
+  --d-col-title: 1.5fr;
+  --d-col-tag:   0.5fr;
+}
+
+// 2. 非表示クラス (.hide-xxx) がある場合、その列幅を 0px に上書き
+// ※要素自体は既存の display: none で消えますが、列の余白をなくすために幅も0にします
+.view--details.hide-index { --d-col-index: 0px; }
+.view--details.hide-year  { --d-col-year:  0px; }
+.view--details.hide-tag   { --d-col-tag:   0px; }
+
+// 3. グリッドテンプレート定義（変数を参照するように変更）
+$details-grid-layout: var(--d-col-index) var(--d-col-year) var(--d-col-title) var(--d-col-tag);
+
+// 4. 各要素をグリッドの列番号に強制的に固定する
+// これにより、前の列が消えても、後続の要素がずれて入り込むのを防ぎます
+.view--details {
+  // 1列目: Index
+  .header-index, .index-number { grid-column: 1; }
+  
+  // 2列目: Year
+  .header-year,  .meta         { grid-column: 2; }
+  
+  // 3列目: Title
+  .header-title, .title        { grid-column: 3; }
+  
+  // 4列目: Tag
+  .header-tag,   .card-tags    { grid-column: 4; }
+}
 
 .view--details .card-inner {
   display: grid; 
@@ -798,6 +831,26 @@ $details-grid-layout: 55px 70px 1.5fr 1fr;
     justify-content: left;// 左寄せ
     color: #666; 
     font-size: 0.75rem;
+}
+
+// --- detailsビューでcolor非表示時のホバー設定 ---
+
+// 1. color非表示（hide-color）のときは、カード本来の背景色（::before）を透明にする
+.grid.hide-color.view--details .card::before {
+  background: transparent !important;
+}
+
+// 2. その状態でホバーしたときだけ、カード全体の背景をグレーにする
+.grid.hide-color.view--details .grid-item:hover .card {
+  background-color: rgba(0, 0, 0, 0.05); // お好みのグレーの濃さに調整してください
+  transition: background-color 0.2s ease;
+}
+
+/* ダークモード用の調整（もし必要であれば） */
+@media (prefers-color-scheme: dark) {
+  .grid.hide-color.view--details .grid-item:hover .card {
+    background-color: rgba(255, 255, 255, 0.1);
+  }
 }
 
 //nnn 4.2.2.2 details view ヘッダー行
