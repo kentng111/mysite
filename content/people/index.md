@@ -3,7 +3,7 @@ title: people
 tags:
   - information
 draft: true
-color: "#AABDBF"
+color: "#4BF27D"
 year: 0000-00
 index: a002
 ---

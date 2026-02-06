@@ -4,7 +4,7 @@ tags:
   - odd
   - six
 draft: true
-color: "#BF5A75"
+color: "#AB4BF2"
 year: 2025-03
 index: p006
 ---

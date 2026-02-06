@@ -760,14 +760,14 @@ a:hover {
   border-radius: 0;
 }
 
-$details-grid-layout: 40px 50px 1.5fr 1fr;
+$details-grid-layout: 55px 70px 1.5fr 1fr;
 
 .view--details .card-inner {
   display: grid; 
   grid-template-columns: $details-grid-layout; 
-  gap: 1rem;
-  align-items: center;
-  padding: .25rem 1rem;
+  gap: 0rem; // 列間隔を狭くする
+  align-items: center; // 縦中央揃え
+  padding: .1rem .1rem; // パディングを上下に広げる
 }
 
 // メインカラム内の配置を Grid にして位置を固定する
@@ -776,28 +776,28 @@ $details-grid-layout: 40px 50px 1.5fr 1fr;
   display: contents !important; /* 子要素（Index, Title, Tags）を直接親のグリッドに参加させる */
 }
 
-.view--details .title { 
-  margin: 0; 
-  white-space: nowrap;
-  overflow: hidden;
+.view--details .title {  // タイトル部分の調整
+  margin: 0; // 上下マージンを少し減らす
+  white-space: nowrap; // タイトルを1行に制限
+  overflow: hidden; // はみ出し防止
   text-overflow: ellipsis; // 長すぎるタイトルを「...」にする
 }
 
-.view--details .meta { text-align: right; }
-.view--details .excerpt { display: none; }
+.view--details .meta { text-align: left; } // 年月を左寄せ
+.view--details .excerpt { display: none; } // 抜粋は非表示
 
 // カード内タグ表示設定 (Detailsビュー部分の修正)
 .view--details .card-tags {
   display: flex;
-  gap: 4px;
+  gap: 0px;
   flex-wrap: nowrap; // Detailsでは1行に収める
   overflow: hidden;  // はみ出し防止
 }
 
 .index-number {
     display: flex;
-    align-items: center;
-    justify-content: center;
+    align-items: center;// 縦中央揃え
+    justify-content: left;// 左寄せ
     color: #666; 
     font-size: 0.75rem;
 }
@@ -812,21 +812,20 @@ $details-grid-layout: 40px 50px 1.5fr 1fr;
   display: grid;
   width: 100%;
   grid-template-columns: $details-grid-layout;  
-  gap: 1.2rem;
+  gap: 0rem;
   padding: 0.5rem;
-  margin-top: -2rem;
+  margin-top: 0rem; 
   margin-bottom: 0rem;
-  border-bottom: 1px solid #ddd;
+  border-bottom: 0px solid #ddd;
   font-size: 0.85rem; 
-  font-weight: 600;  
   color: #666;
-}
+  justify-content: left;// 左寄せ
 
- // Year (meta) の位置合わせを調整
-.view--details .meta {
-  text-align: left; /* 右寄せから左寄せに変更 */
+  // タグカラム（4番目）のヘッダー文字位置調整
+  .header-tag {
+    padding-left: 0.5rem; /* または text-align: center など */
+  }
 }
-
 
 // ダークモード対応
 @media (prefers-color-scheme: dark) {
@@ -835,6 +834,51 @@ $details-grid-layout: 40px 50px 1.5fr 1fr;
     color: #aaa;
   }
 }
+
+ //nnn 4.2.2.3 details view ソートボタン
+// 直下のdivをクリック可能にする
+  > div {
+  cursor: pointer;
+  user-select: none;
+  transition: color 0.2s;
+  
+  // ▼ 追加：矢印とテキストを綺麗に横に並べる
+  display: flex;
+  align-items: center;  // 縦中央揃え
+
+  &:hover {
+    color: #333;
+  }
+}
+
+// 矢印アイコンのスタイル
+.sort-arrow {
+  display: inline-block;
+  width: 0.75em;      // 記号が入るスペースを確保
+  text-align: left; // 矢印を中央に配置
+  font-size: 0.8em;
+  margin-left: -0.5em;  // ▼ 変更：左側に余白を追加
+  margin-right: 0.3em; // 右側の余白も調整
+  color: #333;
+  /* opacity: 0; は削除された状態を維持 */
+}
+
+  // ソート中（アクティブ）な列のスタイル
+  > div.is-active {
+    color: #000;
+    font-weight: 600;
+    
+    .sort-arrow {
+      opacity: 1; // 矢印を表示
+    }
+  }
+
+  // ダークモード対応（必要に応じて調整）
+  @media (prefers-color-scheme: dark) {
+    > div:hover { color: #fff; }
+    > div.is-active { color: #fff; }
+  }
+
 
 //nnn 4.2.3 content view
 .view--content .grid-item { width: 100%; }

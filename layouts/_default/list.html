@@ -121,19 +121,21 @@
       <div class="grid view--icons">
 
           <div class="grid-header-row">
-              <div class="header-index">#</div>
-              <div class="header-year">year</div> <div class="header-title">title</div>
-              <div class="header-tag">tag</div>
+              <div class="header-index" data-sort="index"><span class="sort-arrow"></span>#</div>
+              <div class="header-year" data-sort="year"><span class="sort-arrow"></span>year</div>
+              <div class="header-title" data-sort="title"><span class="sort-arrow"></span>title</div>
+              <div class="header-tag" data-sort="tag"><span class="sort-arrow"></span>tag</div>
           </div>
 
         {{ range sort $pages "Title" "asc" }}
           {{ $classes := slice }}
           {{ with .Params.tags }}{{ range . }}{{ $classes = $classes | append (printf "tag-%s" (md5 .)) }}{{ end }}{{ end }}
-          <a class="grid-item {{ delimit $classes " " }}" href="{{ .RelPermalink }}"
-              data-title="{{ lower .Title }}"
-              data-year="{{ .Params.year }}" 
-              data-index="{{ .Params.index | default 0 }}"
-              {{ with .Params.color }}style="--card-color: {{ . }};"{{ end }}>
+            <a class="grid-item {{ delimit $classes " " }}" href="{{ .RelPermalink }}"
+                data-title="{{ lower .Title }}"
+                data-year="{{ .Params.year }}" 
+                data-index="{{ .Params.index | default 0 }}"
+                data-tag="{{ with .Params.tags }}{{ index (sort . "value" "asc") 0 }}{{ end }}" 
+                {{ with .Params.color }}style="--card-color: {{ . }};"{{ end }}>
 
             <div class="card">
               {{ $cover := index (.Resources.Match "cover_*") 0 }}
@@ -380,6 +382,45 @@ document.addEventListener('DOMContentLoaded', function () {
           btn.setAttribute('data-dir', nextDir);
 
           mixer.sort(`${sortType}:${nextDir}`);
+        });
+      });
+
+//nnn Details View ヘッダーソート制御
+      const headerSortItems = document.querySelectorAll('.grid-header-row [data-sort]');
+      
+      headerSortItems.forEach(item => {
+        item.addEventListener('click', () => {
+          const sortAttr = item.getAttribute('data-sort');
+          let currentDir = item.getAttribute('data-dir') || 'default'; // default, asc, desc
+          let nextDir = 'asc';
+
+          // 状態の遷移: default/desc -> asc, asc -> desc
+          if (currentDir === 'asc') {
+            nextDir = 'desc';
+          } else {
+            nextDir = 'asc';
+          }
+
+          // 1. 全てのヘッダーの状態をリセット
+          headerSortItems.forEach(el => {
+            el.classList.remove('is-active');
+            el.setAttribute('data-dir', 'default');
+            const arrow = el.querySelector('.sort-arrow');
+            if(arrow) arrow.textContent = '';
+          });
+
+          // 2. クリックされたヘッダーの状態を更新
+          item.classList.add('is-active');
+          item.setAttribute('data-dir', nextDir);
+          
+          // 3. 矢印文字をセット
+          const arrowSpan = item.querySelector('.sort-arrow');
+          if (arrowSpan) {
+            arrowSpan.textContent = (nextDir === 'asc') ? '∧' : '∨';
+          }
+
+          // 4. MixItUpにソート命令を送る
+          mixer.sort(`${sortAttr}:${nextDir}`);
         });
       });
 
