@@ -86,13 +86,18 @@
           <div class="controls-row display-options-row" id="display-options-container" style="padding-bottom: 0.5rem;">
             
             <div class="display-option-item">
+              <button type="button" class="display-dot-btn is-checked" data-target="image">image</button>
+              <button type="button" class="img-fit-btn" id="img-fit-toggle" data-state="cover">[ ]</button>
+            </div>
+
+            <div class="display-option-item">
                 <button type="button" class="display-dot-btn" data-target="index">index</button>
                 <button type="button" class="sort-btn" data-sort="index" data-dir="asc">∧</button>
             </div>
 
             <div class="display-option-item">
-              <button type="button" class="display-dot-btn is-checked" data-target="image">image</button>
-              <button type="button" class="img-fit-btn" id="img-fit-toggle" data-state="cover">[ ]</button>
+              <button type="button" class="display-dot-btn" data-target="year">year</button>
+              <button type="button" class="sort-btn" data-sort="year" data-dir="default">-</button>
             </div>
 
             <div class="display-option-item">
@@ -103,11 +108,6 @@
             <div class="display-option-item">
               <button type="button" class="display-dot-btn" data-target="tag">tag</button>
               <div class="sort-btn" style="cursor: default; opacity: 0;">&nbsp;</div>
-            </div>
-
-            <div class="display-option-item">
-              <button type="button" class="display-dot-btn" data-target="year">year</button>
-              <button type="button" class="sort-btn" data-sort="year" data-dir="default">-</button>
             </div>
 
           </div>
@@ -140,6 +140,7 @@
                 data-title="{{ lower .Title }}"
                 data-year="{{ .Params.year }}" 
                 data-index="{{ .Params.index | default 0 }}"
+                data-tag="{{ with .Params.tags }}{{ index (sort .) 0 }}{{ end }}"
                 data-filter="{{ with .Params.tags }}{{ index (sort . "value" "asc") 0 }}{{ end }}" 
                 {{ with .Params.color }}style="--card-color: {{ . }};"{{ end }}>
 
