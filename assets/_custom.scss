@@ -32,7 +32,7 @@ a:hover {
 //nnn 2.1 ヘッダー全体の固定表示と外観
 
 //nnn 2.1.1 ヘッダー固定・背景効果
-// --- マルチレイヤー・リキッドガラス効果 (Advanced Surface Tension) ---
+// --- リキッドガラス効果（下重心：Bottom-lit Liquid） ---
 .book-header {
   position: fixed;
   top: 0;
@@ -41,63 +41,56 @@ a:hover {
   z-index: 1000;
   width: 100%;
   
-  // 1. ベースレイヤー: ぼかしと屈折
-  // 背景は極限まで透明にし、背後の色を取り込む
   background: rgba(255, 255, 255, 0.01);
   backdrop-filter: blur(20px) saturate(180%);
   -webkit-backdrop-filter: blur(20px) saturate(180%);
   
-  // 2. 物理的な境界線（極薄）
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-  
-  // 3. 影と環境光
+  // 上端の境界線は、逆に少し暗く（または非常に薄く）してバランスを取ります
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  border-bottom: none; 
+
   box-shadow: 
-    0 4px 30px rgba(0, 0, 0, 0.1), // ドロップシャドウ
-    inset 0 0 20px rgba(255, 255, 255, 0.05); // 内側のわずかな発光
+    0 -4px 30px rgba(0, 0, 0, 0.05), // 上方向への微弱な影
+    inset 0 0 20px rgba(255, 255, 255, 0.02);
 
   transition: all 0.3s ease;
 
-  // --- 4. 表面張力のハイライト（ここが重要） ---
-  // 疑似要素を使って、ヘッダーの上に「光の膜」を乗せる
   &::before {
     content: '';
     position: absolute;
-    inset: 0; // top, right, bottom, left: 0 と同じ
-    z-index: -1; // 文字の下、背景の上
-    pointer-events: none; // クリックを阻害しない
-    border-radius: inherit;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
 
-    // グラデーションによる「濡れた光」の表現
-    // 上部は白く強く光り(0.4)、下に向かって透明になる
+    // 1. グラデーションを上下反転（0degに設定）
+    // 下端(0%)が一番明るく、上に向かって消えていく設定
     background: linear-gradient(
-      180deg, 
+      0deg, 
       rgba(255, 255, 255, 0.4) 0%, 
-      rgba(255, 255, 255, 0.1) 10%,
+      rgba(255, 255, 255, 0.1) 15%,
       rgba(255, 255, 255, 0) 100%
     );
 
-    // さらに上端に「溜まった水」のような鋭いエッジを追加
-    box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.6);
+    // 2. 内側の光のラインを「下（-1px）」に配置
+    // これにより下側のエッジに表面張力の光がたまります
+    box-shadow: inset 0 -1px 0 0 rgba(255, 255, 255, 0.6);
     
-    // 混合モード: 重なった部分をより輝かせる
     mix-blend-mode: overlay;
   }
 }
 
-// ダークモード対応（光の強さを調整）
+// ダークモード対応（下側の反射を調整）
 html[class~="dark"] .book-header {
   background: rgba(0, 0, 0, 0.3);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
   
   &::before {
-    // ダークモードでは光を弱く、少し青みを足してガラス感を出す
     background: linear-gradient(
-      180deg, 
-      rgba(255, 255, 255, 0.15) 0%, 
-      rgba(255, 255, 255, 0.05) 10%, 
+      0deg, 
+      rgba(255, 255, 255, 0.2) 0%, 
+      rgba(255, 255, 255, 0.05) 15%, 
       rgba(255, 255, 255, 0) 100%
     );
-    box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.2);
+    box-shadow: inset 0 -1px 0 0 rgba(255, 255, 255, 0.3);
   }
 }
 
