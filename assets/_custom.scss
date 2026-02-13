@@ -32,6 +32,7 @@ a:hover {
 //nnn 2.1 ヘッダー全体の固定表示と外観
 
 //nnn 2.1.1 ヘッダー固定・背景効果
+// --- リキッドガラス効果への変更例 ---
 .book-header {
   position: fixed;
   top: 0;
@@ -40,14 +41,20 @@ a:hover {
   z-index: 1000;
   width: 100%;
 
-  background: rgba(255, 255, 255, 0.05);
-  backdrop-filter: blur(5px) saturate(180%) brightness(100%);
-  -webkit-backdrop-filter: blur(100px) saturate(160%) brightness(100%);
+  // 背景：透明度をさらに高め、わずかに青み（または白み）を加える
+  background: rgba(255, 255, 255, 0.1); 
+  
+  // ぼかし：液体の重みを感じさせるため、少し強めに設定
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
 
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  // 境界線：上部に光が当たっているようなハイライトを加える
+  border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+  
+  // 影：液体の厚みを表現するために、少し広めのソフトな影にする
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
 
-  transition: background 0.3s ease, backdrop-filter 0.3s ease;
+  transition: all 0.3s ease;
 }
 
 //nnn 2.1.2 ヘッダー高さとページ余白
