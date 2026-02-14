@@ -1,25 +1,45 @@
 // oneko.js: https://github.com/adryd325/oneko.js
 
 (function oneko() {
-  const isReducedMotion =
-    window.matchMedia(`(prefers-reduced-motion: reduce)`) === true ||
-    window.matchMedia(`(prefers-reduced-motion: reduce)`).matches === true;
-
-  if (isReducedMotion) return;
-
   const nekoEl = document.createElement("div");
-
+  // Hardcoded for privacy reasons.
+  const nekoSites = [
+    "adryd.com",
+    "localhost",
+    "c7.pm",
+    "fade.nya.rest",
+    "fleepy.tv",
+    "maia.crimew.gay",
+    "kibty.town",
+  ];
   let nekoPosX = 32;
   let nekoPosY = 32;
-
   let mousePosX = 0;
   let mousePosY = 0;
+
+  try {
+    const searchParams = location.search
+      .replace("?", "")
+      .split("&")
+      .map((keyvaluepair) => keyvaluepair.split("="));
+    // This is so much repeated code, I don't like it
+    tmp = searchParams.find((a) => a[0] == "catx");
+    if (tmp && tmp[1]) nekoPosX = parseInt(tmp[1]);
+    tmp = searchParams.find((a) => a[0] == "caty");
+    if (tmp && tmp[1]) nekoPosY = parseInt(tmp[1]);
+    tmp = searchParams.find((a) => a[0] == "catdx");
+    if (tmp && tmp[1]) mousePosX = parseInt(tmp[1]);
+    tmp = searchParams.find((a) => a[0] == "catdy");
+    if (tmp && tmp[1]) mousePosY = parseInt(tmp[1]);
+  } catch (e) {
+    console.error("oneko.js: failed to parse query params.");
+    console.error(e);
+  }
 
   let frameCount = 0;
   let idleTime = 0;
   let idleAnimation = null;
   let idleAnimationFrame = 0;
-
   const nekoSpeed = 10;
   const spriteSets = {
     idle: [[-3, -3]],
@@ -84,60 +104,56 @@
     ],
   };
 
-  function init() {
+  function create() {
     nekoEl.id = "oneko";
-    nekoEl.ariaHidden = true;
     nekoEl.style.width = "32px";
     nekoEl.style.height = "32px";
     nekoEl.style.position = "fixed";
-    nekoEl.style.pointerEvents = "auto";
+    nekoEl.style.pointerEvents = "none";
+    nekoEl.style.backgroundImage = "url('/img/oneko.gif')";
     nekoEl.style.imageRendering = "pixelated";
     nekoEl.style.left = `${nekoPosX - 16}px`;
     nekoEl.style.top = `${nekoPosY - 16}px`;
-    nekoEl.style.zIndex = Number.MAX_VALUE;
-
-    let nekoFile = "./oneko.gif"
-    const curScript = document.currentScript
-    if (curScript && curScript.dataset.cat) {
-      nekoFile = curScript.dataset.cat
-    }
-    nekoEl.style.backgroundImage = `url(${nekoFile})`;
+    nekoEl.style.zIndex = "16384";
 
     document.body.appendChild(nekoEl);
 
-    // マウス移動イベント
-    document.addEventListener("mousemove", function (event) {
+    document.onmousemove = (event) => {
       mousePosX = event.clientX;
       mousePosY = event.clientY;
-    });
+    };
 
-    // タッチイベントの追加（スマホ対応）
-    function handleTouch(event) {
-      if (event.touches.length > 0) {
-        mousePosX = event.touches[0].clientX;
-        mousePosY = event.touches[0].clientY;
-      }
-    }
-    document.addEventListener("touchstart", handleTouch);
-    document.addEventListener("touchmove", handleTouch);
-
-    window.requestAnimationFrame(onAnimationFrame);
+    window.onekoInterval = setInterval(frame, 100);
   }
 
-  let lastFrameTimestamp;
-
-  function onAnimationFrame(timestamp) {
-    if (!nekoEl.isConnected) {
+  function onClick(event) {
+    let target;
+    if (event.target.tagName === "A" && event.target.getAttribute("href")) {
+      target = event.target;
+    } else if (
+      event.target.tagName == "IMG" &&
+      event.target.parentElement.tagName === "A" &&
+      event.target.parentElement.getAttribute("href")
+    ) {
+      target = event.target.parentElement;
+    } else {
       return;
     }
-    if (!lastFrameTimestamp) {
-      lastFrameTimestamp = timestamp;
+    let newLocation;
+    try {
+      newLocation = new URL(target.href);
+    } catch (e) {
+      // console.error(e);
+      return;
     }
-    if (timestamp - lastFrameTimestamp > 100) {
-      lastFrameTimestamp = timestamp
-      frame()
-    }
-    window.requestAnimationFrame(onAnimationFrame);
+    if (!nekoSites.includes(newLocation.host) || newLocation.pathname != "/")
+      return;
+    newLocation.searchParams.append("catx", Math.floor(nekoPosX));
+    newLocation.searchParams.append("caty", Math.floor(nekoPosY));
+    newLocation.searchParams.append("catdx", Math.floor(mousePosX));
+    newLocation.searchParams.append("catdy", Math.floor(mousePosY));
+    event.preventDefault();
+    window.location.href = newLocation.toString();
   }
 
   function setSprite(name, frame) {
@@ -152,17 +168,30 @@
 
   function idle() {
     idleTime += 1;
+
+    // every ~ 20 seconds
     if (
       idleTime > 10 &&
       Math.floor(Math.random() * 200) == 0 &&
       idleAnimation == null
     ) {
       let avalibleIdleAnimations = ["sleeping", "scratchSelf"];
-      if (nekoPosX < 32) avalibleIdleAnimations.push("scratchWallW");
-      if (nekoPosY < 32) avalibleIdleAnimations.push("scratchWallN");
-      if (nekoPosX > window.innerWidth - 32) avalibleIdleAnimations.push("scratchWallE");
-      if (nekoPosY > window.innerHeight - 32) avalibleIdleAnimations.push("scratchWallS");
-      idleAnimation = avalibleIdleAnimations[Math.floor(Math.random() * avalibleIdleAnimations.length)];
+      if (nekoPosX < 32) {
+        avalibleIdleAnimations.push("scratchWallW");
+      }
+      if (nekoPosY < 32) {
+        avalibleIdleAnimations.push("scratchWallN");
+      }
+      if (nekoPosX > window.innerWidth - 32) {
+        avalibleIdleAnimations.push("scratchWallE");
+      }
+      if (nekoPosY > window.innerHeight - 32) {
+        avalibleIdleAnimations.push("scratchWallS");
+      }
+      idleAnimation =
+        avalibleIdleAnimations[
+          Math.floor(Math.random() * avalibleIdleAnimations.length)
+        ];
     }
 
     switch (idleAnimation) {
@@ -172,7 +201,9 @@
           break;
         }
         setSprite("sleeping", Math.floor(idleAnimationFrame / 4));
-        if (idleAnimationFrame > 192) resetIdleAnimation();
+        if (idleAnimationFrame > 192) {
+          resetIdleAnimation();
+        }
         break;
       case "scratchWallN":
       case "scratchWallS":
@@ -180,58 +211,17 @@
       case "scratchWallW":
       case "scratchSelf":
         setSprite(idleAnimation, idleAnimationFrame);
-        if (idleAnimationFrame > 9) resetIdleAnimation();
+        if (idleAnimationFrame > 9) {
+          resetIdleAnimation();
+        }
         break;
+
       default:
         setSprite("idle", 0);
         return;
     }
     idleAnimationFrame += 1;
   }
-
-  function explodeHearts() {
-    const parent = nekoEl.parentElement;
-    const rect = nekoEl.getBoundingClientRect();
-    const scrollLeft = window.scrollX || document.documentElement.scrollLeft;
-    const scrollTop = window.scrollY || document.documentElement.scrollTop;
-    const centerX = rect.left + rect.width / 2 + scrollLeft;
-    const centerY = rect.top + rect.height / 2 + scrollTop;
-
-    for (let i = 0; i < 10; i++) {
-      const heart = document.createElement('div');
-      heart.className = 'heart';
-      heart.textContent = '❤';
-      const offsetX = (Math.random() - 0.5) * 50;
-      const offsetY = (Math.random() - 0.5) * 50;
-      heart.style.left = `${centerX + offsetX - 16}px`;
-      heart.style.top = `${centerY + offsetY - 16}px`;
-      heart.style.transform = `translate(-50%, -50%) rotate(${Math.random() * 360}deg)`;
-      parent.appendChild(heart);
-
-      setTimeout(() => {
-        parent.removeChild(heart);
-      }, 1000);
-    }
-  }
-
-  const style = document.createElement('style');
-  style.innerHTML = `
-    @keyframes heartBurst {
-      0% { transform: scale(0); opacity: 1; }
-      100% { transform: scale(1); opacity: 0; }
-    }
-    .heart {
-      position: absolute;
-      font-size: 2em;
-      animation: heartBurst 1s ease-out;
-      animation-fill-mode: forwards;
-      color: #ab9df2;
-      pointer-events: none;
-    }
-  `;
-
-  document.head.appendChild(style);
-  nekoEl.addEventListener('click', explodeHearts);
 
   function frame() {
     frameCount += 1;
@@ -249,12 +239,12 @@
 
     if (idleTime > 1) {
       setSprite("alert", 0);
+      // count down after being alerted before moving
       idleTime = Math.min(idleTime, 7);
       idleTime -= 1;
       return;
     }
 
-    let direction;
     direction = diffY / distance > 0.5 ? "N" : "";
     direction += diffY / distance < -0.5 ? "S" : "";
     direction += diffX / distance > 0.5 ? "W" : "";
@@ -271,5 +261,7 @@
     nekoEl.style.top = `${nekoPosY - 16}px`;
   }
 
-  init();
+  create();
+  document.addEventListener("click", onClick);
 })();
+Math.floor(Math.random() * 200) == 0;
