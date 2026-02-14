@@ -46,4 +46,3 @@ neko: true
   </p>
 </form>
 
-<script src="/js/oneko.js" data-cat="/img/oneko.gif"></script>
