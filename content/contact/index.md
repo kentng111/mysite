@@ -6,6 +6,7 @@ draft: false
 color: "#F1F9F2"
 year: 9999-00
 index: a003
+neko: true
 ---
 <form action="https://ssgform.com/s/8GZjIVpyN5AV" method="post">
   <p>
@@ -44,7 +45,5 @@ index: a003
     <button type="submit">Submit</button>
   </p>
 </form>
-
-<p style="font-size: 0.75rem; color: #888; text-align: right; margin-top: 2em;"> Thanks to <a href="https://github.com/adryd325/oneko.js" target="_blank" rel="noopener" style="color: #888; text-decoration: underline;">oneko.js</a> </p>
 
 <script src="/js/oneko.js" data-cat="/img/oneko.gif"></script>

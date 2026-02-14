@@ -1,4 +1,3 @@
  M content/contact/index.md
+ M layouts/_partials/docs/footer.html
  M temp_git_status.txt
-?? static/img/oneko.gif
-?? static/js/oneko.js
