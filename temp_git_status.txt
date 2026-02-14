@@ -1,2 +1,2 @@
- M content/contact/index.md
+ M static/js/oneko.js
  M temp_git_status.txt
