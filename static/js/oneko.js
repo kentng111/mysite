@@ -105,10 +105,21 @@
 
     document.body.appendChild(nekoEl);
 
+    // マウス移動イベント
     document.addEventListener("mousemove", function (event) {
       mousePosX = event.clientX;
       mousePosY = event.clientY;
     });
+
+    // タッチイベントの追加（スマホ対応）
+    function handleTouch(event) {
+      if (event.touches.length > 0) {
+        mousePosX = event.touches[0].clientX;
+        mousePosY = event.touches[0].clientY;
+      }
+    }
+    document.addEventListener("touchstart", handleTouch);
+    document.addEventListener("touchmove", handleTouch);
 
     window.requestAnimationFrame(onAnimationFrame);
   }
@@ -116,7 +127,6 @@
   let lastFrameTimestamp;
 
   function onAnimationFrame(timestamp) {
-    // Stops execution if the neko element is removed from DOM
     if (!nekoEl.isConnected) {
       return;
     }
@@ -142,30 +152,17 @@
 
   function idle() {
     idleTime += 1;
-
-    // every ~ 20 seconds
     if (
       idleTime > 10 &&
       Math.floor(Math.random() * 200) == 0 &&
       idleAnimation == null
     ) {
       let avalibleIdleAnimations = ["sleeping", "scratchSelf"];
-      if (nekoPosX < 32) {
-        avalibleIdleAnimations.push("scratchWallW");
-      }
-      if (nekoPosY < 32) {
-        avalibleIdleAnimations.push("scratchWallN");
-      }
-      if (nekoPosX > window.innerWidth - 32) {
-        avalibleIdleAnimations.push("scratchWallE");
-      }
-      if (nekoPosY > window.innerHeight - 32) {
-        avalibleIdleAnimations.push("scratchWallS");
-      }
-      idleAnimation =
-        avalibleIdleAnimations[
-        Math.floor(Math.random() * avalibleIdleAnimations.length)
-        ];
+      if (nekoPosX < 32) avalibleIdleAnimations.push("scratchWallW");
+      if (nekoPosY < 32) avalibleIdleAnimations.push("scratchWallN");
+      if (nekoPosX > window.innerWidth - 32) avalibleIdleAnimations.push("scratchWallE");
+      if (nekoPosY > window.innerHeight - 32) avalibleIdleAnimations.push("scratchWallS");
+      idleAnimation = avalibleIdleAnimations[Math.floor(Math.random() * avalibleIdleAnimations.length)];
     }
 
     switch (idleAnimation) {
@@ -175,9 +172,7 @@
           break;
         }
         setSprite("sleeping", Math.floor(idleAnimationFrame / 4));
-        if (idleAnimationFrame > 192) {
-          resetIdleAnimation();
-        }
+        if (idleAnimationFrame > 192) resetIdleAnimation();
         break;
       case "scratchWallN":
       case "scratchWallS":
@@ -185,9 +180,7 @@
       case "scratchWallW":
       case "scratchSelf":
         setSprite(idleAnimation, idleAnimationFrame);
-        if (idleAnimationFrame > 9) {
-          resetIdleAnimation();
-        }
+        if (idleAnimationFrame > 9) resetIdleAnimation();
         break;
       default:
         setSprite("idle", 0);
@@ -223,18 +216,19 @@
 
   const style = document.createElement('style');
   style.innerHTML = `
-		  @keyframes heartBurst {
-			  0% { transform: scale(0); opacity: 1; }
-			  100% { transform: scale(1); opacity: 0; }
-		  }
-		  .heart {
-			  position: absolute;
-			  font-size: 2em;
-			  animation: heartBurst 1s ease-out;
-			  animation-fill-mode: forwards;
-			  color: #ab9df2;
-		  }
-	  `;
+    @keyframes heartBurst {
+      0% { transform: scale(0); opacity: 1; }
+      100% { transform: scale(1); opacity: 0; }
+    }
+    .heart {
+      position: absolute;
+      font-size: 2em;
+      animation: heartBurst 1s ease-out;
+      animation-fill-mode: forwards;
+      color: #ab9df2;
+      pointer-events: none;
+    }
+  `;
 
   document.head.appendChild(style);
   nekoEl.addEventListener('click', explodeHearts);
@@ -255,7 +249,6 @@
 
     if (idleTime > 1) {
       setSprite("alert", 0);
-      // count down after being alerted before moving
       idleTime = Math.min(idleTime, 7);
       idleTime -= 1;
       return;
