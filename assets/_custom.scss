@@ -1220,15 +1220,15 @@ $details-grid-layout: var(--d-col-index) var(--d-col-year) var(--d-col-title) va
 }
 
 /* プライバシーポリシーのリンク単体の調整 */
-.footer-link {
+.book-footer a.footer-link {
     font-size: 0.8rem;         /* 文字を小さく（控えめに） */
-    color: #999 !important;          /* 薄いグレー（目立たせない） */
+    color: #888 !important;          /* 薄いグレー（目立たせない） */
     text-decoration: none;   /* 下線を消す */
 }
 
 /* マウスを乗せた時（ホバー） */
 .footer-link:hover {
-    color: #888 !important;          /* 少し濃い色にする */
+    color: #999 !important;          /* 少し濃い色にする */
     text-decoration: underline;
 }
 

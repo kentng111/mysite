@@ -1,8 +1,8 @@
 ---
 title: privacy policy
-_build:
- list: never
- render: always
+build:
+  list: never
+  render: always
 ---
 #### 1. はじめに
 当サイト（以下、「当ウェブサイト」）は、提供するサービスにおける利用者の個人情報の取扱いについて、以下の通りプライバシーポリシーを定めます。当ウェブサイトをご利用いただく際は、本ポリシーに同意いただいたものとみなされます。
