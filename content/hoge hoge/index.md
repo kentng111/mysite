@@ -1,5 +1,5 @@
 ---
-title: hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge
+title: hoge hoge
 tags:
   - ten
   - even

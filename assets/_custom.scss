@@ -32,7 +32,7 @@ a:hover {
 //nnn 2.1 ヘッダー全体の固定表示と外観
 
 //nnn 2.1.1 ヘッダー固定・背景効果
-// --- リキッドガラス効果（下重心：Bottom-lit Liquid） ---
+// --- リキッドガラス効果（Advanced Liquid Glass） ---
 .book-header {
   position: fixed;
   top: 0;
@@ -40,58 +40,38 @@ a:hover {
   right: 0;
   z-index: 1000;
   width: 100%;
-  
-  background: rgba(255, 255, 255, 0.01);
-  backdrop-filter: blur(20px) saturate(180%);
-  -webkit-backdrop-filter: blur(20px) saturate(180%);
-  
-  // 上端の境界線は、逆に少し暗く（または非常に薄く）してバランスを取ります
-  border-top: 1px solid rgba(255, 255, 255, 0.05);
-  border-bottom: none; 
 
+  // 1. ベースの透明度: 水のような透明感を出すため、極力薄く
+  background: rgba(255, 255, 255, 0.01);
+
+  // 2. フィルタ効果: 
+  // blur: 25px (強いぼかしで厚みを表現)
+  // saturate: 200% (背景色を鮮やかにして、水を透かしたような屈折感を演出)
+  backdrop-filter: blur(25px) saturate(150%);
+  -webkit-backdrop-filter: blur(25px) saturate(150%);
+
+  // 3. 境界線: 下部に光が溜まっているような表現
+  border-bottom: 1px solid rgba(255, 255, 255, 0.4);
+
+  // 4. 艶と厚みの魔法 (Box Shadow):
+  // 1行目: 全体の柔らかなドロップシャドウ
+  // 2行目(inset): 上端に強い光の反射（ハイライト）
+  // 3行目(inset): 全体に薄く広がる光沢
   box-shadow: 
-    0 -4px 30px rgba(0, 0, 0, 0.05), // 上方向への微弱な影
-    inset 0 0 20px rgba(255, 255, 255, 0.02);
+    0 8px 32px 0 rgba(31, 38, 135, 0.1),
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.5),
+    inset 0 0 15px 0 rgba(255, 255, 255, 0.05);
 
   transition: all 0.3s ease;
-
-  &::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    z-index: -1;
-    pointer-events: none;
-
-    // 1. グラデーションを上下反転（0degに設定）
-    // 下端(0%)が一番明るく、上に向かって消えていく設定
-    background: linear-gradient(
-      0deg, 
-      rgba(255, 255, 255, 0.4) 0%, 
-      rgba(255, 255, 255, 0.1) 15%,
-      rgba(255, 255, 255, 0) 100%
-    );
-
-    // 2. 内側の光のラインを「下（-1px）」に配置
-    // これにより下側のエッジに表面張力の光がたまります
-    box-shadow: inset 0 -1px 0 0 rgba(255, 255, 255, 0.6);
-    
-    mix-blend-mode: overlay;
-  }
 }
 
-// ダークモード対応（下側の反射を調整）
+// （オプション）ダークモード時の見え方を最適化
 html[class~="dark"] .book-header {
-  background: rgba(0, 0, 0, 0.3);
-  
-  &::before {
-    background: linear-gradient(
-      0deg, 
-      rgba(255, 255, 255, 0.2) 0%, 
-      rgba(255, 255, 255, 0.05) 15%, 
-      rgba(255, 255, 255, 0) 100%
-    );
-    box-shadow: inset 0 -1px 0 0 rgba(255, 255, 255, 0.3);
-  }
+  background: rgba(0, 0, 0, 0.2); // 黒ベースの半透明
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 
+    0 8px 32px 0 rgba(0, 0, 0, 0.3),
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.2); // ハイライトを弱めに
 }
 
 //nnn 2.1.2 ヘッダー高さとページ余白
@@ -1222,29 +1202,35 @@ $details-grid-layout: var(--d-col-index) var(--d-col-year) var(--d-col-title) va
 
 //nnn 5. 外部埋め込み・フッター・特殊ページ
 
-//nnn 5.1 Google Form 埋め込み
-.gform-embed {
-  position: relative;
-  width: 100%;
-  padding-top: 1600px;
-}
+//nnn 5.1 欠番
 
-.gform-embed iframe {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  border: 0;
-  background: #fff;
-}
-
-//nnn 5.2 フッター 
+//nnn 5.2.1 フッター 
 .copyright {
   text-align: center;
   font-size: 0.8rem;
   color: #777;
-  margin-top: 2rem;
+  margin-top: 0.5rem;
 } 
+
+//nnn 5.2.2 プライバシーポリシーリンク 
+/* フッター全体の配置調整 */
+.footer-nav {
+    text-align: center;  /* 中央揃え */
+    margin-top: 2px;    /* 上に余白 */
+}
+
+/* プライバシーポリシーのリンク単体の調整 */
+.footer-link {
+    font-size: 0.8rem;         /* 文字を小さく（控えめに） */
+    color: #999 !important;          /* 薄いグレー（目立たせない） */
+    text-decoration: none;   /* 下線を消す */
+}
+
+/* マウスを乗せた時（ホバー） */
+.footer-link:hover {
+    color: #888 !important;          /* 少し濃い色にする */
+    text-decoration: underline;
+}
 
 
 //nnn 5.3 404ページ専用スタイル 
