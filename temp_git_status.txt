@@ -1,9 +1,3 @@
- M assets/_custom.scss
- D "content/hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge/cover_DSCN7619.JPEG"
- D "content/hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge/index.md"
+ M "content/privacy policy/index.md"
  M layouts/_partials/docs/footer.html
- M resources/_gen/assets/book.scss_b807c86e8030af4cdc30edccea379f5f.content
- M resources/_gen/assets/book.scss_b807c86e8030af4cdc30edccea379f5f.json
  M temp_git_status.txt
-?? "content/hoge hoge/"
-?? "content/privacy policy/"

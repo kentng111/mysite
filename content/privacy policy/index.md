@@ -12,7 +12,7 @@ _build:
 - **データの収集方法：** Googleアナリティクスは、データの収集のために「Cookie（クッキー）」を使用しています。
 - **収集されるデータ：** このデータは匿名で収集されており、個人を特定するものではありません。
 - **収集の拒否：** Cookieを無効にすることで収集を拒否することが可能です。お使いのブラウザの設定をご確認ください。また、Googleが提供する「[Google アナリティクス オプトアウト アドオン](https://tools.google.com/dlpage/gaoptout?hl=ja)」を利用することで、トラッキングを無効にできます。
-- **詳細情報：** Googleのデータ処理の仕組みについては、[Googleのポリシーと規約](https://policies.google.com/technologies/partner-sites?hl=ja)をご覧ください
+- **詳細情報：** Googleのデータ処理の仕組みについては、[Googleのポリシーと規約](https://policies.google.com/technologies/partner-sites?hl=ja)をご覧ください。
 
 #### 3. 外部送信規律に基づく公表事項
 日本の電気通信事業法に基づき、当ウェブサイトから外部へ送信される利用者情報について以下の通り公表します。
