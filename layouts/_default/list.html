@@ -24,20 +24,11 @@
       </div>
     {{ end }}
 
-    {{ $tags := slice }}
-    {{ $tagNameMap := dict }} 
-
+    {{/* タグ一覧（名前順）。ボタンの識別には名前のmd5を使う */}}
+    {{ $tagNames := slice }}
     {{ range $pages }}
-      {{ with .Params.tags }}
-        {{ range . }}
-          {{ $originalName := . }}
-          {{ $id := printf "tag-%s" (md5 $originalName) }}
-          
-          {{ if not (in $tags $id) }}
-            {{ $tags = $tags | append $id }}
-            {{ $tagNameMap = merge $tagNameMap (dict $id $originalName) }}
-          {{ end }}
-        {{ end }}
+      {{ range .Params.tags }}
+        {{ if not (in $tagNames .) }}{{ $tagNames = $tagNames | append . }}{{ end }}
       {{ end }}
     {{ end }}
 
@@ -70,22 +61,24 @@
             </div>
 
           <div class="controls-row">
-            <div class="and-filter-group">
+            <div class="and-filter-group" title="複数選択すると、いずれかのタグを含むページを表示します">
               <button type="button" class="is-checked" data-filter="all">ALL</button>
-                {{ range sort $tags }}
-                  <button type="button" data-filter=".{{ . }}">{{ index $tagNameMap . }}</button>
+                {{ range sort $tagNames }}
+                  <button type="button" data-filter=".tag-{{ md5 . }}">{{ . }}</button>
                 {{ end }}
             </div>
           </div>
 
           <div class="controls-divider"></div>
           <div class="controls-row slider-row" id="column-slider-container">
-            <input type="range" id="column-slider" min="1" max="10" value="8" step="1" style="flex: 1; max-width: 350px;">
+            <button type="button" class="slider-label" data-step="-1" aria-label="カードを小さく">−</button>
+            <input type="range" id="column-slider" min="2" max="10" value="6" step="1" aria-label="カードの大きさ">
+            <button type="button" class="slider-label" data-step="1" aria-label="カードを大きく">＋</button>
           </div>
 
           <div class="controls-row display-options-row" id="display-options-container" style="padding-bottom: 0.5rem;">
             
-            <div class="display-option-item">
+            <div class="display-option-item opt-image">
               <button type="button" class="display-dot-btn is-checked" data-target="image">image</button>
               <button type="button" class="img-fit-btn" id="img-fit-toggle" data-state="cover">[ ]</button>
             </div>
@@ -105,7 +98,7 @@
               <button type="button" class="sort-btn" data-sort="title" data-dir="default">-</button>
             </div>
 
-            <div class="display-option-item">
+            <div class="display-option-item opt-tag">
               <button type="button" class="display-dot-btn" data-target="tag">tag</button>
               <div class="sort-btn" style="cursor: default; opacity: 0;">&nbsp;</div>
             </div>
@@ -137,7 +130,7 @@
           {{ $classes := slice }}
           {{ with .Params.tags }}{{ range . }}{{ $classes = $classes | append (printf "tag-%s" (md5 .)) }}{{ end }}{{ end }}
             <a class="grid-item fv {{ delimit $classes " " }}" href="{{ .RelPermalink }}"
-                data-title="{{ lower .Title }}"
+                data-title="{{ lower (.Params.sort_title | default .Title) }}"
                 data-year="{{ .Params.year }}" 
                 data-index="{{ .Params.index | default 0 }}"
                 data-tag="{{ with .Params.tags }}{{ index (sort .) 0 }}{{ end }}"
@@ -149,6 +142,8 @@
                 <div class="card-bg" style="background-image: url('{{ $cover.RelPermalink }}');"></div>
               {{ else if .Params.color }}
                 <div class="card-bg is-color" style="background-color: {{ .Params.color | safeCSS }};"></div>
+              {{ else }}
+                <div class="card-bg is-empty"></div>
               {{ end }}
 
               <div class="card-inner">
@@ -163,324 +158,242 @@
                     {{ end }}
                   </div>
                 </div>
-                <div class="excerpt">{{ with .Summary }}{{ . }}{{ end }}</div>
+                <div class="excerpt">{{ with .Description }}{{ . }}{{ else }}{{ .Summary | plainify | htmlUnescape | truncate 160 }}{{ end }}</div>
               </div>
             </div>
           </a>
         {{ end }}
       </div>
 
+      <p class="no-results" hidden>{{ if eq .Language.Lang "en" }}No matching pages.{{ else }}該当するページがありません。{{ end }}</p>
+
     <script>
-    //nnn JavaScriptメイン処理
+//nnn 一覧ページの操作（MixItUp）
+// 状態（ビュー・タグ・検索・ソート・列数・表示項目）は sessionStorage に保存し、
+// 個別ページから戻っても同じ状態で表示する（タブを閉じるとリセット）
 document.addEventListener('DOMContentLoaded', function () {
-      if (!window.mixitup) { console.warn('mixitup not found'); return; }
+  if (!window.mixitup) { console.warn('mixitup not found'); return; }
 
-      const grid        = document.querySelector('.grid');
-      const filterGroup = document.querySelector('.and-filter-group');
-      const viewGroup   = document.querySelector('.and-view-group');
-      const searchInput = document.querySelector('#search-input');
-      const sliderContainer = document.querySelector('#column-slider-container');
-      const displayOptionsContainer = document.querySelector('#display-options-container');
+  const grid = document.querySelector('.grid');
+  if (!grid) return;
 
-      if (!grid) return;
+  const filterGroup   = document.querySelector('.and-filter-group');
+  const viewGroup     = document.querySelector('.and-view-group');
+  const searchInput   = document.querySelector('#search-input');
+  const sliderBox     = document.querySelector('#column-slider-container');
+  const slider        = document.querySelector('#column-slider');
+  const optionsBox    = document.querySelector('#display-options-container');
+  const displayBtns   = document.querySelectorAll('.display-dot-btn');
+  const sortBtns      = document.querySelectorAll('.sort-btn[data-sort]');
+  const headerSorts   = document.querySelectorAll('.grid-header-row [data-sort]');
+  const dControls     = document.querySelectorAll('.d-control');
+  const imgFitBtn     = document.getElementById('img-fit-toggle');
+  const toggleBtn     = document.getElementById('controls-toggle-btn');
+  const wrapper       = document.getElementById('controls-wrapper');
+  const noResults     = document.querySelector('.no-results');
 
-      //nnn MixItUp初期化
-      const mixer = mixitup(grid, {
-        selectors: { target: '.grid-item' },
-        animation: { duration: 280, queueLimit: 10, effects: 'fade translateZ(-1px)' },
-        controls: { scope: 'local' },
-        load: { sort: 'index:asc' }
-      });
+  // ---------- 状態 ----------
+  const KEY = 'snu-list-state-' + (document.documentElement.lang || 'ja');
+  const defaults = {
+    view: 'icons',
+    filters: [],                 // 例: ['.tag-xxxx']（いずれかを含む＝OR）
+    search: '',
+    sort: { key: 'index', dir: 'asc' },
+    cols: null,                  // null＝画面幅に応じた初期値
+    display: { image: true, index: false, year: false, title: true, tag: false },
+    fit: false,
+    hidden: [],                  // detailsビューで隠す列
+    closed: false                // 操作パネルの開閉
+  };
+  let state = Object.assign({}, defaults);
+  try {
+    const saved = JSON.parse(sessionStorage.getItem(KEY) || 'null');
+    if (saved) state = Object.assign({}, defaults, saved, { display: Object.assign({}, defaults.display, saved.display) });
+  } catch (e) {}
+  const save = () => { try { sessionStorage.setItem(KEY, JSON.stringify(state)); } catch (e) {} };
 
-      //nnn コントロール開閉制御
-      const toggleBtn = document.getElementById('controls-toggle-btn');
-      const wrapper = document.getElementById('controls-wrapper');
-      if (toggleBtn && wrapper) {
-        toggleBtn.addEventListener('click', () => {
-          const isClosed = wrapper.classList.toggle('is-closed');
-          toggleBtn.classList.toggle('is-closed', isClosed);
-        });
-      }
-
-      //nnn検索入力のイベントリスナー
-      if (searchInput) {
-        searchInput.addEventListener('input', (e) => {
-          searchQuery = e.target.value; // 入力された値を保持
-          applyFilter();                // フィルタリング処理を実行
-        });
-      }
-      // ------------------------------------------
-
-      //nnn フィルター適用ロジック
-      let searchQuery = '';
-      function applyFilter() {
-        const q = searchQuery.toLowerCase().trim();
-        const items = grid.querySelectorAll('.grid-item');
-        if (q) {
-          items.forEach(el => {
-            const text = el.textContent.toLowerCase();
-            const title = el.getAttribute('data-title') || ''; 
-            if (text.includes(q) || title.includes(q)) el.classList.add('__match');
-            else el.classList.remove('__match');
-          });
-        } else {
-          items.forEach(el => el.classList.remove('__match'));
-        }
-        const checkedBtns = Array.from(filterGroup.querySelectorAll('.is-checked'));
-          const selectedFilters = checkedBtns
-            .map(btn => btn.getAttribute('data-filter')) // ★ data-filter を読む
-            .filter(f => f && f !== 'all');              // ★ null/空 & all を除外
-          let selector = '';
-          if (selectedFilters.length === 0) {
-            selector = q ? '.__match' : 'all';
-          } else {
-            selector = q
-              ? selectedFilters.map(f => `${f}.__match`).join(', ')
-              : selectedFilters.join(', ');
-          }
-          mixer.filter(selector);
-        }
-
-      //nnn タグフィルタクリック処理
-      if (filterGroup) {
-          filterGroup.addEventListener('click', (e) => {
-            const btn = e.target.closest('button[data-filter]');
-            if (!btn) return;
-
-            e.preventDefault();
-            e.stopPropagation(); // ★ MixItUp の data-filter 自動制御と競合しにくくする
-
-            const filter = btn.getAttribute('data-filter');
-
-            if (filter === 'all') {
-              filterGroup.querySelectorAll('.is-checked').forEach(el => el.classList.remove('is-checked'));
-              btn.classList.add('is-checked');
-            } else {
-              btn.classList.toggle('is-checked');
-              filterGroup.querySelector('button[data-filter="all"]')?.classList.remove('is-checked');
-
-              if (filterGroup.querySelectorAll('.is-checked').length === 0) {
-                filterGroup.querySelector('button[data-filter="all"]')?.classList.add('is-checked');
-              }
-            }
-
-            applyFilter();
-          });
-
-      }
-
-      //nnn 表示形式切替と条件付き表示制御
-      if (viewGroup) {
-        viewGroup.addEventListener('click', (e) => {
-          const btn = e.target.closest('[data-view]');
-          if (!btn) return;
-
-          viewGroup.querySelectorAll('.is-checked').forEach(el => el.classList.remove('is-checked'));
-          btn.classList.add('is-checked');
-
-          const view = btn.getAttribute('data-view');
-          grid.classList.remove('view--icons','view--details','view--content');
-          grid.classList.add(`view--${view}`);
-
-          if (view === 'icons') {
-            sliderContainer.style.display = 'flex';
-            displayOptionsContainer.style.display = 'flex';
-          } else {
-            sliderContainer.style.display = 'none';
-            displayOptionsContainer.style.display = 'none';
-          }
-
-          mixer.forceRefresh();
-        });
-      }
-
-      //nnn カラム数スライダー制御
-      const columnSlider = document.querySelector('#column-slider');
-
-      function updateColumns(val) {
-        const displayCol = 11 - parseInt(val);
-        grid.style.setProperty('--col-count', displayCol);
-        columnSlider.value = val;
-      }
-
-      function getInitialColumns() {
-        let cols;
-        if (window.innerWidth < 640) cols = 2;
-        else if (window.innerWidth < 1024) cols = 4;
-        else cols = 6;
-        
-        return 11 - cols;
-      }
-
-      if (columnSlider) {
-        updateColumns(getInitialColumns());
-        
-        columnSlider.addEventListener('input', (e) => {
-          updateColumns(e.target.value);
-        });
-      }
-
-      //nnn 表示オプションボタン群の取得
-      const displayBtns = document.querySelectorAll('.display-dot-btn');
-      const imgFitBtn = document.getElementById('img-fit-toggle');
-
-      //nnn 画像フィット切替ボタン制御
-      if (imgFitBtn) {
-        imgFitBtn.addEventListener('click', (e) => {
-          e.stopPropagation();
-
-          const currentState = imgFitBtn.getAttribute('data-state');
-          
-          if (currentState === 'cover') {
-            imgFitBtn.setAttribute('data-state', 'fit');
-            imgFitBtn.textContent = '< >';
-            grid.classList.add('is-fit');
-          } else {
-            imgFitBtn.setAttribute('data-state', 'cover');
-            imgFitBtn.textContent = '[ ]';
-            grid.classList.remove('is-fit');
-          }
-        });
-      }
-
-      //nnn 表示オプション更新関数
-      function updateDisplayOptions() {
-        displayBtns.forEach(btn => {
-          const target = btn.getAttribute('data-target');
-          const isActive = btn.classList.contains('is-checked');
-          if (target === 'index') {
-            isActive ? grid.classList.add('show-index') : grid.classList.remove('show-index');
-          }
-          if (target === 'image') {
-            isActive ? grid.classList.remove('hide-cover') : grid.classList.add('hide-cover');
-          }
-          if (target === 'title') {
-            isActive ? grid.classList.remove('hide-title') : grid.classList.add('hide-title');
-          }
-          if (target === 'tag') {
-            isActive ? grid.classList.add('show-tags') : grid.classList.remove('show-tags');
-          }
-          if (target === 'year') {
-             isActive ? grid.classList.add('show-year') : grid.classList.remove('show-year');
-          }
-        });
-      }
-
-      //nnn 表示オプションクリック処理
-      displayBtns.forEach(btn => {
-        btn.addEventListener('click', () => {
-          btn.classList.toggle('is-checked');
-          updateDisplayOptions();
-        });
-      });
-
-      updateDisplayOptions();
-
-      //nnn ソートボタン制御
-      const sortBtns = document.querySelectorAll('.sort-btn[data-sort]');
-
-      sortBtns.forEach(btn => {
-        btn.addEventListener('click', () => {
-          const sortType = btn.getAttribute('data-sort');
-          let currentDir = btn.getAttribute('data-dir');
-          let nextDir = 'asc';
-
-          if (currentDir === 'asc') {
-            nextDir = 'desc';
-          } else if (currentDir === 'desc') {
-            nextDir = 'asc';
-          }
-          
-          sortBtns.forEach(otherBtn => {
-            if (otherBtn !== btn) {
-              otherBtn.textContent = '-';
-              otherBtn.setAttribute('data-dir', 'default');
-            }
-          });
-
-          btn.textContent = (nextDir === 'asc') ? '∧' : '∨';
-          btn.setAttribute('data-dir', nextDir);
-
-          mixer.sort(`${sortType}:${nextDir}`);
-        });
-      });
-
-//nnn Details View ヘッダーソート制御
-      const headerSortItems = document.querySelectorAll('.grid-header-row [data-sort]');
-      
-      headerSortItems.forEach(item => {
-        item.addEventListener('click', () => {
-          const sortAttr = item.getAttribute('data-sort');
-          let currentDir = item.getAttribute('data-dir') || 'default'; // default, asc, desc
-          let nextDir = 'asc';
-
-          // 状態の遷移: default/desc -> asc, asc -> desc
-          if (currentDir === 'asc') {
-            nextDir = 'desc';
-          } else {
-            nextDir = 'asc';
-          }
-
-          // 1. 全てのヘッダーの状態をリセット
-          headerSortItems.forEach(el => {
-            el.classList.remove('is-active');
-            el.setAttribute('data-dir', 'default');
-            const arrow = el.querySelector('.sort-arrow');
-            if(arrow) arrow.textContent = '';
-          });
-
-          // 2. クリックされたヘッダーの状態を更新
-          item.classList.add('is-active');
-          item.setAttribute('data-dir', nextDir);
-          
-          // 3. 矢印文字をセット
-          const arrowSpan = item.querySelector('.sort-arrow');
-          if (arrowSpan) {
-            arrowSpan.textContent = (nextDir === 'asc') ? '∧' : '∨';
-          }
-
-          // 4. MixItUpにソート命令を送る
-          mixer.sort(`${sortAttr}:${nextDir}`);
-        });
-      });
-
-const dControls = document.querySelectorAll('.d-control');
-      dControls.forEach(ctrl => {
-        ctrl.addEventListener('click', () => {
-          const target = ctrl.dataset.target;
-          // 取消線の切り替え
-          ctrl.classList.toggle('is-disabled');
-          // グリッド全体へのクラス付与（CSSで非表示を制御）
-          if (grid) {
-            grid.classList.toggle('hide-' + target);
-          }
-        });
-      });
-
-// --- 修正：セッションストレージからタグを読み取ってフィルタを適用 ---
-    const initialFilter = sessionStorage.getItem('jumpToTag');
-
-    if (initialFilter) {
-      // 1. メモを読み取ったら、すぐに削除する（次回普通に開いたときにフィルタされないようにするため）
+  // 個別ページのタグから来た場合は、そのタグだけで絞り込む
+  try {
+    const jump = sessionStorage.getItem('jumpToTag');
+    if (jump) {
       sessionStorage.removeItem('jumpToTag');
-
-      // 2. "all" ボタンのチェックを外す
-      const allBtn = filterGroup.querySelector('button[data-filter="all"]');
-    if (allBtn) allBtn.classList.remove('is-checked');
-
-    // ".tag-xxxx" が来る前提。保険で先頭に "." が無い場合を吸収してもOKです
-    const normalized = initialFilter.startsWith('.') ? initialFilter : `.${initialFilter}`;
-
-    const targetBtn = filterGroup.querySelector(`button[data-filter="${normalized}"]`);
-    if (targetBtn) {
-      targetBtn.classList.add('is-checked');
+      state.filters = [jump.startsWith('.') ? jump : '.' + jump];
+      state.search = '';
     }
+  } catch (e) {}
 
-}
-
-// 最後にフィルタを適用
-applyFilter();
+  // ---------- 絞り込み（タグ OR ＋ 検索） ----------
+  function buildSelector() {
+    const q = state.search.toLowerCase().trim();
+    grid.querySelectorAll('.grid-item').forEach(el => {
+      const hit = !q || el.textContent.toLowerCase().includes(q) || (el.dataset.title || '').includes(q);
+      el.classList.toggle('__match', !!q && hit);
     });
+    if (state.filters.length === 0) return q ? '.__match' : 'all';
+    return q ? state.filters.map(f => f + '.__match').join(', ') : state.filters.join(', ');
+  }
+
+  // ---------- ソート ----------
+  const sortString = () => state.sort.key + ':' + state.sort.dir;
+  function renderSort() {
+    const arrow = state.sort.dir === 'asc' ? '∧' : '∨';
+    sortBtns.forEach(b => {
+      const on = b.dataset.sort === state.sort.key;
+      b.textContent = on ? arrow : '-';
+      b.dataset.dir = on ? state.sort.dir : 'default';
+    });
+    headerSorts.forEach(h => {
+      const on = h.dataset.sort === state.sort.key;
+      h.classList.toggle('is-active', on);
+      h.dataset.dir = on ? state.sort.dir : 'default';
+      const a = h.querySelector('.sort-arrow');
+      if (a) a.textContent = on ? arrow : '';
+    });
+  }
+  function setSort(key) {
+    state.sort = { key: key, dir: (state.sort.key === key && state.sort.dir === 'asc') ? 'desc' : 'asc' };
+    renderSort(); save();
+    mixer.sort(sortString());
+  }
+
+  // ---------- 列数スライダー（右へ動かすほどカードが大きい） ----------
+  function colRange() {
+    const w = window.innerWidth;
+    if (w < 640)  return { min: 1, max: 4, def: 2 };
+    if (w < 1024) return { min: 2, max: 6, def: 4 };
+    return { min: 2, max: 10, def: 6 };
+  }
+  function applyCols() {
+    const r = colRange();
+    const cols = Math.min(r.max, Math.max(r.min, state.cols || r.def));
+    slider.min = r.min; slider.max = r.max;
+    slider.value = r.min + r.max - cols;
+    grid.style.setProperty('--col-count', cols);
+  }
+
+  // ---------- 表示 ----------
+  function renderView() {
+    grid.classList.remove('view--icons', 'view--details', 'view--content');
+    grid.classList.add('view--' + state.view);
+    viewGroup.querySelectorAll('[data-view]').forEach(b => b.classList.toggle('is-checked', b.dataset.view === state.view));
+    // icons：スライダー＋表示/非表示＋ソート / content：ソートのみ / details：見出しでソート
+    sliderBox.style.display  = state.view === 'icons' ? 'flex' : 'none';
+    optionsBox.style.display = (state.view === 'icons' || state.view === 'content') ? 'flex' : 'none';
+    optionsBox.classList.toggle('is-sort-only', state.view === 'content');
+  }
+  function renderDisplay() {
+    const d = state.display;
+    displayBtns.forEach(b => b.classList.toggle('is-checked', !!d[b.dataset.target]));
+    grid.classList.toggle('hide-cover', !d.image);
+    grid.classList.toggle('show-index', d.index);
+    grid.classList.toggle('show-year',  d.year);
+    grid.classList.toggle('hide-title', !d.title);
+    grid.classList.toggle('show-tags',  d.tag);
+    grid.classList.toggle('is-fit', state.fit);
+    if (imgFitBtn) { imgFitBtn.dataset.state = state.fit ? 'fit' : 'cover'; imgFitBtn.textContent = state.fit ? '< >' : '[ ]'; }
+    dControls.forEach(c => {
+      const off = state.hidden.includes(c.dataset.target);
+      c.classList.toggle('is-disabled', off);
+      grid.classList.toggle('hide-' + c.dataset.target, off);
+    });
+  }
+  function renderFilters() {
+    filterGroup.querySelectorAll('button[data-filter]').forEach(b => {
+      const f = b.dataset.filter;
+      b.classList.toggle('is-checked', f === 'all' ? state.filters.length === 0 : state.filters.includes(f));
+    });
+  }
+  function renderPanel() {
+    if (!wrapper || !toggleBtn) return;
+    wrapper.classList.toggle('is-closed', state.closed);
+    toggleBtn.classList.toggle('is-closed', state.closed);
+  }
+
+  // ---------- 初期表示 ----------
+  // 存在しないタグ（削除済みなど）は除外
+  state.filters = state.filters.filter(f => filterGroup.querySelector('button[data-filter="' + f + '"]'));
+  if (searchInput) searchInput.value = state.search;
+  renderView(); renderDisplay(); renderFilters(); renderSort(); renderPanel(); applyCols();
+
+  const mixer = mixitup(grid, {
+    selectors: { target: '.grid-item' },
+    animation: { duration: 280, queueLimit: 10, effects: 'fade translateZ(-1px)' },
+    controls: { enable: false },
+    load: { filter: buildSelector(), sort: sortString() },
+    callbacks: {
+      onMixEnd: s => { if (noResults) noResults.hidden = s.totalShow > 0; }
+    }
+  });
+  if (noResults) noResults.hidden = mixer.getState().totalShow > 0;
+
+  const refilter = () => { save(); mixer.filter(buildSelector()); };
+
+  // ---------- イベント ----------
+  if (searchInput) searchInput.addEventListener('input', e => { state.search = e.target.value; refilter(); });
+
+  filterGroup.addEventListener('click', e => {
+    const b = e.target.closest('button[data-filter]');
+    if (!b) return;
+    e.preventDefault();
+    const f = b.dataset.filter;
+    if (f === 'all') state.filters = [];
+    else state.filters = state.filters.includes(f) ? state.filters.filter(x => x !== f) : state.filters.concat(f);
+    renderFilters(); refilter();
+  });
+
+  viewGroup.addEventListener('click', e => {
+    const b = e.target.closest('[data-view]');
+    if (!b) return;
+    state.view = b.dataset.view;
+    renderView(); save();
+    mixer.forceRefresh();
+  });
+
+  slider.addEventListener('input', () => {
+    const r = colRange();
+    state.cols = r.min + r.max - parseInt(slider.value, 10);
+    grid.style.setProperty('--col-count', state.cols);
+    save();
+  });
+  // スライダー両端の － / ＋ ボタン（1目盛りずつ動かす）
+  document.querySelectorAll('.slider-label[data-step]').forEach(b => b.addEventListener('click', () => {
+    const v = parseInt(slider.value, 10) + parseInt(b.dataset.step, 10);
+    slider.value = Math.min(parseInt(slider.max, 10), Math.max(parseInt(slider.min, 10), v));
+    slider.dispatchEvent(new Event('input'));
+  }));
+
+  let resizeTimer;
+  window.addEventListener('resize', () => { clearTimeout(resizeTimer); resizeTimer = setTimeout(applyCols, 150); });
+
+  displayBtns.forEach(b => b.addEventListener('click', () => {
+    // contentビューでは表示/非表示は使わず、ラベルを押すとその項目でソート
+    if (optionsBox.classList.contains('is-sort-only')) {
+      const s = b.closest('.display-option-item')?.querySelector('.sort-btn[data-sort]');
+      if (s) setSort(s.dataset.sort);
+      return;
+    }
+    const t = b.dataset.target;
+    state.display[t] = !state.display[t];
+    renderDisplay(); save();
+  }));
+
+  if (imgFitBtn) imgFitBtn.addEventListener('click', e => {
+    e.stopPropagation();
+    state.fit = !state.fit;
+    renderDisplay(); save();
+  });
+
+  sortBtns.forEach(b => b.addEventListener('click', () => setSort(b.dataset.sort)));
+  headerSorts.forEach(h => h.addEventListener('click', () => setSort(h.dataset.sort)));
+
+  dControls.forEach(c => c.addEventListener('click', () => {
+    const t = c.dataset.target;
+    state.hidden = state.hidden.includes(t) ? state.hidden.filter(x => x !== t) : state.hidden.concat(t);
+    renderDisplay(); save();
+  }));
+
+  if (toggleBtn) toggleBtn.addEventListener('click', () => { state.closed = !state.closed; renderPanel(); save(); });
+});
     </script>
 
   </article>

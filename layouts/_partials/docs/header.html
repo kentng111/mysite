@@ -6,19 +6,18 @@
     <span class="header-page-title">{{ .Title }}</span>
   </a>
 
-  <!-- 言語切り替え：翻訳ページがあればそこへ、なければその言語のトップへ -->
-  <div class="lang-switch">
+  <!-- 言語切り替え（右上）：翻訳ページがあればそこへ、なければその言語のトップへ -->
+  <div class="lang-group">
     {{- $page := . -}}
-    {{- range $i, $home := .Site.Home.AllTranslations -}}
-      {{- $lang := $home.Language.Lang -}}
-      {{- $target := $home -}}
+    {{- range .Site.Home.AllTranslations -}}
+      {{- $lang := .Language.Lang -}}
+      {{- $target := . -}}
       {{- range $page.AllTranslations }}{{ if eq .Language.Lang $lang }}{{ $target = . }}{{ end }}{{ end -}}
-      {{- if $i }}<span class="lang-sep">/</span>{{ end -}}
-      {{- if eq $lang $page.Language.Lang -}}
-        <span class="lang-current">{{ $home.Language.LanguageName }}</span>
-      {{- else -}}
-        <a href="{{ $target.RelPermalink }}" hreflang="{{ $lang }}">{{ $home.Language.LanguageName }}</a>
+      {{- if eq $lang $page.Language.Lang }}
+      <span class="lang-btn is-checked" aria-current="true">{{ upper $lang }}</span>
+      {{- else }}
+      <a class="lang-btn" href="{{ $target.RelPermalink }}" hreflang="{{ $lang }}">{{ upper $lang }}</a>
       {{- end -}}
-    {{- end -}}
+    {{- end }}
   </div>
 </div>

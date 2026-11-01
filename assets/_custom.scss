@@ -669,16 +669,16 @@ html[class~="dark"] .book-header {
 
   // 2段目：ソートボタン（-, ∧, ∨）
   .sort-btn {
-    margin-top: 2px;
+    display: block;
+    margin-top: 3px;
     border: none;
     background: transparent;
     cursor: pointer;
-    font-size: 0.25rem;       /* 記号のサイズ */
-    color: #999;           /* 少し薄くする */
-    line-height: .1;
-    padding: 2px 10px;     /* クリックしやすく */
-    min-height: 10px;
-
+    font-size: 1rem;
+    font-weight: bold;
+    color: #777;
+    line-height: 1;
+    padding: 2px 5px;
     transition: color 0.2s;
 
     &:hover {
@@ -702,13 +702,8 @@ html[class~="dark"] .book-header {
   }
 }
 
-// ...既存の .display-option-item の中 ...
-
+// 表示オプション項目（画像フィットボタンとホバー色）
 .display-option-item {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-
   // 画像フィットボタン
   .img-fit-btn {
     display: block;
@@ -724,20 +719,6 @@ html[class~="dark"] .book-header {
     transition: color 0.2s;
   }
 
-  // ソートボタン
-  .sort-btn {
-    display: block;
-    background: none;
-    border: none;
-    font-size: 1rem;
-    line-height: 1;
-    margin-top: 3px;
-    cursor: pointer;
-    font-weight: bold;
-    color: #777;
-    padding: 2px 5px;
-    transition: color 0.2s;
-  }
 
     &:hover { color: #000; }
   }
@@ -751,6 +732,15 @@ html[class~="dark"] .book-header {
     background-position: center;         // 中央に配置
     transform: scale(1) !important;      // ズームを無効化
   }
+}
+
+// contentビュー：ソートのみ（タイトル・インデックス・年月）
+.display-options-row.is-sort-only {
+  .opt-image,
+  .opt-tag { display: none; }
+  .display-dot-btn,
+  .display-dot-btn.is-checked { text-decoration: none; opacity: 1; }
+  .display-dot-btn:hover { opacity: .6; }
 }
 
 //nnn 4.1.7 セクション区切り
@@ -1017,11 +1007,115 @@ $details-grid-layout: var(--d-col-index) var(--d-col-year) var(--d-col-title) va
   display: none !important;
 }
 
-//nnn 4.2.3 content view
-.view--content .grid-item { width: 100%; }
-@media (min-width: 900px) { .view--content .grid-item { width: 50%; } }
-.view--content .card { aspect-ratio: auto; }
-.view--content .excerpt { -webkit-line-clamp: 10; line-clamp: 10; }
+//nnn 4.2.3 content view（画像＋情報）
+// 1行に1ページ。左＝サムネイル（iconsビューと同じ見た目）、右＝ページ情報
+// 右側の並び：1行目 タイトル / 2行目 インデックス・年月・タグ / 3行目以降 内容
+// カードの高さはサムネイルと同じ。情報があふれる分は下端でフェードアウト
+.view--content {
+  --thumb-w: 240px;   // サムネイルの幅＝カードの高さ（ここを変えると全体が追従）
+
+  .grid-item {
+    width: 100% !important;
+    flex: 0 0 100% !important;
+    box-sizing: border-box;
+    border-bottom: 1px solid #ddd;
+  }
+
+  .card {
+    aspect-ratio: auto;
+    display: grid;
+    grid-template-columns: var(--thumb-w) 1fr;
+    gap: 1.5rem;
+    align-items: start;
+    border: none;
+    padding: .75rem;
+    overflow: hidden;
+    transition: background-color .25s ease;
+  }
+
+  // ---- 左：サムネイル ----
+  .card-bg {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+    border: 1px solid #ddd;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    opacity: 0.6;
+    filter: grayscale(80%);
+    transition: opacity .25s ease, filter .25s ease;
+  }
+  .card-bg.is-color { opacity: 0.14; filter: grayscale(30%); }
+  .card-bg.is-empty { opacity: 1; filter: none; background: #f4f4f4; }
+
+  // ---- 右：情報（高さはサムネイルと同じに固定）----
+  .card-inner {
+    height: var(--thumb-w);
+    padding: 0;
+    gap: .5rem;
+    overflow: hidden;
+    min-width: 0;
+  }
+
+  // 1行目タイトル、2行目にインデックス・年月・タグを横並び
+  .card-main-col {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: .25rem .75rem;
+    flex: 0 0 auto;
+  }
+  .title {
+    order: -1;
+    flex: 0 0 100%;
+    font-size: 1.15rem;
+    margin-bottom: .1rem;
+  }
+  // 2行目の3要素は同じ行の高さで上下中央揃え
+  .index-number,
+  .meta,
+  .card-tags { margin: 0; line-height: 1.4; display: flex; align-items: center; }
+  .index-number { font-size: .75rem; font-weight: bold; color: #999; }
+  .meta { font-size: .8rem; opacity: .6; }
+  .card-tags { flex-wrap: wrap; gap: 4px; }
+  .tag-pill { line-height: 1.4; }
+
+  // 3行目以降：内容。残りの高さいっぱいに表示し、下端をフェード
+  .excerpt {
+    flex: 1 1 auto;
+    min-height: 0;
+    margin: .25rem 0 0;
+    font-size: 1rem;
+    line-height: 1.6;
+    opacity: .85;
+    display: block;
+    -webkit-line-clamp: unset;
+    line-clamp: unset;
+    overflow: hidden;
+    -webkit-mask-image: linear-gradient(to bottom, #000 70%, transparent 100%);
+    mask-image: linear-gradient(to bottom, #000 70%, transparent 100%);
+  }
+
+  // ---- ホバー：カード全体 ----
+  .grid-item:hover .card { background-color: rgba(0, 0, 0, .04); }
+  .grid-item:hover .card-bg:not(.is-color):not(.is-empty) { opacity: 0.95; filter: grayscale(0%); }
+  .grid-item:hover .card-bg.is-color { opacity: 0.6; filter: grayscale(0%); }
+}
+
+@media (prefers-color-scheme: dark) {
+  .view--content .grid-item:hover .card { background-color: rgba(255, 255, 255, .06); }
+}
+
+// スマホではサムネイルを小さく
+@media (max-width: 640px) {
+  .view--content {
+    --thumb-w: 110px;
+    .card { gap: 1rem; padding: .5rem; }
+    .title { font-size: 1rem; }
+  }
+}
 
 
 //nnn 4.3 カード内テキスト表現 
@@ -1076,12 +1170,12 @@ $details-grid-layout: var(--d-col-index) var(--d-col-year) var(--d-col-title) va
   margin-top: 0.4rem;
 }
 
-// Content ビュー
+// Content ビュー（配置は 4.2.3 で指定）
 .view--content .card-tags {
   display: flex;
   flex-wrap: wrap;
   gap: 4px;
-  margin-top: 0.5rem;
+  margin-top: 0;
 }
 
 // Details ビュー
@@ -1259,14 +1353,80 @@ $details-grid-layout: var(--d-col-index) var(--d-col-year) var(--d-col-title) va
   }
 }
 
-// 言語切り替え（ヘッダー右側）
-.lang-switch {
-  justify-self: end;
-  font-size: 0.75rem;
-  letter-spacing: 0.05em;
-  white-space: nowrap;
-  a { color: #888; text-decoration: none; }
-  a:hover { text-decoration: underline; }
-  .lang-current { font-weight: 600; }
-  .lang-sep { margin: 0 0.4em; color: #bbb; }
+// 言語切り替え（ヘッダー右上・JA / EN）
+// ヘッダー（.book-header＝固定表示）の右端に固定し、ロゴの上下中央に合わせる
+// 縦位置 = ヘッダー上余白4px ＋ ロゴ高さ28pxの半分
+.lang-group {
+  position: absolute;
+  top: calc(4px + 28px / 2);
+  right: 16px;
+  transform: translateY(-50%);
+  z-index: 2;
+  display: flex;
+  gap: .3rem;
+  align-items: center;
+
+  .lang-btn {
+    display: inline-block;
+    font-size: 0.75rem;
+    color: #666;
+    border: 1px solid #ddd;
+    background-color: #f9f9f9;
+    padding: 1px 10px;
+    border-radius: 99px;
+    line-height: 1.4;
+    white-space: nowrap;
+    text-decoration: none !important;
+    transition: all 0.2s ease;
+  }
+  a.lang-btn:hover { border-color: #0073ff; color: #0073ff; }
+  .lang-btn.is-checked {
+    background: #0073ff;
+    border-color: #0073ff;
+    color: #fff;
+    cursor: default;
+  }
+}
+// PC以外（タブレット・スマホ）では小さめに。rem ではなく px で固定し、端末の文字サイズ設定に左右されないようにする
+@media (max-width: 896px) {
+  .lang-group {
+    right: 10px;
+    gap: 2px;
+    .lang-btn {
+      font-size: 8.5px;
+      line-height: 12px;
+      padding: 0 5px;
+      letter-spacing: .02em;
+    }
+  }
+}
+@media (prefers-color-scheme: dark) {
+  .lang-group .lang-btn:not(.is-checked) { background: #2a2a2a; border-color: #444; color: #fff; }
+}
+
+// 列数スライダーの目印（－＝小さいカード／＋＝大きいカード）
+.slider-row {
+  align-items: center;
+  gap: .5rem;
+  input[type="range"] { flex: 1; max-width: 300px; }
+  .slider-label {
+    border: none;
+    background: transparent;
+    padding: 2px 6px;
+    font-size: .95rem;
+    line-height: 1;
+    color: #999;
+    cursor: pointer;
+    user-select: none;
+    transition: color .2s;
+    &:hover { color: #333; }
+  }
+}
+
+// 絞り込み結果が0件のとき
+.no-results {
+  margin: 2rem 0;
+  text-align: center;
+  font-size: .9rem;
+  color: #999;
 }
