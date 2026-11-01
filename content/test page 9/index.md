@@ -1,5 +1,6 @@
 ---
 title: test page 9
+slug: test-page-9
 tags:
   - nine
   - odd

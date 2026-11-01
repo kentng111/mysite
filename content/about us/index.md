@@ -1,5 +1,6 @@
 ---
 title: about us
+slug: about-us
 date:
 tags:
   - information

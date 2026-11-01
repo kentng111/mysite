@@ -1,0 +1,15 @@
+{
+  "hidden": true,
+  "hiddenList": [
+    "archetypes",
+    "assets",
+    "data",
+    "i18n",
+    "layouts",
+    "resources",
+    "static",
+    "themes",
+    "scripts",
+    "_archive"
+  ]
+}

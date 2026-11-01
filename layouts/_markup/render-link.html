@@ -1,0 +1,36 @@
+{{- /*
+  リンクの変換（Obsidian で張ったリンクをサイトのURLに直す）
+  - "../contact/index.md" のような .md へのリンク → そのページのURL
+    （英語ページからなら英語版へ。英語版が無ければ日本語版へ）
+  - 外部リンク（https://〜）は新しいタブで開く
+  - 見つからないリンクはプレビュー画面に警告を出す
+*/ -}}
+{{- $dest := .Destination -}}
+{{- $u := urls.Parse .Destination -}}
+{{- $external := false -}}
+{{- if $u.IsAbs -}}
+  {{- if eq $u.Host "snu-o.com" -}}
+    {{- $dest = print $u.Path (cond (ne $u.Fragment "") (print "#" $u.Fragment) "") -}}
+  {{- else -}}
+    {{- $external = true -}}
+  {{- end -}}
+{{- else if and $u.Path (strings.HasSuffix (lower $u.Path) ".md") -}}
+  {{- /* 現在のページのフォルダを基準に絶対パスへ */ -}}
+  {{- $dir := "" -}}
+  {{- with .Page.File }}{{ $dir = replace .Dir "\\" "/" }}{{ end -}}
+  {{- $p := path.Join "/" $dir $u.Path -}}
+  {{- $p = replaceRE `/(_?index)(\.[a-z]{2})?\.md$` "" $p -}}
+  {{- $p = replaceRE `(\.[a-z]{2})?\.md$` "" $p -}}
+  {{- $target := .Page.Site.GetPage $p -}}
+  {{- if not $target -}}
+    {{- range hugo.Sites -}}{{- if not $target -}}{{- $target = .GetPage $p -}}{{- end -}}{{- end -}}
+  {{- end -}}
+  {{- with $target -}}
+    {{- $dest = .RelPermalink -}}
+    {{- with $u.Fragment }}{{ $dest = print $dest "#" . }}{{ end -}}
+  {{- else -}}
+    {{- warnf "リンク先のページが見つかりません: %q（%s）" .Destination .Page.File.Path -}}
+  {{- end -}}
+{{- end -}}
+<a href="{{ $dest | safeURL }}"{{ with .Title }} title="{{ . }}"{{ end }}{{ if $external }} target="_blank" rel="noopener"{{ end }}>{{ .Text | safeHTML }}</a>
+{{- /**/ -}}

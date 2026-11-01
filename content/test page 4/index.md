@@ -1,5 +1,6 @@
 ---
 title: test page 4
+slug: test-page-4
 tags:
   - four
   - even

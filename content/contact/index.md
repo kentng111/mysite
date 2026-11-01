@@ -1,5 +1,6 @@
 ---
 title: contact
+slug: contact
 tags:
   - contact
 draft: false

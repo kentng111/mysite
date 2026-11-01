@@ -1,0 +1,30 @@
+{
+  "palette": {
+    "seed": 2,
+    "selected": "adaptive-soft",
+    "custom": "e12729-f37324-f8cc1b-72b043-007f4e"
+  },
+  "mixColors": true,
+  "transition": true,
+  "accessibility": {
+    "highTextContrast": true
+  },
+  "knownTags": {
+    "contact": 2,
+    "eight": 3,
+    "even": 3,
+    "five": 4,
+    "four": 5,
+    "information": 5,
+    "nine": 7,
+    "odd": 7,
+    "one": 8,
+    "seven": 9,
+    "six": 10,
+    "ten": 11,
+    "three": 9,
+    "two": 10
+  },
+  "tagColors": {},
+  "_version": 4
+}

@@ -1430,3 +1430,19 @@ $details-grid-layout: var(--d-col-index) var(--d-col-year) var(--d-col-title) va
   font-size: .9rem;
   color: #999;
 }
+
+//nnn 5. 個別ページ（ページビュー）
+
+//nnn 5.1 画像をウィンドウに合わせて全体表示
+// 幅・高さの両方がウィンドウに収まるよう自動で縮小（拡大はしない）
+// 高さの上限 = 画面の高さ − ヘッダー − 上下の余白
+.book-kind-page .markdown img {
+  display: block;
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  max-height: calc(100vh - var(--header-h) - 3rem);
+  max-height: calc(100dvh - var(--header-h) - 3rem); // スマホのアドレスバー対策（対応ブラウザのみ）
+  margin: 0 auto 1.5rem;
+  object-fit: contain;
+}

@@ -1,5 +1,6 @@
 ---
 title: hoge hoge
+slug: hoge-hoge
 tags:
   - ten
   - even

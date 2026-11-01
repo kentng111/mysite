@@ -1,7 +1,9 @@
 /public/
-
-/admin/
-/.obsidian/
-/.obsidian-scripts/
+/resources/_gen/
 /.hugo_build.lock
 temp_git_status.txt
+
+# Obsidian：個人の画面配置だけ共有しない（設定・プラグイン・テンプレートは共有）
+/.obsidian/workspace.json
+/.obsidian/workspace-mobile.json
+/.obsidian-scripts/

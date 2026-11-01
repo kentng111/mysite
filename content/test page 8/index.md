@@ -1,5 +1,6 @@
 ---
 title: test page 8
+slug: test-page-8
 tags:
   - eight
   - even

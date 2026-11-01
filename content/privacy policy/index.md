@@ -1,5 +1,6 @@
 ---
 title: privacy policy
+slug: privacy-policy
 build:
   list: never
   render: always
@@ -34,4 +35,4 @@ build:
 #### 6. 本ポリシーの変更と窓口
 当ウェブサイトは、法令の制定・改正等により、本ポリシーを適宜見直し、予告なく変更することがあります。
 - **運営者：** s.n.u
-- **お問い合わせ：** [contact](https://snu-o.com/contact/)
+- **お問い合わせ：** [contact](../contact/index.md)

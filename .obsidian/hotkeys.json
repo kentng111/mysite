@@ -1,0 +1,34 @@
+{
+  "editor:toggle-source": [
+    {
+      "modifiers": [
+        "Alt"
+      ],
+      "key": "Z"
+    }
+  ],
+  "templater-obsidian:admin/template.md": [
+    {
+      "modifiers": [
+        "Alt"
+      ],
+      "key": "X"
+    }
+  ],
+  "templater-obsidian:admin/新規ページ.md": [
+    {
+      "modifiers": [
+        "Alt"
+      ],
+      "key": "N"
+    }
+  ],
+  "templater-obsidian:admin/英語版を作成.md": [
+    {
+      "modifiers": [
+        "Alt"
+      ],
+      "key": "E"
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "types": {
+    "aliases": "aliases",
+    "cssclasses": "multitext",
+    "tags": "tags",
+    "date": "date",
+    "draft": "checkbox",
+    "year": "text",
+    "neko": "checkbox",
+    "slug": "text",
+    "description": "text",
+    "sort_title": "text",
+    "index": "text",
+    "color": "text"
+  }
+}

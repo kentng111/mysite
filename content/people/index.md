@@ -1,5 +1,6 @@
 ---
 title: people
+slug: people
 tags:
   - information
 draft: true

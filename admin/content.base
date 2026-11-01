@@ -1,0 +1,83 @@
+filters:
+  and:
+    - file.inFolder("content")
+    - file.folder != "content"
+formulas:
+  folder: file.folder.split("/").slice(-1)[0]
+  lang: if(file.basename == "index.en", "EN", "JA")
+  status: if(draft == false, "公開", "非公開")
+  url: if(slug, "/" + if(file.basename == "index.en", "en/", "") + slug + "/", "⚠ slug未設定")
+  cover: if(file.embeds.toString().contains("cover_"), "✓", "—")
+properties:
+  formula.folder:
+    displayName: フォルダ
+  formula.lang:
+    displayName: 言語
+  formula.status:
+    displayName: 状態
+  formula.url:
+    displayName: URL
+  formula.cover:
+    displayName: サムネ
+views:
+  - type: table
+    name: ページ一覧
+    filters:
+      and:
+        - file.ext == "md"
+    groupBy:
+      property: formula.folder
+      direction: ASC
+    order:
+      - formula.lang
+      - formula.status
+      - title
+      - formula.url
+      - formula.cover
+      - index
+      - year
+      - tags
+      - color
+    sort:
+      - property: index
+        direction: ASC
+  - type: table
+    name: 要確認
+    filters:
+      and:
+        - file.ext == "md"
+        - or:
+            - slug.isEmpty()
+            - title.isEmpty()
+            - '!file.embeds.toString().contains("cover_")'
+    order:
+      - formula.folder
+      - formula.lang
+      - title
+      - formula.url
+      - formula.cover
+  - type: cards
+    name: 画像
+    filters:
+      and:
+        - file.ext != "md"
+    groupBy:
+      property: formula.folder
+      direction: ASC
+    order:
+      - file.name
+      - file.size
+    image: file.file
+    imageAspectRatio: 1
+    cardSize: 160
+  - type: cards
+    name: 色
+    filters:
+      and:
+        - file.ext == "md"
+    order:
+      - title
+      - index
+      - color
+    image: note.color
+    cardSize: 160

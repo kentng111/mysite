@@ -1,5 +1,6 @@
 ---
 title: test page 2
+slug: test-page-2
 tags:
   - even
   - two

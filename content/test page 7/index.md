@@ -1,5 +1,6 @@
 ---
 title: test page 7
+slug: test-page-7
 tags:
   - seven
   - odd

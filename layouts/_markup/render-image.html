@@ -1,0 +1,13 @@
+{{- /*
+  画像の表示
+  - Obsidian のサイズ指定 ![説明|300](画像.jpg) に対応（幅300px）
+  - 遅延読み込みでページ表示を軽く
+*/ -}}
+{{- $alt := .PlainText -}}
+{{- $w := "" -}}
+{{- with findRESubmatch `^(.*?)\|(\d+)(?:x\d+)?$` .PlainText 1 -}}
+  {{- $alt = index (index . 0) 1 -}}
+  {{- $w = index (index . 0) 2 -}}
+{{- end -}}
+<img src="{{ .Destination | safeURL }}" alt="{{ $alt }}"{{ with .Title }} title="{{ . }}"{{ end }}{{ with $w }} style="width: {{ . }}px"{{ end }} loading="lazy" />
+{{- /**/ -}}

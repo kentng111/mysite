@@ -1,6 +1,7 @@
 ---
 index: p001
 title: test page 1
+slug: test-page-1
 tags:
   - odd
   - one
