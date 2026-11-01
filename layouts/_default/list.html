@@ -4,7 +4,7 @@
 
     {{ $pages := slice }}
     {{ range site.RegularPages }}
-        {{ if eq .File.BaseFileName "index" }}
+        {{ if eq .File.TranslationBaseName "index" }}
         {{ $pages = $pages | append . }}
       {{ end }}
     {{ end }}

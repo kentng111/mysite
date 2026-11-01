@@ -1,5 +1,7 @@
 baseURL = "https://snu-o.com/"
 languageCode = "ja"
+defaultContentLanguage = "ja"
+defaultContentLanguageInSubdir = false
 title = "s.n.u"
 theme = "hugo-book"
 
@@ -23,3 +25,16 @@ theme = "hugo-book"
 
 [permalinks]
   posts = "/:title/"
+
+# --- 日英2言語 ---
+# 日本語: content/<ページ>/index.md     → https://snu-o.com/<ページ>/
+# 英語  : content/<ページ>/index.en.md  → https://snu-o.com/en/<ページ>/
+[languages]
+  [languages.ja]
+    languageName = "日本語"
+    languageCode = "ja"
+    weight = 1
+  [languages.en]
+    languageName = "English"
+    languageCode = "en"
+    weight = 2

@@ -24,7 +24,8 @@ jobs:
       - name: Setup Hugo
         uses: peaceiris/actions-hugo@v3
         with:
-          hugo-version: "latest"
+          # 手元と同じバージョンに固定（"latest" だとHugo更新で突然壊れることがある）
+          hugo-version: "0.151.0"
           extended: true
 
       - name: Setup Pages
@@ -32,6 +33,15 @@ jobs:
 
       - name: Build
         run: hugo --minify
+
+      # 公開用の画像だけを縮小（content内の元画像はそのまま）
+      # 長辺2000pxを超えるJPEG/PNGを縮小し、JPEGは品質82で再圧縮
+      - name: Optimize images
+        run: |
+          sudo apt-get update -qq && sudo apt-get install -y -qq imagemagick
+          find public -type f \( -iname '*.jpg' -o -iname '*.jpeg' -o -iname '*.png' \) -size +300k -print0 \
+            | xargs -0 -r -P 4 -I{} mogrify -auto-orient -resize '2000x2000>' -strip -quality 82 {}
+          du -sh public
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3

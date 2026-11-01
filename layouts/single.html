@@ -27,7 +27,7 @@
 <div class="page-tags">
   {{ range . }}
     {{ $id := printf "tag-%s" (md5 .) }}
-    <a href="{{ "/" | relURL }}" 
+    <a href="{{ "/" | relLangURL }}" 
    onclick="sessionStorage.setItem('jumpToTag', '.{{ $id }}')" 
    class="tag-item">{{ . }}</a>
   {{ end }}

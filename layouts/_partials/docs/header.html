@@ -1,10 +1,24 @@
 <div class="flex align-center justify-between header-bar">
   <div></div>
 
-  <a href="{{ "/" | relURL }}" class="brand-container" aria-label="{{ .Site.Title }}">
+  <a href="{{ "/" | relLangURL }}" class="brand-container" aria-label="{{ .Site.Title }}">
     <div class="brand-slot"></div>
     <span class="header-page-title">{{ .Title }}</span>
   </a>
 
-  <div></div>
+  <!-- 言語切り替え：翻訳ページがあればそこへ、なければその言語のトップへ -->
+  <div class="lang-switch">
+    {{- $page := . -}}
+    {{- range $i, $home := .Site.Home.AllTranslations -}}
+      {{- $lang := $home.Language.Lang -}}
+      {{- $target := $home -}}
+      {{- range $page.AllTranslations }}{{ if eq .Language.Lang $lang }}{{ $target = . }}{{ end }}{{ end -}}
+      {{- if $i }}<span class="lang-sep">/</span>{{ end -}}
+      {{- if eq $lang $page.Language.Lang -}}
+        <span class="lang-current">{{ $home.Language.LanguageName }}</span>
+      {{- else -}}
+        <a href="{{ $target.RelPermalink }}" hreflang="{{ $lang }}">{{ $home.Language.LanguageName }}</a>
+      {{- end -}}
+    {{- end -}}
+  </div>
 </div>

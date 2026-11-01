@@ -3,3 +3,5 @@
 /admin/
 /.obsidian/
 /.obsidian-scripts/
+/.hugo_build.lock
+temp_git_status.txt

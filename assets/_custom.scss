@@ -1259,5 +1259,14 @@ $details-grid-layout: var(--d-col-index) var(--d-col-year) var(--d-col-title) va
   }
 }
 
-
-
+// 言語切り替え（ヘッダー右側）
+.lang-switch {
+  justify-self: end;
+  font-size: 0.75rem;
+  letter-spacing: 0.05em;
+  white-space: nowrap;
+  a { color: #888; text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  .lang-current { font-weight: 600; }
+  .lang-sep { margin: 0 0.4em; color: #bbb; }
+}
