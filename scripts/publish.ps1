@@ -26,6 +26,17 @@ if (-not (Get-Command git -ErrorAction SilentlyContinue)) {
     Stop-WithMessage 'Git が見つかりません。管理者に連絡してください。'
 }
 
+# --- 初回のみ：記録に使う名前とメールを登録 ---
+if (-not (git config user.name)) {
+    Write-Host ''
+    Write-Host '初回のみ、更新履歴に記録する名前とメールアドレスを登録します。' -ForegroundColor Cyan
+    $n = Read-Host '名前（例: Kento Nagao）'
+    $e = Read-Host 'GitHub に登録したメールアドレス'
+    if (-not $n -or -not $e) { Stop-WithMessage '名前とメールアドレスが空のため中止しました。' }
+    git config --global user.name $n
+    git config --global user.email $e
+}
+
 # --- 変更があるか ---
 $changes = git -c core.quotepath=false status --porcelain
 if (-not $changes) {

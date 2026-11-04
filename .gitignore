@@ -7,3 +7,6 @@ temp_git_status.txt
 /.obsidian/workspace.json
 /.obsidian/workspace-mobile.json
 /.obsidian-scripts/
+
+# zipから入れたHugo本体（各PCに置くだけで共有しない）
+/hugo.exe
