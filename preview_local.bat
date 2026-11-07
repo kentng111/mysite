@@ -18,8 +18,8 @@ if errorlevel 1 if not exist "%~dp0hugo.exe" (
   exit /b 1
 )
 
-REM Open the browser a few seconds after the server starts
-start "" cmd /c "timeout /t 5 /nobreak >nul & start http://localhost:1313/"
+REM Open the browser when the server is ready (waits up to 2 minutes)
+start "" /min powershell -NoProfile -WindowStyle Hidden -Command "for($i=0;$i -lt 120;$i++){try{$c=New-Object Net.Sockets.TcpClient;$c.Connect('127.0.0.1',1313);$c.Close();Start-Process 'http://localhost:1313/';break}catch{Start-Sleep -Seconds 1}}"
 
 hugo server --disableFastRender --buildDrafts --poll 700ms
 
