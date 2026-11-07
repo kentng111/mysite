@@ -1,0 +1,78 @@
+{{- /*
+  Google Analytics ＋ 欧州向けの同意バナー
+  - 計測は公開サイト（GitHub Actions のビルド）だけ。手元のプレビューでは計測しない
+  - 閲覧者のPCのタイムゾーンが欧州の場合だけ、小さな同意バナーを表示し、
+    「Accept」を押すまで GA を読み込まない（Cookieも保存しない）
+  - 日本など欧州以外からは、バナーなしで今までどおり計測
+  - 選択は閲覧者のブラウザ（localStorage: snu-consent）に保存。
+    プライバシーポリシーの「Cookie設定を変更」リンクでやり直せる
+  - 確認用：URLの末尾に ?cookie-banner を付けると、どこからでもバナーを表示
+*/ -}}
+{{- $id := "" -}}
+{{- if hugo.IsProduction }}{{ $id = site.Params.googleAnalyticsID }}{{ end -}}
+<script>
+(function () {
+  var GA_ID = {{ $id }};
+  var KEY = 'snu-consent';
+
+  // 同意が必要な地域かどうか（欧州＝EU/EEA・英国・スイスなど）
+  // ※ 表示対象を「日本以外すべて」にする場合は、下の1行を
+  //    var needConsent = tz !== 'Asia/Tokyo';  に変える
+  var tz = '';
+  try { tz = Intl.DateTimeFormat().resolvedOptions().timeZone || ''; } catch (e) {}
+  var needConsent = /^(Europe\/|Atlantic\/(Reykjavik|Canary|Madeira|Azores|Faroe)$)/.test(tz);
+  if (/[?&]cookie-banner\b/.test(location.search)) needConsent = true;
+
+  function getChoice() { try { return localStorage.getItem(KEY); } catch (e) { return null; } }
+  function setChoice(v) { try { localStorage.setItem(KEY, v); } catch (e) {} }
+
+  var loaded = false;
+  function loadGA() {
+    if (loaded || !GA_ID) return;
+    loaded = true;
+    var s = document.createElement('script');
+    s.async = true;
+    s.src = 'https://www.googletagmanager.com/gtag/js?id=' + GA_ID;
+    document.head.appendChild(s);
+    window.dataLayer = window.dataLayer || [];
+    window.gtag = function () { dataLayer.push(arguments); };
+    gtag('js', new Date());
+    gtag('config', GA_ID);
+  }
+
+  function showBanner() {
+    var lang = (document.documentElement.lang || '').slice(0, 2);
+    var policy = (lang === 'en' ? '/en' : '') + '/privacy-policy/';
+    var box = document.createElement('div');
+    box.className = 'cookie-banner';
+    box.setAttribute('role', 'dialog');
+    box.setAttribute('aria-label', 'Cookie consent');
+    box.innerHTML =
+      '<span>Analytics cookies? <a href="' + policy + '">Details</a></span>' +
+      '<button type="button" data-v="granted">Accept</button>' +
+      '<button type="button" data-v="denied">Decline</button>';
+    box.addEventListener('click', function (e) {
+      var v = e.target.getAttribute && e.target.getAttribute('data-v');
+      if (!v) return;
+      setChoice(v);
+      box.remove();
+      if (v === 'granted') loadGA();
+    });
+    document.body.appendChild(box);
+  }
+
+  // プライバシーポリシーの「Cookie設定を変更」から呼ばれる
+  window.snuResetConsent = function () {
+    try { localStorage.removeItem(KEY); } catch (e) {}
+    location.reload();
+  };
+
+  var choice = getChoice();
+  if (!needConsent || choice === 'granted') {
+    loadGA();
+  } else if (choice !== 'denied') {
+    if (document.body) showBanner();
+    else document.addEventListener('DOMContentLoaded', showBanner);
+  }
+})();
+</script>

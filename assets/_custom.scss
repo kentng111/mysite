@@ -1446,3 +1446,41 @@ $details-grid-layout: var(--d-col-index) var(--d-col-year) var(--d-col-title) va
   margin: 0 auto 1.5rem;
   object-fit: contain;
 }
+
+// 欧州向けの同意バナー（画面左下に小さく）
+.cookie-banner {
+  position: fixed;
+  left: 10px;
+  bottom: 10px;
+  z-index: 2000;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  max-width: calc(100vw - 20px);
+  padding: 4px 6px 4px 10px;
+  font-size: 11px;
+  line-height: 1.4;
+  color: #555;
+  background: rgba(255, 255, 255, .92);
+  border: 1px solid #ddd;
+  border-radius: 99px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, .08);
+  backdrop-filter: blur(6px);
+  a { color: #555; text-decoration: underline; }
+  button {
+    font-size: 11px;
+    line-height: 1.4;
+    padding: 1px 9px;
+    border: 1px solid #ccc;
+    border-radius: 99px;
+    background: #f7f7f7;
+    color: #555;
+    cursor: pointer;
+  }
+  button[data-v="granted"] { background: #0073ff; border-color: #0073ff; color: #fff; }
+}
+@media (prefers-color-scheme: dark) {
+  .cookie-banner { background: rgba(40, 40, 40, .92); border-color: #444; color: #ddd; }
+  .cookie-banner a { color: #ddd; }
+  .cookie-banner button:not([data-v="granted"]) { background: #333; border-color: #555; color: #ddd; }
+}

@@ -45,8 +45,6 @@ https://github.com/alex-shpak/hugo-book
   <script defer src="{{ $swJS.RelPermalink }}" {{ template "integrity" $swJS }}></script>
 {{ end -}}
 
-{{- template "_internal/google_analytics.html" . -}}
-
 <!-- RSS -->
 {{- with .OutputFormats.Get "rss" -}}
   {{ printf `<link rel="%s" type="%s" href="%s" title="%s" />` .Rel .MediaType.Type .Permalink $.Site.Title | safeHTML }}
@@ -58,13 +56,5 @@ https://github.com/alex-shpak/hugo-book
   {{- end -}}
 {{- end -}}
 
-<!-- GoogleAnalytics -->
-{{ with .Site.Params.googleAnalyticsID }}
-<script async src="https://www.googletagmanager.com/gtag/js?id={{ . }}"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', '{{ . }}');
-</script>
-{{ end }}
+<!-- Google Analytics（公開サイトのみ・欧州は同意後のみ） -->
+{{ partial "analytics.html" . }}
