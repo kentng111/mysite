@@ -16,12 +16,13 @@
   var KEY = 'snu-consent';
 
   // 同意が必要な地域かどうか（欧州＝EU/EEA・英国・スイスなど）
-  // ※ 表示対象を「日本以外すべて」にする場合は、下の1行を
-  //    var needConsent = tz !== 'Asia/Tokyo';  に変える
+  // ※ 表示対象を「日本以外すべて」にする場合は、下の needConsent の行を
+  //    var needConsent = (tz !== "Asia/Tokyo");  に変える
   var tz = '';
   try { tz = Intl.DateTimeFormat().resolvedOptions().timeZone || ''; } catch (e) {}
-  var needConsent = /^(Europe\/|Atlantic\/(Reykjavik|Canary|Madeira|Azores|Faroe)$)/.test(tz);
-  if (/[?&]cookie-banner\b/.test(location.search)) needConsent = true;
+  var euAtlantic = ['Atlantic/Reykjavik', 'Atlantic/Canary', 'Atlantic/Madeira', 'Atlantic/Azores', 'Atlantic/Faroe'];
+  var needConsent = (tz.indexOf('Europe/') === 0) || (euAtlantic.indexOf(tz) !== -1);
+  if (location.search.indexOf('cookie-banner') !== -1) needConsent = true;
 
   function getChoice() { try { return localStorage.getItem(KEY); } catch (e) { return null; } }
   function setChoice(v) { try { localStorage.setItem(KEY, v); } catch (e) {} }

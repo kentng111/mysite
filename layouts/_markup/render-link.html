@@ -23,7 +23,7 @@
   {{- $p = replaceRE `(\.[a-z]{2})?\.md$` "" $p -}}
   {{- $target := .Page.Site.GetPage $p -}}
   {{- if not $target -}}
-    {{- range hugo.Sites -}}{{- if not $target -}}{{- $target = .GetPage $p -}}{{- end -}}{{- end -}}
+    {{- range .Page.Site.Home.AllTranslations -}}{{- if not $target -}}{{- $target = .Site.GetPage $p -}}{{- end -}}{{- end -}}
   {{- end -}}
   {{- with $target -}}
     {{- $dest = .RelPermalink -}}
