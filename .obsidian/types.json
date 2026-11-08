@@ -11,6 +11,8 @@
     "description": "text",
     "sort_title": "text",
     "index": "text",
-    "color": "text"
+    "color": "text",
+    "thumbnail": "text",
+    "thumbnail_position": "text"
   }
 }

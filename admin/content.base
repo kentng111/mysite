@@ -7,7 +7,7 @@ formulas:
   lang: if(file.basename == "index.en", "EN", "JA")
   status: if(draft == false, "公開", "非公開")
   url: if(slug, "/" + if(file.basename == "index.en", "en/", "") + slug + "/", "⚠ slug未設定")
-  cover: if(file.embeds.toString().contains("cover_"), "✓", "—")
+  cover: if(thumbnail, "指定: " + thumbnail, if(file.embeds.toString().contains("cover_"), "cover_", if(file.embeds.length > 0, "本文1枚目", "—")))
 properties:
   formula.folder:
     displayName: フォルダ
@@ -49,7 +49,7 @@ views:
         - or:
             - slug.isEmpty()
             - title.isEmpty()
-            - '!file.embeds.toString().contains("cover_")'
+            - file.embeds.length == 0
     order:
       - formula.folder
       - formula.lang

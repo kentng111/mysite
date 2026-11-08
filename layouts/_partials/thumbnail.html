@@ -1,0 +1,54 @@
+{{- /*
+  サムネイルを決める
+    1. 項目 thumbnail: に書いた画像（このページ → ほかの言語のページの順に探す）
+    2. cover_ で始まる画像（旧ルール。今までのページ用）
+    3. 本文の1枚目の画像
+    （見つからなければ画像なし → 一覧では color の色になる）
+  切り抜き位置は thumbnail_position:（top / bottom / left / right / center や "50% 20%"）
+  戻り値: dict
+    img   … 元の画像（なければ false）
+    thumb … 一覧用の縮小版（長辺800px。SVGなどは元のまま）
+    pos   … 切り抜き位置（CSS の background-position。なければ ""）
+*/ -}}
+{{- $img := false -}}
+{{- $pos := "" -}}
+{{- $pages := slice . -}}
+{{- range .Translations }}{{ $pages = $pages | append . }}{{ end -}}
+
+{{- /* 1. thumbnail 指定 */ -}}
+{{- range $pages -}}
+  {{- if not $img -}}
+    {{- with .Params.thumbnail -}}
+      {{- with $.Resources.Get (strings.TrimPrefix "./" (string .)) }}{{ $img = . }}{{ end -}}
+    {{- end -}}
+  {{- end -}}
+  {{- if not $pos }}{{ with .Params.thumbnail_position }}{{ $pos = string . }}{{ end }}{{ end -}}
+{{- end -}}
+
+{{- /* 2. cover_ で始まる画像 */ -}}
+{{- if not $img -}}
+  {{- range first 1 ($.Resources.Match "cover_*") }}{{ $img = . }}{{ end -}}
+{{- end -}}
+
+{{- /* 3. 本文の1枚目 */ -}}
+{{- if not $img -}}
+  {{- range $pages -}}
+    {{- if not $img -}}
+      {{- range first 1 (findRE `(?m)^[ \t]*!\[[^\]\n]*\]\([^)\s]+` .RawContent) -}}
+        {{- with $.Resources.Get (strings.TrimPrefix "./" (replaceRE `^.*\]\(` "" .)) }}{{ $img = . }}{{ end -}}
+      {{- end -}}
+    {{- end -}}
+  {{- end -}}
+{{- end -}}
+
+{{- /* 一覧用の縮小版（写真の向きも補正） */ -}}
+{{- $thumb := false -}}
+{{- with $img -}}
+  {{- if in (slice "jpeg" "png" "webp") .MediaType.SubType -}}
+    {{- $thumb = (.Filter images.AutoOrient).Fit "800x800 q80" -}}
+  {{- else -}}
+    {{- $thumb = . -}}
+  {{- end -}}
+{{- end -}}
+
+{{- return dict "img" $img "thumb" $thumb "pos" $pos -}}

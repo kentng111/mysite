@@ -1,0 +1,22 @@
+{{- /* SNS・LINEなどでURLを共有したときの表示（タイトル・説明・画像） */ -}}
+{{- $t := partialCached "thumbnail.html" . .RelPermalink -}}
+{{- $desc := .Description -}}
+{{- if not $desc }}{{ $desc = .Summary | plainify | htmlUnescape | truncate 120 }}{{ end -}}
+{{- if not $desc }}{{ $desc = site.Title }}{{ end }}
+<meta property="og:site_name" content="{{ site.Title }}">
+<meta property="og:title" content="{{ if .IsHome }}{{ site.Title }}{{ else }}{{ .Title }} | {{ site.Title }}{{ end }}">
+<meta property="og:description" content="{{ $desc }}">
+<meta property="og:type" content="{{ if .IsPage }}article{{ else }}website{{ end }}">
+<meta property="og:url" content="{{ .Permalink }}">
+<meta property="og:locale" content="{{ if eq .Language.Lang "en" }}en_US{{ else }}ja_JP{{ end }}">
+{{- $card := "summary" -}}
+{{- with $t.img -}}
+  {{- if in (slice "jpeg" "png" "webp") .MediaType.SubType -}}
+    {{- $og := (.Filter images.AutoOrient).Fit "1200x1200 q85" -}}
+    {{- $card = "summary_large_image" }}
+<meta property="og:image" content="{{ $og.Permalink }}">
+<meta property="og:image:width" content="{{ $og.Width }}">
+<meta property="og:image:height" content="{{ $og.Height }}">
+  {{- end -}}
+{{- end }}
+<meta name="twitter:card" content="{{ $card }}">

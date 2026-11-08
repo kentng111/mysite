@@ -33,7 +33,8 @@
     "admin/新規ページ.md",
     "admin/英語版を作成.md",
     "admin/画像を挿入.md",
-    "admin/画像の並びをそろえる.md"
+    "admin/画像の並びをそろえる.md",
+    "admin/サムネイルを選ぶ.md"
   ],
   "startup_templates": [
     ""

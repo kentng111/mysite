@@ -46,5 +46,13 @@
       ],
       "key": "S"
     }
+  ],
+  "templater-obsidian:admin/サムネイルを選ぶ.md": [
+    {
+      "modifiers": [
+        "Alt"
+      ],
+      "key": "T"
+    }
   ]
 }

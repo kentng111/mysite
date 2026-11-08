@@ -137,9 +137,11 @@
                 {{ with .Params.color }}style="--card-color: {{ . }};"{{ end }}>
 
             <div class="card">
-              {{ $cover := index (.Resources.Match "cover_*") 0 }}
-              {{ if $cover }}
-                <div class="card-bg" style="background-image: url('{{ $cover.RelPermalink }}');"></div>
+              {{ $t := partialCached "thumbnail.html" . .RelPermalink }}
+              {{ if $t.thumb }}
+                {{ $style := printf "background-image: url('%s');" $t.thumb.RelPermalink }}
+                {{ with $t.pos }}{{ $style = printf "%s background-position: %s;" $style . }}{{ end }}
+                <div class="card-bg" style="{{ $style | safeCSS }}"></div>
               {{ else if .Params.color }}
                 <div class="card-bg is-color" style="background-color: {{ .Params.color | safeCSS }};"></div>
               {{ else }}

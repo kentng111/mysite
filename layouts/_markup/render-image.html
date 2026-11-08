@@ -1,13 +1,22 @@
 {{- /*
   画像の表示
+  - ページのフォルダにある画像は、サイト上の実際の場所に置き換える
+    （画像は日英で共通。英語ページ /en/〜/ からも正しく表示されるようにするため）
   - Obsidian のサイズ指定 ![説明|300](画像.jpg) に対応（幅300px）
   - 遅延読み込みでページ表示を軽く
 */ -}}
+{{- $src := .Destination -}}
+{{- $u := urls.Parse .Destination -}}
+{{- if not $u.IsAbs -}}
+  {{- with .Page.Resources.Get (strings.TrimPrefix "./" $u.Path) -}}
+    {{- $src = .RelPermalink -}}
+  {{- end -}}
+{{- end -}}
 {{- $alt := .PlainText -}}
 {{- $w := "" -}}
 {{- with findRESubmatch `^(.*?)\|(\d+)(?:x\d+)?$` .PlainText 1 -}}
   {{- $alt = index (index . 0) 1 -}}
   {{- $w = index (index . 0) 2 -}}
 {{- end -}}
-<img src="{{ .Destination | safeURL }}" alt="{{ $alt }}"{{ with .Title }} title="{{ . }}"{{ end }}{{ with $w }} style="width: {{ . }}px"{{ end }} loading="lazy" />
+<img src="{{ $src | safeURL }}" alt="{{ $alt }}"{{ with .Title }} title="{{ . }}"{{ end }}{{ with $w }} style="width: {{ . }}px"{{ end }} loading="lazy" />
 {{- /**/ -}}

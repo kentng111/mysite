@@ -14,7 +14,7 @@ https://github.com/alex-shpak/hugo-book
   <meta http-equiv="Refresh" content="0; url='{{ . }}'" />
 {{- end -}}
 
-{{- template "_internal/opengraph.html" . -}}
+{{- partial "ogp.html" . -}}
 
 <title>{{ partial "docs/html-head-title" . }}</title>
 {{ partial "docs/html-head-favicon" . }}
