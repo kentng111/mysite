@@ -11,18 +11,18 @@ neko: true
 ---
 <form action="https://ssgform.com/s/8GZjIVpyN5AV" method="post">
   <p>
-    <label for="name">Name</label><br>
+    <label for="name">お名前</label><br>
     <input
       type="text"
       id="name"
       name="name"
-      placeholder="Name"
+      placeholder="山田 太郎"
       required
       style="width:100%; box-sizing:border-box;">
   </p>
 
   <p>
-    <label for="email">Email</label><br>
+    <label for="email">メールアドレス</label><br>
     <input
       type="email"
       id="email"
@@ -33,7 +33,7 @@ neko: true
   </p>
 
   <p>
-    <label for="message">Message</label><br>
+    <label for="message">お問い合わせ内容</label><br>
     <textarea
       id="message"
       name="message"
@@ -43,7 +43,7 @@ neko: true
   </p>
 
   <p>
-    <button type="submit">Submit</button>
+    <button type="submit">送信</button>
   </p>
 </form>
 

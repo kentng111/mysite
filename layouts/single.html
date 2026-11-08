@@ -37,6 +37,17 @@
 {{ with .Params.year }}
     <div class="page-date">{{ . }}</div>
   {{ end }}
+  <!-- 日英で画像の並びが違うときの警告（手元のプレビューだけに表示） -->
+  {{ if hugo.IsDevelopment }}
+    {{ $mine := partial "image-list.html" . }}
+    {{ range .Translations }}
+      {{ $other := partial "image-list.html" . }}
+      {{ if ne (delimit $mine ",") (delimit $other ",") }}
+        <div class="dev-warning">⚠ 画像の並びが{{ .Language.LanguageName }}版と違います。Obsidian で <b>Alt + S</b> を押すとそろえられます。（この表示はプレビューだけに出ます）</div>
+        {{ warnf "画像の並びが日英で違います: %s" $.File.Path }}
+      {{ end }}
+    {{ end }}
+  {{ end }}
   <!-- 本文 -->
   {{ .Content }}
 

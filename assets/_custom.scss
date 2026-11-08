@@ -1484,3 +1484,14 @@ $details-grid-layout: var(--d-col-index) var(--d-col-year) var(--d-col-title) va
   .cookie-banner a { color: #ddd; }
   .cookie-banner button:not([data-v="granted"]) { background: #333; border-color: #555; color: #ddd; }
 }
+
+// プレビュー専用の警告（日英で画像の並びが違う など）
+.dev-warning {
+  margin: .5rem 0 1rem;
+  padding: .4rem .75rem;
+  font-size: .8rem;
+  color: #8a5300;
+  background: #fff4dc;
+  border: 1px solid #f0c36d;
+  border-radius: 4px;
+}

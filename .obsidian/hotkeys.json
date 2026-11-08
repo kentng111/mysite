@@ -30,5 +30,21 @@
       ],
       "key": "E"
     }
+  ],
+  "templater-obsidian:admin/画像を挿入.md": [
+    {
+      "modifiers": [
+        "Alt"
+      ],
+      "key": "I"
+    }
+  ],
+  "templater-obsidian:admin/画像の並びをそろえる.md": [
+    {
+      "modifiers": [
+        "Alt"
+      ],
+      "key": "S"
+    }
   ]
 }

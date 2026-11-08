@@ -1,0 +1,6 @@
+{{- /* 本文に並んでいる画像のファイル名を、上から順に返す（日英の並びの比較用） */ -}}
+{{- $list := slice -}}
+{{- range findRE `(?m)^[ \t]*!\[[^\]\n]*\]\([^)\s]+` .RawContent -}}
+  {{- $list = $list | append (replaceRE `^.*\]\(` "" .) -}}
+{{- end -}}
+{{- return $list -}}

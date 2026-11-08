@@ -11,6 +11,3 @@ index: a001
 ---
 ![](cover_snu.jpeg)
 s.n.uは日本およびポーランドを拠点とするグローバルな建築・デザイン事務所です。
-
-s.n.u is a global architecture and design practice based in Japan and Poland.
-

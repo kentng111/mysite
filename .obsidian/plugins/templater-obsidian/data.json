@@ -31,7 +31,9 @@
   "enabled_templates_hotkeys": [
     "admin/template.md",
     "admin/新規ページ.md",
-    "admin/英語版を作成.md"
+    "admin/英語版を作成.md",
+    "admin/画像を挿入.md",
+    "admin/画像の並びをそろえる.md"
   ],
   "startup_templates": [
     ""
