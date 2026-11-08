@@ -6,7 +6,7 @@ build:
   render: always
 ---
 #### 1. Introduction
-This privacy policy explains how s.n.u ("we", "this website") handles information about visitors to this website.
+This privacy policy explains how snu ("we", "this website") handles information about visitors to this website.
 
 #### 2. Analytics
 We use Google Analytics, a web analytics service provided by Google, to understand how this website is used and to improve its content.
@@ -38,12 +38,12 @@ Information you send us through the contact form (name, email address, message, 
 You can ask us to tell you how we use your personal information, to give you access to it, or to correct, delete, or stop using it. If you are in the EU/EEA, you also have the right to data portability, the right to object, and the right to lodge a complaint with a data protection authority. To make a request, please contact us using the form below. We will respond without undue delay after confirming your identity, free of charge.
 
 #### 6. Copyright and disclaimer
-- **Copyright:** The copyright of the drawings, photographs, text and other materials on this website belongs to s.n.u or the respective rights holders. Reproduction or use without permission is prohibited.
+- **Copyright:** The copyright of the drawings, photographs, text and other materials on this website belongs to snu or the respective rights holders. Reproduction or use without permission is prohibited.
 - **Disclaimer:** We try to keep the information on this website accurate, but we do not guarantee its accuracy or safety. We are not responsible for any damage resulting from the use of this website.
 
 #### 7. Changes and contact
 We may update this policy when laws change or as needed. The updated policy applies from the time it is posted on this page.
-- **Operator:** s.n.u
+- **Operator:** snu
 - **Address:** We will provide our address (and the name of our representative, if applicable) without delay upon request.
 - **Contact:** [contact](../contact/index.md)
 

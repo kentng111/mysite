@@ -1,5 +1,5 @@
 ﻿# =========================================================
-#  s.n.u サイト公開スクリプト
+#  snu サイト公開スクリプト
 #  git-push.bat から呼ばれます。直接編集する必要はありません。
 # =========================================================
 $ErrorActionPreference = 'Continue'
@@ -18,7 +18,7 @@ function Stop-WithMessage($msg) {
 }
 
 Write-Host '=============================================' -ForegroundColor Cyan
-Write-Host '  s.n.u サイトを公開します' -ForegroundColor Cyan
+Write-Host '  snu サイトを公開します' -ForegroundColor Cyan
 Write-Host '=============================================' -ForegroundColor Cyan
 
 # --- Git があるか ---

@@ -1,6 +1,6 @@
 @echo off
 REM ==================================================
-REM  s.n.u site: get latest changes before editing
+REM  snu site: get latest changes before editing
 REM  Main logic: scripts\update.ps1
 REM ==================================================
 cd /d "%~dp0"

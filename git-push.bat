@@ -1,6 +1,6 @@
 @echo off
 REM ==================================================
-REM  s.n.u site publish button
+REM  snu site publish button
 REM  Double-click to review changes and publish.
 REM  Main logic: scripts\publish.ps1
 REM ==================================================

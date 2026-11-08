@@ -3,7 +3,7 @@ setlocal
 cd /d "%~dp0"
 
 echo ==============================
-echo  s.n.u site preview
+echo  snu site preview
 echo  Close this window to stop the preview.
 echo ==============================
 

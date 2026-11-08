@@ -2,11 +2,11 @@ baseURL = "https://snu-o.com/"
 languageCode = "ja"
 defaultContentLanguage = "ja"
 defaultContentLanguageInSubdir = false
-title = "s.n.u"
+title = "snu"
 theme = "hugo-book"
 
 [params]
-  author = "s.n.u"
+  author = "snu"
   ShowReadingTime = false
   defaultTheme = "auto"
   BookToC = false

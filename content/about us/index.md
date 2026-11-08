@@ -1,5 +1,5 @@
 ---
-title: about us
+title: 事務所について
 slug: about-us
 date:
 tags:
@@ -10,4 +10,4 @@ year: 0000-01
 index: a001
 ---
 ![](cover_snu.jpeg)
-s.n.uは日本およびポーランドを拠点とするグローバルな建築・デザイン事務所です。
+snuは日本およびポーランドを拠点とするグローバルな建築・デザイン事務所です。

@@ -3,7 +3,7 @@
 
   <a href="{{ "/" | relLangURL }}" class="brand-container" aria-label="{{ .Site.Title }}">
     <div class="brand-slot"></div>
-    <span class="header-page-title">{{ .Title }}</span>
+    <span class="header-page-title">{{ if not .IsHome }}{{ .Title }}{{ end }}</span>
   </a>
 
   <!-- 言語切り替え（右上）：翻訳ページがあればそこへ、なければその言語のトップへ -->

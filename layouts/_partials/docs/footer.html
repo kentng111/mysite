@@ -36,7 +36,7 @@
 {{ end }}
 
 <div class="footer-nav">
-  <a href="{{ "/privacy-policy/" | relLangURL }}" class="footer-link">privacy policy</a>
+  <a href="{{ "/privacy-policy/" | relLangURL }}" class="footer-link">{{ if eq .Language.Lang "en" }}privacy policy{{ else }}プライバシーポリシー{{ end }}</a>
 </div>
 
-<p class="copyright">© 2026 s.n.u</p>
+<p class="copyright">© 2026 snu</p>
